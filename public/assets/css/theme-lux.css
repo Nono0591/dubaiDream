@@ -1,0 +1,453 @@
+/* ============================================================
+   theme-lux.css
+   Thème visuel "or / noir" issu du Figma, appliqué aux partials
+   réels (header, footer, product card, carousel, cart).
+   Ne redéfinit aucune route/variable métier — visuel uniquement.
+   ============================================================ */
+
+:root {
+    --lux-gold: #c9a96e;
+    --lux-gold-hover: #b8944f;
+    --lux-dark: #0e0c09;
+    --lux-cream: #f7f4ef;
+}
+
+/* Neutralise le padding hérité de styles.css (template Bootstrap "starter",
+   prévu pour un header non-sticky) qui créait un vide sous la navbar et
+   sous le footer. */
+body {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.lux-display {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.lux-gold {
+    color: var(--lux-gold);
+}
+
+.lux-h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.lux-eyebrow {
+    text-transform: uppercase;
+    font-size: .75rem;
+    letter-spacing: .2em;
+    color: var(--lux-gold);
+    margin: 0;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.lux-header {
+    background-color: var(--lux-dark);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .06);
+    z-index: 1030;
+}
+
+.lux-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #fff !important;
+    letter-spacing: .02em;
+}
+
+.lux-nav-link {
+    text-transform: uppercase;
+    font-size: .8rem;
+    letter-spacing: .12em;
+    color: var(--lux-gold) !important;
+    padding: .5rem 1rem !important;
+    transition: color .2s ease;
+}
+
+.lux-nav-link:hover,
+.lux-nav-link.active {
+    color: var(--lux-gold) !important;
+}
+
+.lux-speed-menu,
+.lux-mobile-menu {
+    color: rgba(255, 255, 255, .8);
+}
+
+.lux-icon-link {
+    color: rgba(255, 255, 255, .75);
+    display: inline-flex;
+    align-items: center;
+    transition: color .2s ease;
+}
+
+.lux-icon-link:hover {
+    color: var(--lux-gold);
+}
+
+.lux-icon-link svg {
+    width: 18px;
+    height: 18px;
+}
+
+.lux-cart-btn {
+    color: #fff;
+    background: transparent;
+    border: none;
+}
+
+.lux-cart-btn:hover {
+    color: var(--lux-gold);
+}
+
+.lux-cart-badge {
+    background-color: var(--lux-gold) !important;
+    color: var(--lux-dark) !important;
+    font-weight: 600;
+    font-size: .65rem;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.lux-btn-gold {
+    background-color: var(--lux-gold);
+    border: none;
+    color: var(--lux-dark) !important;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .85rem;
+    border-radius: 0;
+    padding: .75rem 1.5rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.lux-btn-gold:hover {
+    background-color: var(--lux-gold-hover);
+    color: var(--lux-dark) !important;
+}
+
+.lux-btn-dark {
+    background-color: var(--lux-dark);
+    border: none;
+    color: var(--lux-cream) !important;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .85rem;
+    border-radius: 0;
+}
+
+.lux-btn-dark:hover {
+    background-color: var(--lux-gold);
+    color: var(--lux-dark) !important;
+}
+
+.lux-btn-outline {
+    background: transparent;
+    border: 1px solid var(--lux-dark);
+    color: var(--lux-dark);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .85rem;
+    border-radius: 0;
+    padding: .6rem 1.3rem;
+}
+
+.lux-btn-outline:hover {
+    background-color: var(--lux-dark);
+    color: #fff;
+}
+
+/* Variante claire du bouton outline, pour usage sur fond sombre
+   (ex : hero avec image en fond) */
+.lux-btn-outline-light {
+    background: transparent;
+    border: 1px solid rgba(247, 244, 239, .45);
+    color: var(--lux-cream);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: .85rem;
+    border-radius: 0;
+    padding: .75rem 1.5rem;
+}
+
+.lux-btn-outline-light:hover {
+    background-color: rgba(247, 244, 239, .1);
+    border-color: var(--lux-cream);
+    color: var(--lux-cream);
+}
+
+.lux-carousel-nav {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lux-dark);
+    background: transparent;
+}
+
+.lux-carousel-nav:hover {
+    border-color: var(--lux-gold);
+    color: var(--lux-gold);
+}
+
+.lux-carousel-indicators [data-bs-target] {
+    background-color: var(--lux-gold);
+}
+
+/* ── Hero (header dynamique EasyAdmin, page d'accueil) ───────
+   Structure : #myCarousel (Bootstrap) > .carousel-item (position:
+   relative, natif Bootstrap) > .lux-hero-img + .lux-hero-overlay
+   (absolus, plein cadre) + .lux-hero-caption-wrap (absolu, collé
+   en bas). Ce positionnement en "sandwich absolu" garantit que le
+   texte se superpose à l'image, quel que soit le contenu injecté
+   par EasyAdmin (titre/texte de longueur variable). */
+.lux-hero-carousel {
+    margin-bottom: 4rem;
+}
+
+.lux-hero-carousel .carousel-item {
+    height: 640px;
+    overflow: hidden;
+    background-color: var(--lux-dark);
+}
+
+.lux-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.lux-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, var(--lux-dark) 0%, rgba(14, 12, 9, .35) 55%, transparent 100%),
+        linear-gradient(to right, rgba(14, 12, 9, .65) 0%, transparent 55%);
+}
+
+.lux-hero-caption-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3.5rem;
+    z-index: 2;
+}
+
+.lux-hero-caption {
+    max-width: 620px;
+}
+
+.lux-hero-eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background-color: var(--lux-gold);
+}
+
+.lux-hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    color: #fff;
+}
+
+.lux-hero-text {
+    max-width: 460px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, .55);
+}
+
+@media (max-width: 767.98px) {
+    .lux-hero-carousel .carousel-item {
+        height: 560px;
+    }
+    .lux-hero-caption-wrap {
+        bottom: 2.25rem;
+    }
+}
+
+/* ── Featured carousel ────────────────────────────────────── */
+.lux-featured-img-wrap {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f2efe9;
+}
+
+.lux-featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lux-featured-title {
+    font-size: 1.8rem;
+}
+
+.lux-featured-desc {
+    color: #666;
+}
+
+.lux-featured-price {
+    color: var(--lux-gold);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* ── Product cards ────────────────────────────────────────── */
+.lux-product-card {
+    background: transparent;
+}
+
+.lux-product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    background: #f2efe9;
+}
+
+.lux-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.lux-product-card:hover .lux-product-img {
+    transform: scale(1.06);
+}
+
+.lux-product-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.05rem;
+    margin-bottom: .25rem;
+}
+
+.lux-product-desc {
+    font-size: .85rem;
+    color: #777;
+    min-height: 2.4em;
+}
+
+.lux-product-price {
+    color: var(--lux-gold);
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.lux-add-btn {
+    position: absolute;
+    left: .75rem;
+    right: .75rem;
+    bottom: .75rem;
+    background: var(--lux-cream);
+    color: var(--lux-dark);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: .6rem;
+    border: none;
+    border-radius: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all .25s ease;
+    text-align: center;
+}
+
+.lux-product-card:hover .lux-add-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lux-add-btn:hover {
+    background: var(--lux-gold);
+    color: var(--lux-dark);
+}
+
+/* ── Cart page ────────────────────────────────────────────── */
+.lux-cart-item-img {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.lux-cart-item-name {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.lux-qty-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    line-height: 1;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    background: #fff;
+    color: var(--lux-dark);
+}
+
+.lux-qty-btn:hover {
+    border-color: var(--lux-gold);
+    color: var(--lux-gold);
+}
+
+.lux-cart-item-subtotal {
+    font-weight: 600;
+    min-width: 90px;
+}
+
+/* ── Alerts (flash messages) ─────────────────────────────── */
+.alert {
+    border-radius: 0;
+    border: none;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.lux-footer {
+    background-color: var(--lux-dark);
+    color: rgba(255, 255, 255, .5);
+}
+
+.lux-footer-brand {
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.lux-footer-text {
+    font-size: .85rem;
+    color: rgba(255, 255, 255, .5);
+}
+
+.lux-footer-heading {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: .8rem;
+    letter-spacing: .15em;
+}
+
+.lux-footer-link,
+.lux-footer-legal {
+    color: rgba(255, 255, 255, .6);
+    text-decoration: none;
+    font-size: .875rem;
+    transition: color .2s ease;
+}
+
+.lux-footer-link:hover,
+.lux-footer-legal:hover {
+    color: var(--lux-gold);
+}
+
+.lux-footer-top {
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.lux-footer-bottom {
+    font-size: .8rem;
+}

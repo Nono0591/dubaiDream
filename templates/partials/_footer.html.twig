@@ -1,0 +1,243 @@
+<footer class="dd-footer">
+	<section class="dd-footer-top">
+		<div class="container">
+			<div class="dd-footer-top-content">
+				<div class="dd-footer-top-item">
+					<i class="bi bi-truck"></i>
+					<span>Livraison offerte dès
+						<strong>60 €</strong>
+					</span>
+				</div>
+				<span class="dd-separator"></span>
+				<div class="dd-footer-top-item">
+					<i class="bi bi-shield-check"></i>
+					<span>Paiement 100% sécurisé</span>
+				</div>
+				<span class="dd-separator"></span>
+				<div class="dd-footer-top-item">
+					<i class="bi bi-arrow-repeat"></i>
+					<span>Retours sous 14 jours</span>
+				</div>
+				<span class="dd-separator"></span>
+				<div class="dd-footer-top-item">
+					<i class="bi bi-headset"></i>
+					<span>Support client 6j/7</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="dd-footer-main">
+		<div class="container">
+			<div class="row gy-4 align-items-start">
+
+				<div class="col-lg-4">
+					<img src="{{ asset('uploads/logo-removebg.png') }}" alt="Dubai Dream" class="dd-footer-logo">
+
+					<p class="dd-footer-desc">
+						Découvrez une sélection raffinée de parfums, cosmétiques, produits pour la maison et le quotidien, soigneusement choisis pour offrir qualité, élégance et petits prix.
+					</p>
+
+					<div class="dd-socials">
+						<a href="https://www.facebook.com" target="_blank">
+							<i class="bi bi-facebook"></i>
+						</a>
+						<a href="https://www.instagram.com" target="_blank">
+							<i class="bi bi-instagram"></i>
+						</a>
+						<a href="https://www.tiktok.com/@dubaidream_officiel" target="_blank">
+							<i class="bi bi-tiktok"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-6 col-lg-2">
+					<h4>Explorer</h4>
+
+					<ul class="dd-footer-links">
+
+						{% if allCategories is defined %}
+							{% for category in allCategories %}
+								<li>
+									<a href="{{ path('app_category',{slug:category.slug}) }}">
+										<i class="bi bi-chevron-right"></i>
+										{{ category.name }}
+									</a>
+								</li>
+							{% endfor %}
+						{% endif %}
+
+					</ul>
+
+				</div>
+
+				<div class="col-6 col-lg-2">
+
+					<h4>Aide</h4>
+
+					<ul class="dd-footer-links">
+
+						<li>
+							<a href="{{ path('app_about') }}">
+								<i class="bi bi-chevron-right"></i>
+								À propos
+							</a>
+						</li>
+
+						<li>
+							<a href="{{ path('app_contact') }}">
+								<i class="bi bi-chevron-right"></i>
+								Contact
+							</a>
+						</li>
+
+						<li>
+							<a href="{{ path('app_cgv') }}">
+								<i class="bi bi-chevron-right"></i>
+								Conditions générales
+							</a>
+						</li>
+
+						<li>
+							<a href="{{ path('app_privacy') }}">
+								<i class="bi bi-chevron-right"></i>
+								Confidentialité
+							</a>
+						</li>
+
+						{% if app.user %}
+							<li>
+								<a href="{{ path('app_account') }}">
+									<i class="bi bi-chevron-right"></i>
+									Mon compte
+								</a>
+							</li>
+						{% endif %}
+
+					</ul>
+
+				</div>
+
+				<div class="col-lg-4">
+
+					<div class="dd-newsletter-box">
+
+						<span class="dd-newsletter-subtitle">
+							Newsletter
+						</span>
+
+						<h3>
+							Recevez nos offres exclusives.
+						</h3>
+
+						<p>
+							Inscrivez-vous pour recevoir nos nouveautés et promotions avant tout le monde.
+						</p>
+
+						<form action="{{ path('app_newsletter_subscribe') }}" method="post" class="dd-newsletter">
+
+							<label for="footer-email" class="visually-hidden">
+								Email
+							</label>
+
+							<input id="footer-email" type="email" name="email" placeholder="Votre adresse email" required>
+
+							<button type="submit">
+								Je m'inscris
+							</button>
+
+						</form>
+
+					</div>
+
+					<div class="dd-payment">
+
+						<span class="dd-payment-title">
+							Paiements acceptés
+						</span>
+
+						<div class="dd-payment-icons">
+
+							<div class="dd-payment-item">
+								<i class="bi bi-credit-card-2-front"></i>
+								<span>Visa</span>
+							</div>
+
+							<div class="dd-payment-item">
+								<i class="bi bi-credit-card"></i>
+								<span>Mastercard</span>
+							</div>
+
+							<div class="dd-payment-item">
+								<i class="bi bi-paypal"></i>
+								<span>PayPal</span>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="dd-footer-bottom">
+
+		<div class="container">
+
+			<div class="row align-items-center gy-3">
+
+				<div class="col-lg-6">
+
+					<p class="mb-0">
+						©
+						{{ "now"|date("Y") }}
+						<strong>Dubai Dream</strong>
+						· Tous droits réservés.
+					</p>
+
+				</div>
+
+				<div class="col-lg-6">
+
+					<div class="dd-footer-bottom-links">
+
+						<a href="{{ path('app_cgv') }}">
+							CGV
+						</a>
+
+						<span></span>
+
+						<a href="{{ path('app_privacy') }}">
+							Confidentialité
+						</a>
+
+						<span></span>
+
+						<a href="{{ path('app_contact') }}">
+							Contact
+						</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="dd-footer-made">
+
+				<span>
+					Merci de votre confiance ❤️
+				</span>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</footer>

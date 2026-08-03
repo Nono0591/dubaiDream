@@ -1,0 +1,44 @@
+{# ==================== Offres du moment ==================== #}
+<section class="py-5" id="promotions" aria-label="Offres et promotions du moment">
+    <div class="container-xl px-4 px-md-5">
+
+        <div class="row align-items-end mb-5">
+            <div class="col-lg-8">
+                <span class="section-eyebrow">Offres du moment</span>
+                <h2 class="dd-section-title mb-2">Profitez de nos meilleures promotions</h2>
+                <p class="text-muted mb-0">
+                    Découvrez nos sélections à prix avantageux sur les parfums, les produits d'entretien et les soins du quotidien.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <a href="{{ path('app_category', {'slug': 'entretien'}) }}" class="dd-promo-card large text-decoration-none d-block position-relative overflow-hidden rounded-4">
+                    <img src="{{ asset('uploads/promotions/maison-entretien.jpg') }}" alt="Produits maison et entretien en promotion" loading="lazy" class="w-100 h-100 object-fit-cover">
+                    <div class="dd-promo-overlay"></div>
+                    <div class="dd-promo-content p-4 p-md-5 text-white">
+                        <span class="dd-promo-badge badge bg-danger mb-2">Jusqu'à -30%</span>
+                        <h3 class="h2 fw-bold">Produits maison & entretien</h3>
+                        <p class="mb-3 opacity-90">Lessives, assouplissants, nettoyants et indispensables du quotidien.</p>
+                        <span class="btn btn-gold px-4">Voir les offres</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4">
+                <a href="{{ path('app_category', {'slug': 'parfums-orientaux'}) }}" class="dd-promo-card small text-decoration-none d-block position-relative overflow-hidden rounded-4">
+                    <img src="{{ asset('uploads/promotions/parfums-dubai.jpg') }}" alt="Parfums de Dubaï" loading="lazy" class="w-100 h-100 object-fit-cover">
+                    <div class="dd-promo-overlay"></div>
+                    <div class="dd-promo-content p-4 text-white">
+                        <span class="dd-promo-badge gold badge bg-warning text-dark mb-2">Nouveautés</span>
+                        <h3 class="h4 fw-bold">Parfums de Dubaï</h3>
+                        <p class="small mb-3 opacity-90">Découvrez nos fragrances les plus recherchées.</p>
+                        <span class="btn btn-gold btn-sm px-3">Découvrir</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>

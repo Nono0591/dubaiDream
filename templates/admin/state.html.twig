@@ -1,0 +1,17 @@
+{%- if value is defined -%}
+    {%- set stateValue = value -%}
+{%- else -%}
+    {%- set stateValue = field.value -%}
+{%- endif -%}
+
+{%- if stateValue == 1 -%}
+    <span class="badge bg-danger">En attente de paiement</span>
+{%- elseif stateValue == 2 -%}
+    <span class="badge bg-success">Paiement accepté</span>
+{%- elseif stateValue == 3 -%}
+    <span class="badge bg-info">En cours de traitement</span>
+{%- elseif stateValue == 4 -%}
+    <span class="badge bg-warning text-dark">Expédié</span>
+{%- elseif stateValue == 5 -%}
+    <span class="badge bg-danger">Annulée</span>
+{%- endif -%}

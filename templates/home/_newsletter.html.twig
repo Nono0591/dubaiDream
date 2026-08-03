@@ -1,0 +1,35 @@
+{# ==================== Newsletter ==================== #}
+
+<section class="dd-newsletter py-5 bg-dd-cream">
+    <div class="container-xl px-4 px-md-5">
+        <div class="row align-items-center g-4">
+
+            <div class="col-lg-7">
+                <h2 class="dd-section-title mb-1">
+                    Recevez nos offres exclusives
+                </h2>
+                <p class="mb-0 text-muted fs-6">
+                    Et nos nouveautés en avant-première !
+                </p>
+            </div>
+
+            <div class="col-lg-5">
+                <form action="{{ path('app_newsletter_subscribe') }}" method="post" class="d-flex gap-2 flex-wrap flex-lg-nowrap">
+                    <label for="newsletter-email" class="visually-hidden">Adresse email</label>
+                    <input
+                        id="newsletter-email"
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        placeholder="Votre adresse email"
+                        required>
+
+                    <button class="btn btn-gold px-4 text-nowrap" type="submit">
+                        S'inscrire
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

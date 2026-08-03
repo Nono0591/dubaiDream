@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Dubai Dream — L'Art du Luxe Oriental
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {% include 'home/_hero.html.twig' %}
+
+    {% include 'home/_categories.html.twig' %}
+
+    {% include 'home/_promotions.html.twig' %}
+
+    {% include 'home/_popular_products.html.twig' %}
+
+    {% include 'home/_brands.html.twig' %}
+
+    {% include 'home/_bestsellers.html.twig' %}
+
+    {% include 'home/_why.html.twig' %}
+
+    {% if reviews is defined and reviews|length %}
+        {% include 'home/_reviews.html.twig' %}
+    {% endif %}
+
+    {% include 'home/_newsletter.html.twig' %}
+
+{% endblock %}

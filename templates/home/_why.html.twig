@@ -1,0 +1,111 @@
+{# ==================== Pourquoi nous faire confiance ==================== #}
+
+<section class="dd-why py-5 bg-dd-cream">
+
+    <div class="container-xl px-4 px-md-5">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-4">
+
+                <span class="section-eyebrow">
+                    Pourquoi nous choisir ?
+                </span>
+
+                <h2 class="dd-section-title mb-3">
+                    Une boutique pensée pour votre quotidien
+                </h2>
+
+                <p class="text-muted mb-4">
+                    Nous sélectionnons des produits de qualité à prix accessibles : parfums, entretien de la maison, hygiène et soins du corps.
+                </p>
+
+                <a href="{{ path('app_about') }}" class="btn-gold">
+                    Découvrir notre histoire
+                </a>
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <div class="row g-4">
+
+                    {% for s in [
+
+                        {
+                            icon:'bi-people-fill',
+                            number:'+15 000',
+                            title:'Clients satisfaits',
+                            text:'Une communauté fidèle qui nous fait confiance.'
+                        },
+
+                        {
+                            icon:'bi-box-seam',
+                            number:'+3 000',
+                            title:'Produits',
+                            text:'Des nouveautés ajoutées régulièrement.'
+                        },
+
+                        {
+                            icon:'bi-truck',
+                            number:'24/48h',
+                            title:'Expédition rapide',
+                            text:'Préparation rapide de vos commandes.'
+                        },
+
+                        {
+                            icon:'bi-shield-check',
+                            number:'100%',
+                            title:'Produits authentiques',
+                            text:'Sélectionnés auprès de fournisseurs fiables.'
+                        }
+
+                    ] %}
+
+                        <div class="col-md-6">
+
+                            <div class="dd-why-card">
+
+                                <div class="dd-why-icon">
+
+                                    <i class="bi {{ s.icon }}"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <div class="dd-why-number">
+
+                                        {{ s.number }}
+
+                                    </div>
+
+                                    <h4 class="dd-why-title">
+
+                                        {{ s.title }}
+
+                                    </h4>
+
+                                    <p class="dd-why-text mb-0">
+
+                                        {{ s.text }}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

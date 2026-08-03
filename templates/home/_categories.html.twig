@@ -1,0 +1,52 @@
+{# ==================== Nos univers ==================== #}
+<section class="py-5 bg-white" id="categories" aria-label="Nos rayons et catégories">
+    <div class="container-xl px-4 px-md-5">
+
+        <div class="row align-items-end mb-5">
+            <div class="col-lg-8">
+                <span class="section-eyebrow">Nos rayons</span>
+                <h2 class="dd-section-title mb-2">Tout ce dont vous avez besoin au quotidien</h2>
+                <p class="text-muted mb-0">
+                    Parfums, produits d'entretien, hygiène, soins du corps et bien plus encore. Découvrez tous nos univers.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <a href="{{ path('app_products') }}" class="btn-outline-dark-dd btn btn-outline-dark">
+                    Toutes les catégories
+                    <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% if allCategories is defined and allCategories|length > 0 %}
+                {% for category in allCategories %}
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <a href="{{ path('app_category', {'slug': category.slug}) }}" class="dd-category-card h-100 text-decoration-none d-block rounded border p-3 text-center">
+                            <div class="dd-category-image mb-3">
+                                {% if category.illustration is defined and category.illustration %}
+                                    <img src="{{ asset('uploads/categories/' ~ category.illustration) }}" alt="Catégorie {{ category.name }}" loading="lazy" class="img-fluid rounded">
+                                {% else %}
+                                    <div class="dd-category-placeholder py-4 bg-light text-muted rounded">
+                                        <i class="bi bi-grid fs-1" aria-hidden="true"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="dd-category-content">
+                                <h3 class="dd-category-title h6 fw-bold text-dark mb-1">{{ category.name }}</h3>
+                                {% if category.description is defined and category.description %}
+                                    <p class="dd-category-description small text-muted mb-2 text-truncate">{{ category.description }}</p>
+                                {% endif %}
+                                <span class="dd-category-link text-gold small fw-semibold">
+                                    Découvrir <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+</section>

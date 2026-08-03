@@ -1,0 +1,93 @@
+{#
+  Paramètres attendus :
+  - product
+  - isInWishlist (optionnel)
+  - rank (optionnel)
+#}
+
+<div class="dd-product-item" data-cat="{{ product.category.slug|default('uncategorized') }}">
+
+	<div class="dd-card">
+
+		<div class="dd-card-image">
+
+			{% if rank is defined and rank %}
+				<div class="dd-card-rank">
+					#{{ rank }}
+				</div>
+			{% endif %}
+
+			<a href="{{ path('app_product',{slug:product.slug}) }}">
+
+				{% if product.illustration %}
+					<img src="{{ asset('uploads/products/'~product.illustration) }}" alt="{{ product.name }}" loading="lazy" class="dd-card-img">
+				{% else %}
+					<img src="{{ asset('images/placeholder.webp') }}" alt="{{ product.name }}" loading="lazy" class="dd-card-img">
+				{% endif %}
+
+			</a>
+
+			<div class="dd-card-overlay"></div>
+
+			{% if app.user %}
+
+				{% if isInWishlist is defined and isInWishlist %}
+					<a href="{{ path('app_account_wishlist_remove',{id:product.id}) }}" class="dd-card-favorite active" title="Retirer des favoris">
+						<i class="bi bi-heart-fill"></i>
+					</a>
+
+				{% else %}
+					<a href="{{ path('app_account_wishlist_add',{id:product.id}) }}" class="dd-card-favorite" title="Ajouter aux favoris">
+						<i class="bi bi-heart"></i>
+					</a>
+
+				{% endif %}
+
+			{% else %}
+
+				<a href="{{ path('app_login') }}" class="dd-card-favorite" title="Connexion">
+					<i class="bi bi-heart"></i>
+				</a>
+
+			{% endif %}
+
+		</div>
+
+		<div class="dd-card-content">
+			<div class="dd-card-category">
+				{{ product.category.name|default('') }}
+			</div>
+
+			<h3 class="dd-card-title">
+				<a href="{{ path('app_product',{slug:product.slug}) }}">
+					{{ product.name }}
+				</a>
+			</h3>
+			{% if product.rating is defined and product.rating > 0 %}
+				<div class="dd-card-rating">
+					{% for i in 1..5 %}
+						<i class="bi {{ i <= product.rating ? 'bi-star-fill' : 'bi-star' }}"></i>
+					{% endfor %}
+					{% if product.reviewsCount is defined %}
+						<span>
+							{{ product.reviewsCount }}
+							avis
+						</span>
+					{% endif %}
+				</div>
+			{% endif %}
+
+			<div class="dd-card-bottom">
+				<div class="dd-card-price">
+					{{ product.pricewt|format_currency('EUR') }}
+				</div>
+				<a href="{{ path('app_cart_add',{id:product.id}) }}" class="dd-card-cart">
+					<span>
+						Ajouter au panier
+					</span>
+					<i class="bi bi-bag-plus"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

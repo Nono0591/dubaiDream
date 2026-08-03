@@ -1,0 +1,179 @@
+{# ==================== Avis clients & Réseaux sociaux ==================== #}
+
+<section class="py-5 bg-white">
+
+    <div class="container-xl px-4 px-md-5">
+
+        <div class="row g-5 align-items-start">
+
+            {# ==================== Avis clients ==================== #}
+
+            <div class="col-lg-7">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Avis clients
+                        </span>
+
+                        <h2 class="dd-section-title mb-1">
+                            Nos clients nous recommandent
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Des centaines de clients satisfaits nous font confiance chaque jour.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="https://www.google.com/search?q=DUBAI+DREAM+Avis"
+                        class="btn-outline-dark-dd"
+                        target="_blank"
+                        rel="noopener">
+
+                        Tous les avis
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+                <div class="row g-4">
+
+                    {% for r in reviews|slice(0,3) %}
+
+                        <div class="col-md-4">
+
+                            <div class="dd-review-card h-100">
+
+                                <div class="d-flex align-items-center mb-3">
+
+                                    <div class="dd-review-avatar">
+
+                                        {{ r.avatar }}
+
+                                    </div>
+
+                                    <div class="ms-3">
+
+                                        <strong class="d-block">
+
+                                            {{ r.name }}
+
+                                        </strong>
+
+                                        <small class="text-muted">
+
+                                            {{ r.date }}
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    {% for i in 1..5 %}
+
+                                        <i class="bi bi-star-fill"
+                                           style="color:{{ i <= r.rating ? 'var(--dd-gold)' : '#ddd' }}"></i>
+
+                                    {% endfor %}
+
+                                </div>
+
+                                <p class="mb-0">
+
+                                    "{{ r.text }}"
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            {# ==================== TikTok ==================== #}
+
+            <div class="col-lg-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+
+                            Réseaux sociaux
+
+                        </span>
+
+                        <h2 class="dd-section-title mb-1">
+
+                            Retrouvez-nous sur TikTok
+
+                        </h2>
+
+                        <p class="text-muted mb-0">
+
+                            Astuces, nouveautés, démonstrations et arrivages.
+
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="https://www.tiktok.com/@dubaidream59"
+                        target="_blank"
+                        class="btn-gold">
+
+                        @dubaidream59
+
+                    </a>
+
+                </div>
+
+                <div class="row g-3">
+
+                    {% for i in 1..6 %}
+
+                        <div class="col-4">
+
+                            <a
+                                href="https://www.tiktok.com/@dubaidream59"
+                                target="_blank"
+                                class="dd-social-card">
+
+                                <div class="dd-social-overlay">
+
+                                    <i class="bi bi-play-fill"></i>
+
+                                </div>
+
+                                <img
+                                    src="{{ asset('uploads/tiktok-' ~ i ~ '.jpg') }}"
+                                    alt="TikTok {{ i }}">
+
+                            </a>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

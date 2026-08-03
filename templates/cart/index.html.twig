@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <h1>Mon Panier</h1>
+
+    <div class="row">
+        {# ===== COLONNE PRODUITS ===== #}
+        <div class="col-md-8">
+            <p>Liste de mes produits :</p>
+
+            {% if cart|length > 0 %}
+                {% for product in cart %}
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-2">
+                            <img src="/uploads/{{ product.object.illustration }}"
+                                 alt="{{ product.object.name }}"
+                                 class="img-fluid">
+                        </div>
+
+                        <div class="col-5">
+                            <strong>{{ product.object.name }}</strong>
+                            <span class="d-block small">
+                                Prix unitaire : {{ product.object.pricewt|price }} €
+                            </span>
+                        </div>
+
+                        <div class="col-3 text-center">
+                            <a href="{{ path('app_cart_decrease', { id: product.object.id }) }}">−</a>
+                            <span class="badge text-bg-secondary mx-1">
+                                x{{ product.quantity }}
+                            </span>
+                            <a href="{{ path('app_cart_add', { id: product.object.id }) }}">+</a>
+                        </div>
+
+                        <div class="col-2 text-end">
+                            <strong>
+                                {{ (product.quantity * product.object.pricewt)|price }} €
+                            </strong>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <a href="{{ path('app_cart_remove') }}"
+                   class="small d-block mt-4 text-danger">
+                    Vider le panier
+                </a>
+            {% else %}
+                <p class="text-muted">Votre panier est vide.</p>
+            {% endif %}
+        </div>
+
+        {# ===== COLONNE RÉCAP ===== #}
+        <div class="col-md-4">
+            <div class="bg-light p-4 rounded">
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold">Total produits</span>
+                    <span>{{ fullCartquantity }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <span class="fw-bold">Prix total T.T.C</span>
+                    <span>{{ totalWt|price }} €</span>
+                </div>
+
+                <a href="{{ path ('app_order') }}" class="btn btn-primary w-100 mt-4">
+                    Commander
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

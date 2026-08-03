@@ -1,0 +1,49 @@
+security:
+    # Gestion des mots de passe
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    # Fournisseur d'utilisateurs
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    firewalls:
+        dev:
+            # Dev tools et assets
+            pattern: ^/(_profiler|_wdt|assets|build)/
+            security: false
+
+        main:
+            # Firewall principal
+            lazy: true
+            provider: app_user_provider
+
+
+            form_login:
+                login_path: app_login
+                check_path: app_login
+
+            logout:
+                path: app_logout
+                # target: app_homepage   # optionnel, page après logout
+
+            # switch_user: true  # si tu veux permettre l'impersonation
+
+    # Règles d'accès
+    access_control:
+        - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/commande, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+when@test:
+    security:
+        password_hashers:
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4
+                time_cost: 3
+                memory_cost: 10

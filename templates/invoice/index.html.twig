@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700 &family=Source+Sans + 3:wght@300;400;600&display=swap');
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: 'DejaVu Sans', sans-serif;
+				font-size: 12px;
+				color: #1a1a2e;
+				background: #fff;
+				margin: 0;
+				padding: 40px 50px;
+				line-height: 1.6;
+			}
+
+			/* ── HEADER ─────────────────────────────────────── */
+			.header {
+				border-bottom: 3px solid #1a1a2e;
+				padding-bottom: 24px;
+				margin-bottom: 32px;
+				position: relative;
+			}
+
+			.header-inner {
+				width: 100%;
+				overflow: hidden;
+			}
+
+			.brand {
+				float: left;
+				width: 55%;
+			}
+
+			.brand-name {
+				font-size: 28px;
+				font-weight: 700;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: #1a1a2e;
+				line-height: 1;
+				margin-bottom: 6px;
+			}
+
+			.brand-tagline {
+				font-size: 9px;
+				letter-spacing: 4px;
+				text-transform: uppercase;
+				color: #c9a84c;
+				margin-bottom: 10px;
+			}
+
+			.brand-address {
+				font-size: 10px;
+				color: #666;
+				line-height: 1.7;
+			}
+
+			.invoice-meta {
+				float: right;
+				width: 40%;
+				text-align: right;
+			}
+
+			.invoice-label {
+				font-size: 32px;
+				font-weight: 700;
+				letter-spacing: 6px;
+				text-transform: uppercase;
+				color: #1a1a2e;
+				line-height: 1;
+				margin-bottom: 12px;
+			}
+
+			.invoice-number {
+				display: inline-block;
+				background: #1a1a2e;
+				color: #c9a84c;
+				font-size: 11px;
+				font-weight: 600;
+				letter-spacing: 2px;
+				padding: 4px 12px;
+				margin-bottom: 6px;
+			}
+
+			.invoice-date {
+				font-size: 10px;
+				color: #888;
+				letter-spacing: 1px;
+			}
+
+			.clear {
+				clear: both;
+			}
+
+			/* ── ACCENT BAR ──────────────────────────────────── */
+			.accent-bar {
+				height: 4px;
+				background: linear-gradient(to right, #c9a84c 0%, #e8d5a3 50%, #c9a84c 100%);
+				margin-bottom: 32px;
+			}
+
+			/* ── INFO GRID ───────────────────────────────────── */
+			.info-grid {
+				width: 100%;
+				overflow: hidden;
+				margin-bottom: 32px;
+			}
+
+			.info-box {
+				float: left;
+				width: 48%;
+				border: 1px solid #e8e8e8;
+				border-top: 3px solid #c9a84c;
+				padding: 16px 18px;
+				background: #fafaf8;
+			}
+
+			.info-box + .info-box {
+				float: right;
+			}
+
+			.info-box-title {
+				font-size: 8px;
+				font-weight: 700;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: #c9a84c;
+				margin-bottom: 8px;
+			}
+
+			.info-box-content {
+				font-size: 11px;
+				color: #333;
+				line-height: 1.8;
+			}
+
+			.info-box-content strong {
+				font-size: 12px;
+				color: #1a1a2e;
+				font-weight: 600;
+			}
+
+			/* ── TABLE ───────────────────────────────────────── */
+			.section-label {
+				font-size: 8px;
+				font-weight: 700;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: #888;
+				margin-bottom: 10px;
+				padding-left: 2px;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 28px;
+			}
+
+			table thead tr {
+				background: #1a1a2e;
+			}
+
+			table thead th {
+				padding: 11px 14px;
+				color: #c9a84c;
+				font-size: 9px;
+				font-weight: 700;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+				text-align: left;
+				border: none;
+			}
+
+			table thead th.text-right {
+				text-align: right;
+			}
+
+			table tbody tr {
+				border-bottom: 1px solid #efefef;
+			}
+
+			table tbody tr:nth-child(even) {
+				background: #fafaf8;
+			}
+
+			table tbody td {
+				padding: 11px 14px;
+				font-size: 11px;
+				color: #333;
+				border: none;
+			}
+
+			.product-name {
+				font-weight: 600;
+				color: #1a1a2e;
+			}
+
+			.tva-badge {
+				display: inline-block;
+				background: #f0ece0;
+				color: #8a6e2f;
+				font-size: 9px;
+				font-weight: 700;
+				padding: 2px 7px;
+				border-radius: 10px;
+			}
+
+			.text-right {
+				text-align: right;
+			}
+			.text-center {
+				text-align: center;
+			}
+
+			/* ── LIVRAISON ───────────────────────────────────── */
+			.shipping-row {
+				width: 100%;
+				overflow: hidden;
+				padding: 10px 14px;
+				background: #f5f3ee;
+				border-left: 3px solid #c9a84c;
+				margin-bottom: 28px;
+				font-size: 11px;
+				color: #555;
+			}
+
+			.shipping-row span {
+				font-weight: 600;
+				color: #1a1a2e;
+			}
+
+			/* ── TOTAUX ──────────────────────────────────────── */
+			.totals-wrap {
+				width: 320px;
+				margin-left: auto;
+			}
+
+			.totals-table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 0;
+			}
+
+			.totals-table td {
+				padding: 8px 14px;
+				font-size: 11px;
+				border: none;
+				color: #555;
+			}
+
+			.totals-table tr.tva-row td {
+				background: #fafaf8;
+				border-top: 1px solid #efefef;
+				border-bottom: 1px solid #efefef;
+			}
+
+			.totals-table tr.total-row {
+				background: #1a1a2e;
+			}
+
+			.totals-table tr.total-row td {
+				color: #fff;
+				font-size: 13px;
+				font-weight: 700;
+				padding: 13px 14px;
+				letter-spacing: 1px;
+			}
+
+			.totals-table tr.total-row td.amount {
+				color: #c9a84c;
+				font-size: 15px;
+				text-align: right;
+			}
+
+			/* ── FOOTER ──────────────────────────────────────── */
+			.footer {
+				margin-top: 48px;
+				border-top: 1px solid #e8e8e8;
+				padding-top: 16px;
+				text-align: center;
+			}
+
+			.footer-thanks {
+				font-size: 13px;
+				font-weight: 600;
+				letter-spacing: 3px;
+				text-transform: uppercase;
+				color: #1a1a2e;
+				margin-bottom: 6px;
+			}
+
+			.footer-note {
+				font-size: 9px;
+				color: #aaa;
+				letter-spacing: 1px;
+			}
+
+			.gold {
+				color: #c9a84c;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- HEADER -->
+		<div class="header">
+			<div class="header-inner">
+				<div class="brand">
+					<div class="brand-name">Ma Boutique</div>
+					<div class="brand-tagline">La boutique française</div>
+					<div class="brand-address">
+						10 rue du Commerce &bull; 59000 Lille<br>
+						contact@maboutique.fr
+					</div>
+				</div>
+				<div class="invoice-meta">
+					<div class="invoice-label">Facture</div>
+					<div class="invoice-number">N°
+						{{ order.id }}</div>
+					<div class="invoice-date">{{ order.createdAt|date('d/m/Y') }}</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="accent-bar"></div>
+
+		<!-- CLIENT + LIVRAISON -->
+		<div class="info-grid">
+			<div class="info-box">
+				<div class="info-box-title">Client</div>
+				<div class="info-box-content">
+					<strong>{{ order.user.firstname }}
+						{{ order.user.lastname }}</strong><br>
+					{{ order.user.email }}
+				</div>
+			</div>
+			<div class="info-box">
+				<div class="info-box-title">Adresse de livraison</div>
+				<div class="info-box-content" style="white-space:pre-line;">{{ order.delivery|raw }}</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<!-- PRODUITS -->
+		<div class="section-label">Détail de la commande</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th class="text-center">TVA</th>
+					<th class="text-center">Qté</th>
+					<th class="text-right">Prix TTC</th>
+					<th class="text-right">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in order.orderDetails %}
+					<tr>
+						<td class="product-name">{{ product.productName }}</td>
+						<td class="text-center">
+							<span class="tva-badge">{{ product.productTva }}%</span>
+						</td>
+						<td class="text-center">{{ product.productQuantity }}</td>
+						<td class="text-right">{{ product.getProductPriceWt()|number_format(2,',','.') }}
+							€</td>
+						<td class="text-right">{{ (product.getProductPriceWt() * product.productQuantity)|number_format(2,',','.') }}
+							€</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<!-- LIVRAISON -->
+		<div class="shipping-row">
+			Livraison &mdash;
+			<span>{{ order.carrierName }}</span>
+			&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+			{{ order.carrierPrice|number_format(2,',','.') }}
+			€
+		</div>
+
+		<!-- TOTAUX -->
+		<div class="totals-wrap">
+			<table class="totals-table">
+				<tr class="tva-row">
+					<td>TVA totale</td>
+					<td class="text-right">{{ order.getTotalTva()|number_format(2,',','.') }}
+						€</td>
+				</tr>
+				<tr class="total-row">
+					<td>TOTAL TTC</td>
+					<td class="amount">{{ order.getTotalWt()|number_format(2,',','.') }}
+						€</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- FOOTER -->
+		<div class="footer">
+			<div class="footer-thanks">Merci pour votre commande
+				<span class="gold">&hearts;</span>
+			</div>
+			<div class="footer-note">Ce document tient lieu de facture &bull; Ma Boutique &mdash; 59000 Lille</div>
+		</div>
+
+	</body>
+</html>

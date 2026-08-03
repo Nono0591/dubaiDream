@@ -1,0 +1,62 @@
+{# Variables : cart, fullCartQuantity, totalWt, shippingCost, isShippingFree, amountLeftForFreeShipping #}
+<div class="offcanvas offcanvas-end dd-cart" tabindex="-1" id="cartOffcanvas">
+	<div class="dd-cart-header">
+		<h4><i class="bi bi-bag"></i> Mon panier <span class="dd-cart-items">{{ fullCartQuantity|default(0) }}</span></h4>
+		<button class="dd-cart-close" type="button" data-bs-dismiss="offcanvas"><i class="bi bi-x-lg"></i></button>
+	</div>
+	<div class="dd-cart-body">
+		{% if cart is defined and cart|length > 0 %}
+			{% for line in cart %}
+				<article class="dd-cart-product">
+					<a href="{{ path('app_product',{slug:line.product.slug}) }}">
+						{% if line.product.illustration %}
+							<img src="{{ asset('uploads/products/'~line.product.illustration) }}" alt="{{ line.product.name }}">
+						{% else %}
+							<img src="{{ asset('images/placeholder.webp') }}" alt="{{ line.product.name }}">
+						{% endif %}
+					</a>
+					<div class="dd-cart-content">
+						<h5><a href="{{ path('app_product',{slug:line.product.slug}) }}">{{ line.product.name }}</a></h5>
+						<span class="dd-cart-price">{{ line.product.pricewt|format_currency('EUR') }}</span>
+						<div class="dd-cart-bottom">
+							<div class="dd-qty">
+								<a href="{{ path('app_cart_decrease',{id:line.product.id}) }}" class="dd-qty-btn"><i class="bi bi-dash"></i></a>
+								<span class="dd-qty-value">{{ line.quantity }}</span>
+								<a href="{{ path('app_cart_add',{id:line.product.id}) }}" class="dd-qty-btn"><i class="bi bi-plus"></i></a>
+							</div>
+							<strong class="dd-line-total">{{ (line.product.pricewt * line.quantity)|format_currency('EUR') }}</strong>
+						</div>
+					</div>
+					<a href="{{ path('app_cart_delete',{id:line.product.id}) }}" class="dd-cart-delete"><i class="bi bi-trash3"></i></a>
+				</article>
+			{% endfor %}
+		{% else %}
+			<div class="dd-cart-empty">
+				<i class="bi bi-bag"></i>
+				<h5>Votre panier est vide</h5>
+				<p>Ajoutez des produits pour commencer vos achats.</p>
+			</div>
+		{% endif %}
+	</div>
+	{% if cart is defined and cart|length > 0 %}
+		<div class="dd-cart-footer">
+			<div class="dd-total-row"><span>Sous-total</span><strong>{{ totalWt|format_currency('EUR') }}</strong></div>
+			<div class="dd-total-row">
+				<span>Livraison</span>
+				<strong>{% if isShippingFree is defined and isShippingFree %}Offerte{% else %}{{ shippingCost|default(3.90)|format_currency('EUR') }}{% endif %}</strong>
+			</div>
+			<div class="dd-grand-total"><span>Total</span><strong>{{ (totalWt + shippingCost|default(3.90))|format_currency('EUR') }}</strong></div>
+			{% if amountLeftForFreeShipping is defined and amountLeftForFreeShipping > 0 %}
+				{% set progress = ((60 - amountLeftForFreeShipping) / 60 * 100)|round %}
+				<div class="dd-shipping-progress">
+					<div class="dd-progress-text">🚚 Plus que <strong>{{ amountLeftForFreeShipping|format_currency('EUR') }}</strong> pour profiter de la livraison offerte.</div>
+					<div class="dd-progress"><div class="dd-progress-bar" style="width: {{ progress }}%;"></div></div>
+				</div>
+			{% else %}
+				<div class="dd-free-ok">🎉 Félicitations ! Vous bénéficiez de la livraison offerte.</div>
+			{% endif %}
+			<a href="{{ path('app_order') }}" class="dd-btn-primary"><i class="bi bi-credit-card me-2"></i> Commander</a>
+			<a href="{{ path('app_cart') }}" class="dd-btn-secondary"><i class="bi bi-bag me-2"></i> Voir le panier</a>
+		</div>
+	{% endif %}
+</div>

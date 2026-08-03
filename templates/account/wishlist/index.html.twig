@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Ma Wishlist</h1>
+
+        {% if app.user.wishlists is empty %}
+            <p>Aucun produit dans votre liste de souhaits.</p>
+        {% else %}
+            <div class="row">
+                {% for product in app.user.wishlists %}
+                    <div class="col-lg-4">
+                        <img src="{{ asset('uploads/' ~ product.illustration) }}" alt="{{ product.name }}" width="300" height="300">
+
+                        <h2>{{ product.name }}</h2>
+                        <p>{{ product.pricewt | number_format(2, ',', ' ') }} €</p>
+                        <a href="{{ path('app_account_wishlist_remove', { id: product.id }) }}"
+                           class="btn btn-danger">
+                            Retirer
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

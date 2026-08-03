@@ -1,0 +1,122 @@
+{#
+  Variables attendues du contrôleur :
+  - allCategories    : collection de Category (slug, name) → génère les liens du menu
+  - fullCartquantity  : nombre total d'articles dans le panier (badge or)
+  - app.user          : utilisateur connecté (optionnel)
+#}
+
+{# ==================== Top bar ==================== #}
+<div class="dd-topbar py-2">
+  <div class="container-fluid px-4 px-lg-5 d-flex justify-content-between align-items-center">
+    <span>Livraison offerte dès 60€ d'achat</span>
+    <div class="d-none d-md-flex align-items-center gap-4">
+      <a href="#contact"><i class="bi bi-envelope me-1"></i>Contact</a>
+      {% if app.user %}
+        <a href="{{ path('app_account') }}"><i class="bi bi-truck me-1"></i>Suivi de commande</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{# ==================== Navbar principale ==================== #}
+<nav class="navbar navbar-expand-lg dd-navbar sticky-top py-3">
+  <div class="container-fluid px-4 px-lg-5 gap-3">
+
+    <a class="navbar-brand me-0 me-lg-4" href="{{ path('app_home') }}">
+      <img src="{{ asset('uploads/logoNoir.png') }}" alt="Logo" class="dd-logo" width="80px">
+      </span>
+    </a>
+
+    <form class="dd-search flex-fill d-none d-md-flex order-lg-2" role="search" action="#" method="get">
+      <div class="input-group">
+        <input type="search" name="q" class="form-control" placeholder="Rechercher un produit, une marque...">
+        <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+      </div>
+    </form>
+
+    <div class="d-flex align-items-center gap-2 order-lg-3 ms-auto ms-lg-0">
+      {% if app.user %}
+        <a href="{{ path('app_account_wishlist') }}" class="icon-btn" title="Mes favoris">
+          <i class="bi bi-heart"></i>
+        </a>
+      {% else %}
+        <a href="{{ path('app_login') }}" class="icon-btn" title="Mes favoris">
+          <i class="bi bi-heart"></i>
+        </a>
+      {% endif %}
+
+      <button type="button" class="icon-btn" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Mon panier">
+        <i class="bi bi-bag"></i>
+        {% if fullCartquantity is defined and fullCartquantity > 0 %}
+          <span class="cart-count">{{ fullCartquantity }}</span>
+        {% endif %}
+      </button>
+
+      {% if app.user %}
+        <a href="{{ path('app_account') }}" class="icon-btn" title="{{ app.user.firstname }}">
+          <i class="bi bi-person"></i>
+        </a>
+      {% else %}
+        <a href="{{ path('app_login') }}" class="icon-btn" title="Connexion">
+          <i class="bi bi-person"></i>
+        </a>
+      {% endif %}
+
+      <button class="navbar-toggler border-0 shadow-none d-lg-none" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navMain"
+              aria-controls="navMain" aria-expanded="false" aria-label="Menu">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navMain">
+      <form class="dd-search d-flex d-md-none my-3" role="search" action="#" method="get">
+        <div class="input-group">
+          <input type="search" name="q" class="form-control" placeholder="Rechercher un produit, une marque...">
+          <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+        </div>
+      </form>
+      <ul class="navbar-nav gap-lg-1 d-lg-none">
+        <li class="nav-item">
+          <a class="nav-link {{ app.request.get('_route') == 'app_home' ? 'active' : '' }}" href="{{ path('app_home') }}">Accueil</a>
+        </li>
+        {% for category in allCategories %}
+          <li class="nav-item">
+            <a class="nav-link {{ app.request.get('_route') == 'app_category' and app.request.get('slug') == category.slug ? 'active' : '' }}"
+               href="{{ path('app_category', {'slug': category.slug}) }}">{{ category.name }}</a>
+          </li>
+        {% endfor %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Promotions<span class="promo-badge">-20%</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{# ==================== Sous-barre catégories ==================== #}
+<nav class="dd-catnav d-none d-lg-block">
+  <div class="container-fluid px-4 px-lg-5 d-flex align-items-center">
+    <div class="dropdown">
+      <button class="dd-catnav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-grid-3x3-gap-fill"></i> Toutes nos catégories
+      </button>
+      <ul class="dropdown-menu">
+        {% for category in allCategories %}
+          <li><a class="dropdown-item" href="{{ path('app_category', {'slug': category.slug}) }}">{{ category.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% for category in allCategories %}
+      <a href="{{ path('app_category', {'slug': category.slug}) }}"
+         class="dd-catnav-link {{ app.request.get('_route') == 'app_category' and app.request.get('slug') == category.slug ? 'text-dd-gold fw-semibold' : '' }}">
+        {{ category.name }}
+      </a>
+    {% endfor %}
+
+    <a href="#promotions" class="dd-catnav-link dd-catnav-promo ms-auto">
+      <i class="bi bi-gift"></i> Promotions <span class="badge rounded-pill">-20%</span>
+    </a>
+  </div>
+</nav>
