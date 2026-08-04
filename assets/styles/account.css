@@ -1,0 +1,123 @@
+/* ============================================================
+   account.css
+   Espace membre : sidebar menu, entête de page, formulaires,
+   cartes adresses. Correspond à account/*.html.twig
+   ============================================================ */
+
+/* ── Entête de page ("Espace membre") ── */
+.dd-account-header{ margin-bottom: 2rem; }
+.dd-account-title{
+	font-family:'Playfair Display', serif; font-weight:600; font-size:2rem; color:var(--dd-ink);
+	margin-bottom: .5rem;
+}
+
+/* ── Sidebar menu ── */
+.account-menu{
+	background:#fff; border:1px solid var(--dd-line); border-radius:2px;
+	display:flex; flex-direction:column; overflow:hidden;
+}
+.account-menu a{
+	display:flex; align-items:center; gap:.75rem; padding:.9rem 1.1rem;
+	font-size:13.5px; font-weight:500; color:var(--dd-ink-soft);
+	border-bottom:1px solid var(--dd-line); transition: all .2s;
+}
+.account-menu a:last-child{ border-bottom:none; }
+.account-menu a i{ font-size:16px; color:var(--dd-gold); width:18px; text-align:center; flex-shrink:0; }
+.account-menu a:hover{ background:var(--dd-cream); color:var(--dd-gold-dark); }
+.account-menu a.active{ background:var(--dd-cream); color:var(--dd-gold-dark); font-weight:600; box-shadow:inset 3px 0 0 var(--dd-gold); }
+.account-menu a.text-danger{ color:var(--dd-red) !important; }
+.account-menu a.text-danger:hover{ background:#fdf1ef; }
+.account-menu hr{ margin:0; border-color:var(--dd-line); }
+
+/* ── Carte de contenu (à droite du menu) ── */
+.dd-account-card{
+	background:#fff; border:1px solid var(--dd-line); border-radius:2px; padding:1.75rem;
+}
+.dd-account-card h5{
+	font-family:'Playfair Display', serif; font-weight:600; font-size:1.15rem; color:var(--dd-ink);
+	margin-bottom:1.25rem; padding-bottom:.9rem; border-bottom:1px solid var(--dd-line);
+}
+
+/* ── Formulaires Symfony (form_row / form()) ── */
+.dd-account-card label{ font-size:12.5px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; color:var(--dd-muted); margin-bottom:.4rem; display:block; }
+.dd-account-card .form-control,
+.dd-account-card .form-select{
+	border:1px solid var(--dd-line); border-radius:2px; font-size:14px; padding:.65rem .9rem;
+	background:var(--dd-cream); color:var(--dd-ink); transition: border-color .2s, background .2s;
+}
+.dd-account-card .form-control:focus,
+.dd-account-card .form-select:focus{
+	border-color:var(--dd-gold); background:#fff; box-shadow:0 0 0 3px rgba(185,133,47,.12); outline:none;
+}
+.dd-account-card .form-control::placeholder{ color:#b3a689; }
+.dd-account-card .form-text{ font-size:11.5px; color:var(--dd-muted); }
+.dd-account-card .invalid-feedback{ color:var(--dd-red); font-size:12px; }
+.dd-account-card .is-invalid{ border-color:var(--dd-red); }
+.dd-account-card .mb-3{ margin-bottom:1.15rem !important; }
+.dd-account-card button[type="submit"],
+.dd-account-card .btn-gold{ margin-top:.5rem; }
+
+/* ── Cartes adresses ── */
+.dd-address-card{
+	position:relative; background:var(--dd-cream); border:1px solid var(--dd-line); border-radius:2px;
+	padding:1.1rem 1.2rem; font-size:13.5px; line-height:1.7; color:var(--dd-ink-soft); height:100%;
+	transition: border-color .2s;
+}
+.dd-address-card:hover{ border-color:var(--dd-gold); }
+.dd-address-card .name{ font-family:'Playfair Display', serif; font-weight:600; color:var(--dd-ink); font-size:14.5px; margin-bottom:.35rem; display:block; }
+.dd-address-card .actions{ margin-top:.75rem; display:flex; gap:.6rem; }
+.dd-address-card .actions a{ font-size:12px; font-weight:600; color:var(--dd-gold); }
+.dd-address-card .actions a:hover{ color:var(--dd-gold-dark); }
+.dd-address-card .actions a.text-danger{ color:var(--dd-red); }
+
+.dd-address-add{
+	display:flex; align-items:center; justify-content:center; gap:.5rem;
+	min-height:100%; border:1.5px dashed var(--dd-line); border-radius:2px;
+	color:var(--dd-muted); font-size:13px; font-weight:600; transition: all .2s;
+}
+.dd-address-add:hover{ border-color:var(--dd-gold); color:var(--dd-gold); background:var(--dd-cream); }
+
+/* ── Etat vide (wishlist, commandes, adresses...) ── */
+.dd-empty-state{
+	text-align:center; padding:3rem 1.5rem; color:var(--dd-muted);
+}
+.dd-empty-state i{ font-size:2.2rem; color:var(--dd-gold); margin-bottom:1rem; display:block; }
+.dd-empty-state p{ font-size:14px; margin-bottom:1.25rem; }
+
+/* ── Bouton retirer (wishlist), variante danger de .dd-card-cart ── */
+.dd-card-remove{
+	position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center;
+	gap:8px; width:100%; height:42px; border-radius:14px; background:#fff;
+	border:1.5px solid var(--dd-red); color:var(--dd-red); text-decoration:none;
+	font-weight:700; font-size:13px; transition:.25s ease;
+}
+.dd-card-remove:hover{ background:var(--dd-red); color:#fff; }
+
+/* ── Icône ronde (dashboard) ── */
+.dd-icon-circle{
+	width:48px; height:48px; border-radius:50%; background:var(--dd-cream);
+	display:flex; align-items:center; justify-content:center; color:var(--dd-gold);
+	font-size:20px; flex-shrink:0;
+}
+
+/* ── Tableau (détail commande) ── */
+.dd-account-card table{ width:100%; font-size:13.5px; margin-bottom:0; }
+.dd-account-card table thead th{
+	font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dd-muted);
+	font-weight:600; border-bottom:1px solid var(--dd-line); padding:.75rem .5rem; white-space:nowrap;
+}
+.dd-account-card table tbody td{ padding:.75rem .5rem; border-bottom:1px solid var(--dd-line); vertical-align:middle; }
+.dd-account-card table tbody tr:last-child td{ border-bottom:none; }
+.dd-account-card table img{ border-radius:2px; border:1px solid var(--dd-line); object-fit:cover; }
+.dd-order-totals{ font-size:13.5px; line-height:2; }
+.dd-order-totals strong{ color:var(--dd-ink); }
+.dd-order-totals .grand-total{ font-size:1.05rem; color:var(--dd-gold-dark); }
+
+@media (max-width:768px){
+	.dd-account-title{ font-size:1.5rem; }
+	.account-menu{ margin-bottom:1.5rem; flex-direction:row; flex-wrap:wrap; }
+	.account-menu a{ border-bottom:none; border-right:1px solid var(--dd-line); flex:1 1 auto; justify-content:center; }
+	.account-menu a.active{ box-shadow:inset 0 -3px 0 var(--dd-gold); }
+	.account-menu hr{ display:none; }
+	.dd-account-card{ padding:1.25rem; }
+}

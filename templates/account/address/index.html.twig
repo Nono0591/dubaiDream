@@ -1,37 +1,68 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-<div class="container my-5">
-    <h1>Espace membre</h1>
-    <div class="row">
-        <div class="col-md-3">
+
+    {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
+{% endblock %}
+
+<div class="container py-5">
+
+    <div class="dd-account-header">
+        <p class="section-eyebrow">Espace membre</p>
+        <h1 class="dd-account-title">Mes adresses</h1>
+        <div class="gold-rule"></div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-3">
             {% include 'account/_menu.html.twig' %}
         </div>
-        <div class="col-md-9">
-            <div class="d-flex justify-content-between">
-                <h5>Mes adresses</h5>
-                <a href="{{ path('app_account_address_add') }}" class="btn btn-light">
-                    Ajouter une adresse
-                </a>
-            </div>
-            {% if app.user.addresses|length == 0 %}
-                <p>Vous n'avez pas encore ajouté d'adresse à votre compte.</p>
-            {% else %}
-                <div class="row">
-                    {% for address in app.user.addresses %}
-                        <div class="col-md-4 mt-2">
-                            <div class="bg-light p-2 text-center">
-                                <strong>{{ address.firstname }} {{ address.lastname }}</strong><br>
-                                {{ address.address }}<br>
-                                {{ address.postcode }}, {{ address.city }}<br>
-                                {{ address.country }}<br>
-                                <a href="{{ path('app_account_address_edit', {id: address.id}) }}" class="small text-secondary">Editer</a>
-                                <a href="{{ path('app_account_address_delete', {id: address.id}) }}" class="small text-secondary">Supprimer</a>
-                            </div>
-                        </div>
-                    {% endfor %}
+
+        <div class="col-lg-9">
+            <div class="dd-account-card">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+                    <h5 class="mb-0 pb-0 border-0">Mes adresses</h5>
+                    <a href="{{ path('app_account_address_add') }}" class="btn-gold">
+                        <i class="bi bi-plus-lg me-1"></i> Ajouter une adresse
+                    </a>
                 </div>
-            {% endif %}
+
+                {% if app.user.addresses|length == 0 %}
+                    <div class="dd-empty-state">
+                        <i class="bi bi-geo-alt"></i>
+                        <p>Vous n'avez pas encore ajouté d'adresse à votre compte.</p>
+                        <a href="{{ path('app_account_address_add') }}" class="btn-gold">Ajouter une adresse</a>
+                    </div>
+                {% else %}
+                    <div class="row g-3">
+                        {% for address in app.user.addresses %}
+                            <div class="col-md-4">
+                                <div class="dd-address-card">
+                                    <span class="name">{{ address.firstname }} {{ address.lastname }}</span>
+                                    {{ address.address }}<br>
+                                    {{ address.postcode }}, {{ address.city }}<br>
+                                    {{ address.country }}
+
+                                    <div class="actions">
+                                        <a href="{{ path('app_account_address_edit', { id: address.id }) }}">Editer</a>
+                                        <a href="{{ path('app_account_address_delete', { id: address.id }) }}" class="text-danger">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="col-md-4">
+                            <a href="{{ path('app_account_address_add') }}" class="dd-address-add">
+                                <i class="bi bi-plus-lg"></i> Nouvelle adresse
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
+
 </div>
 {% endblock %}

@@ -1,0 +1,64 @@
+/* ============================================================
+   base.css
+   Variables globales, typographie, boutons partagés, helpers.
+   Chargé sur TOUTES les pages (inclus dans base.html.twig).
+   ============================================================ */
+
+:root{
+	--dd-gold: #b9852f;
+	--dd-gold-dark: #9c6f26;
+	--dd-gold-light: #d9ac5c;
+	--dd-red: #e14b3f;
+	--dd-cream: #fbf6ec;
+	--dd-cream2: #f4ead4;
+	--dd-cream3: #efe2c4;
+	--dd-ink: #211a10;
+	--dd-ink-soft: #3c3120;
+	--dd-muted: #8a7c62;
+	--dd-line: #ece2cb;
+}
+
+body{
+	font-family: 'DM Sans', sans-serif;
+	background-color: #fff;
+	color: var(--dd-ink);
+}
+a{ text-decoration:none; }
+.font-display{ font-family:'Playfair Display', serif; }
+.text-dd-gold{ color: var(--dd-gold) !important; }
+.bg-dd-cream{ background: var(--dd-cream) !important; }
+
+/* ── Entêtes de section (utilisés sur home, catégories, produit...) ── */
+.section-eyebrow{
+	font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+	color: var(--dd-gold); margin-bottom: 0.75rem; font-weight:600;
+}
+.dd-section-title{ font-family:'Playfair Display', serif; font-weight:600; font-size:1.5rem; color:var(--dd-ink); }
+.dd-section-link{ font-size:13px; color:var(--dd-gold); font-weight:500; }
+.dd-section-link:hover{ color:var(--dd-gold-dark); }
+.gold-rule{ width: 2.5rem; height: 1px; background: var(--dd-gold); }
+
+/* ── Boutons partagés ── */
+.btn-gold{
+	background: var(--dd-gold); color:#fff; border:none; border-radius:2px;
+	letter-spacing:.04em; font-weight:600; font-size:.85rem; padding:.7rem 1.4rem;
+	transition: background-color .2s;
+}
+.btn-gold:hover{ background: var(--dd-gold-dark); color:#fff; }
+.btn-outline-dark-dd{
+	background:transparent; color:var(--dd-ink); border:1px solid var(--dd-ink); border-radius:2px;
+	letter-spacing:.04em; font-weight:600; font-size:.85rem; padding:.7rem 1.4rem;
+	transition: all .2s;
+}
+.btn-outline-dark-dd:hover{ background:var(--dd-ink); color:#fff; }
+.btn-add-dd{
+	background: var(--dd-gold); color:#fff; border:none; border-radius:2px;
+	font-size:.78rem; font-weight:600; letter-spacing:.02em; padding:.5rem .9rem;
+	display:inline-flex; align-items:center; white-space:nowrap; transition: background-color .2s;
+}
+.btn-add-dd:hover{ background: var(--dd-gold-dark); color:#fff; }
+
+/* ── Scrollbar globale ── */
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-thumb{ background:#D6B06A; border-radius:20px; }
+::-webkit-scrollbar-thumb:hover{ background:#B88933; }

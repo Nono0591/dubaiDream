@@ -1,69 +1,131 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Mon espace client
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
+{% endblock %}
+
+
 {% block body %}
 
-<div class="container mt-5">
+	<div class="container py-5">
 
-    <h1>Espace Membre</h1>
+		<div class="row g-4">
 
-    <div class="row">
+			<div class="col-lg-3">
+				{% include 'account/_menu.html.twig' %}
+			</div>
 
-        <div class="col-md-3">
-            {% include 'account/_menu.html.twig' %}
-        </div>
+			<div class="col-lg-9">
 
-        <div class="col-md-9">
+				<div class="dd-account-card mb-4">
 
-            <h5>Mes dernières commandes</h5>
+					<div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
-            {% if orders|length == 0 %}
+						<div>
+							<h2 class="dd-account-title" style="font-size:1.6rem; margin-bottom:.35rem;">
+								Bonjour
+								{{ app.user.firstname }}
+								👋
+							</h2>
 
-                <div class="alert alert-info">
-                    Vous n'avez pas passé de commande pour le moment.
-                </div>
+							<p class="text-muted mb-0" style="font-size:13.5px;">
+								Bienvenue dans votre espace client.
+								                            Retrouvez ici vos commandes, vos adresses et vos informations personnelles.
+							</p>
+						</div>
 
-            {% else %}
+						<div>
+							{# ⚠️ était path('home'), qui n'existe pas → vérifie le nom exact
+							                           avec `bin/console debug:router` (probablement app_home) #}
+							<a href="{{ path('app_home') }}" class="btn-gold">
+								Continuer mes achats
+							</a>
+						</div>
 
-                <table class="table">
+					</div>
 
-                    <thead>
-                        <tr>
-                            <th scope="col">N°</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Total T.T.C</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
+				</div>
 
-                    <tbody>
+				<div class="row g-4">
 
-                        {% for order in orders %}
+					<div class="col-md-6">
+						<div class="dd-account-card h-100">
+							<div class="d-flex align-items-center mb-3">
+								<div class="dd-icon-circle me-3">
+									<i class="bi bi-box-seam"></i>
+								</div>
+								<div>
+									<h5 class="mb-1 border-0 pb-0">Mes commandes</h5>
+									<small class="text-muted">Consultez vos commandes et leur suivi.</small>
+								</div>
+							</div>
+							<a href="{{ path('app_account') }}" class="btn-outline-dark-dd">
+								Voir mes commandes
+							</a>
+						</div>
+					</div>
 
-                            <tr>
-                                <td>{{ order.id }}</td>
-                                <td>{{ order.createdAt|date('d/m/Y') }}</td>
-                                <td>{{ include('admin/state.html.twig', { field: { value: order.state } }) }}</td>
-                                <td>{{ order.TotalWt|price }}</td>
-                                <td>
-                                    <a href="{{ path('app_account_order', { id_order: order.id }) }}">
-                                        Voir
-                                    </a>
-                                </td>
-                            </tr>
+					<div class="col-md-6">
+						<div class="dd-account-card h-100">
+							<div class="d-flex align-items-center mb-3">
+								<div class="dd-icon-circle me-3">
+									<i class="bi bi-geo-alt"></i>
+								</div>
+								<div>
+									<h5 class="mb-1 border-0 pb-0">Mes adresses</h5>
+									<small class="text-muted">Gérez vos adresses de livraison.</small>
+								</div>
+							</div>
+							<a href="{{ path('app_account_addresses') }}" class="btn-outline-dark-dd">
+								Gérer mes adresses
+							</a>
+						</div>
+					</div>
 
-                        {% endfor %}
+					<div class="col-md-6">
+						<div class="dd-account-card h-100">
+							<div class="d-flex align-items-center mb-3">
+								<div class="dd-icon-circle me-3">
+									<i class="bi bi-heart"></i>
+								</div>
+								<div>
+									<h5 class="mb-1 border-0 pb-0">Ma liste de souhaits</h5>
+									<small class="text-muted">Retrouvez vos produits favoris.</small>
+								</div>
+							</div>
+							<a href="{{ path('app_account_wishlist') }}" class="btn-outline-dark-dd">
+								Voir ma liste
+							</a>
+						</div>
+					</div>
 
-                    </tbody>
+					<div class="col-md-6">
+						<div class="dd-account-card h-100">
+							<div class="d-flex align-items-center mb-3">
+								<div class="dd-icon-circle me-3">
+									<i class="bi bi-lock"></i>
+								</div>
+								<div>
+									<h5 class="mb-1 border-0 pb-0">Sécurité</h5>
+									<small class="text-muted">Modifier votre mot de passe.</small>
+								</div>
+							</div>
+							<a href="{{ path('app_account_modify_password') }}" class="btn-outline-dark-dd">
+								Modifier
+							</a>
+						</div>
+					</div>
 
-                </table>
+				</div>
 
-            {% endif %}
+			</div>
 
-        </div>
+		</div>
 
-    </div>
-
-</div>
+	</div>
 
 {% endblock %}

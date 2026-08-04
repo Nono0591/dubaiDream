@@ -23,7 +23,7 @@
   <div class="container-fluid px-4 px-lg-5 gap-3">
 
     <a class="navbar-brand me-0 me-lg-4" href="{{ path('app_home') }}">
-      <img src="{{ asset('uploads/logoNoir.png') }}" alt="Logo" class="dd-logo" width="80px">
+      <img src="{{ asset('uploads/logoInverse.png') }}" alt="Logo" class="dd-logo" width="150px">
       </span>
     </a>
 
@@ -48,7 +48,7 @@
       <button type="button" class="icon-btn" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Mon panier">
         <i class="bi bi-bag"></i>
         {% if fullCartquantity is defined and fullCartquantity > 0 %}
-          <span class="cart-count">{{ fullCartquantity }}</span>
+          <span class="dd-cart-count">{{ fullCartquantity }}</span>
         {% endif %}
       </button>
 
@@ -95,27 +95,30 @@
 </nav>
 
 {# ==================== Sous-barre catégories ==================== #}
+{# Sous-barre catégories #}
 <nav class="dd-catnav d-none d-lg-block">
-  <div class="container-fluid px-4 px-lg-5 d-flex align-items-center">
+  <div class="dd-container">
     <div class="dropdown">
-      <button class="dd-catnav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+      <button class="dd-cat-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
         <i class="bi bi-grid-3x3-gap-fill"></i> Toutes nos catégories
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu dd-cat-dropdown">
         {% for category in allCategories %}
-          <li><a class="dropdown-item" href="{{ path('app_category', {'slug': category.slug}) }}">{{ category.name }}</a></li>
+          <li><a class="dropdown-item dd-cat-dropdown-link" href="{{ path('app_category', {'slug': category.slug}) }}">{{ category.name }}</a></li>
         {% endfor %}
       </ul>
     </div>
 
-    {% for category in allCategories %}
-      <a href="{{ path('app_category', {'slug': category.slug}) }}"
-         class="dd-catnav-link {{ app.request.get('_route') == 'app_category' and app.request.get('slug') == category.slug ? 'text-dd-gold fw-semibold' : '' }}">
-        {{ category.name }}
-      </a>
-    {% endfor %}
+    <div class="dd-cat-links">
+      {% for category in allCategories %}
+        <a href="{{ path('app_category', {'slug': category.slug}) }}"
+           class="dd-cat-link {{ app.request.get('_route') == 'app_category' and app.request.get('slug') == category.slug ? 'active' : '' }}">
+          {{ category.name }}
+        </a>
+      {% endfor %}
+    </div>
 
-    <a href="#promotions" class="dd-catnav-link dd-catnav-promo ms-auto">
+    <a href="#promotions" class="dd-cat-link ms-auto">
       <i class="bi bi-gift"></i> Promotions <span class="badge rounded-pill">-20%</span>
     </a>
   </div>

@@ -1,0 +1,141 @@
+/* ============================================================
+   navbar.css
+   Bandeau promo + navbar principale + sous-barre catégories.
+   Correspond à partials/_navbar.html.twig
+   ============================================================ */
+
+.dd-topbar{
+	background: linear-gradient(90deg, var(--dd-gold-dark), var(--dd-gold), var(--dd-gold-dark));
+	color:#fff; font-size:12px;
+}
+.dd-topbar a{ color:#fff; opacity:.92; }
+.dd-topbar a:hover{ opacity:1; text-decoration:underline; }
+
+.dd-navbar{ background:#fff; border-bottom:1px solid var(--dd-line); }
+.dd-navbar .navbar-brand{ display:flex; align-items:center; gap:.6rem; }
+.dd-navbar .brand-mark{
+	width:40px; height:40px; border:1.5px solid var(--dd-gold); border-radius:50%;
+	display:flex; align-items:center; justify-content:center;
+	font-family:'Playfair Display', serif; font-weight:700; color:var(--dd-gold); font-size:13px; flex-shrink:0;
+}
+.dd-navbar .brand-text{ line-height:1.05; }
+.dd-navbar .brand-text .top{ font-family:'Playfair Display', serif; font-weight:700; font-size:18px; letter-spacing:.05em; color:var(--dd-ink); display:block; }
+.dd-navbar .brand-text .bottom{ font-size:9px; letter-spacing:.3em; color:var(--dd-gold); text-transform:uppercase; display:block; }
+
+.dd-navbar .nav-link{
+	font-size:13.5px; color:var(--dd-ink-soft) !important; padding:.5rem .9rem !important;
+	transition:color .2s; position:relative;
+}
+.dd-navbar .nav-link:hover, .dd-navbar .nav-link.active{ color:var(--dd-gold) !important; }
+.dd-navbar .promo-badge{ background:var(--dd-red); color:#fff; font-size:9.5px; font-weight:700; border-radius:20px; padding:.1rem .4rem; margin-left:.35rem; }
+
+.dd-navbar .icon-btn{
+	width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+	color:var(--dd-ink-soft); border:1px solid var(--dd-line); border-radius:50%; position:relative;
+	background:#fff; transition:all .2s;
+}
+.dd-navbar .icon-btn:hover{ color:var(--dd-gold); border-color:var(--dd-gold); }
+
+/* ── Sous-barre catégories (design "pill" — version qui gagne) ──
+   NOTE: le balisage de partials/_navbar.html.twig doit utiliser
+   ces classes (.dd-container, .dd-cat-btn, .dd-cat-links,
+   .dd-cat-link, .dd-cat-dropdown, .dd-logo...) et non plus
+   .dd-catnav-btn / .dd-catnav-link de l'ancien design. */
+.dd-catnav{
+	background: #fff;
+	border-top: 1px solid #ececec;
+	border-bottom: 1px solid #ececec;
+}
+
+.dd-container{
+	max-width: 1500px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	padding: 14px 30px;
+}
+
+.dd-cat-btn{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 18px;
+	background: #f5f5f5;
+	border: none;
+	border-radius: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: .25s;
+}
+.dd-cat-btn:hover{ background: #111; color: #fff; }
+
+.dd-cat-links{
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex: 1;
+	overflow-x: auto;
+}
+
+.dd-cat-link{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 20px;
+	border-radius: 50px;
+	background: #fff;
+	border: 1px solid #ececec;
+	color: #444;
+	text-decoration: none;
+	white-space: nowrap;
+	font-size: .92rem;
+	font-weight: 600;
+	transition: all .25s ease;
+}
+.dd-cat-link:hover{ background: #D4AF37; border-color: #D4AF37; color: #fff; transform: translateY(-2px); }
+.dd-cat-link.active{ background: #D4AF37; border-color: #D4AF37; color: #fff; }
+
+.dd-cat-dropdown{
+	min-width: 260px;
+	padding: 12px;
+	border: none;
+	border-radius: 18px;
+	box-shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+.dd-cat-dropdown-link{
+	display: block;
+	padding: 12px 16px;
+	border-radius: 10px;
+	color: #333;
+	text-decoration: none;
+	transition: .2s;
+}
+.dd-cat-dropdown-link:hover{ background: #f7f7f7; }
+
+.dd-logo{ width: auto; height: 70px; }
+
+.dd-search{ flex: 1; max-width: 700px; margin: 0 40px; }
+.dd-search input{
+	border:1px solid var(--dd-line); border-right:none; background:var(--dd-cream); font-size:14px; padding:.6rem 1rem;
+}
+.dd-search input:focus{ box-shadow:none; border-color:var(--dd-gold); background:var(--dd-cream); }
+.dd-search button{ background:var(--dd-gold); border:1px solid var(--dd-gold); color:#fff; padding:0 1.1rem; }
+.dd-search button:hover{ background:var(--dd-gold-dark); }
+
+.dd-cart-count{
+	position: absolute;
+	top: -6px;
+	right: -6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 22px;
+	height: 22px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	background: #e53935;
+	color: #fff;
+	font-size: .72rem;
+	font-weight: 700;
+}

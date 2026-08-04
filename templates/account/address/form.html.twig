@@ -1,33 +1,42 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
-<div class="container my-5">
+<div class="container py-5">
 
-    <h1>Espace membre</h1>
-
-<div class="row">
-        <div class="col-md-9">
-            {% include  'account/_menu.html.twig' %}  
-        </div>
-        <div class="col-md-9">
-        <h5>Mes adresses</h5>
-            {{ form_start(addressForm) }}
-                <div class="row">
-        <div class="col-md-12">{{ form_row(addressForm.firstname) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.lastname) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.address) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.postcode) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.city) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.country) }}</div>
-        <div class="col-md-12">{{ form_row(addressForm.phone) }}</div>
-     </div>
-
-            {{ form_end(addressForm) }}
-       Formulaire adresses
+    <div class="dd-account-header">
+        <p class="section-eyebrow">Espace membre</p>
+        <h1 class="dd-account-title">Mes adresses</h1>
+        <div class="gold-rule"></div>
     </div>
- </div>
-        
+
+    <div class="row g-4">
+        <div class="col-lg-3">
+            {% include 'account/_menu.html.twig' %}
+        </div>
+
+        <div class="col-lg-9">
+            {# ⚠️ adapte le nom de variable si ton contrôleur passe autre chose
+               qu'addressForm à ce template (ex: addForm / editForm). #}
+            <div class="dd-account-card">
+                <h5>{{ addressForm.vars.value.id ? 'Modifier l\'adresse' : 'Nouvelle adresse' }}</h5>
+
+                {{ form_start(addressForm) }}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">{{ form_row(addressForm.firstname) }}</div>
+                        <div class="col-md-6 mb-3">{{ form_row(addressForm.lastname) }}</div>
+                        <div class="col-md-12 mb-3">{{ form_row(addressForm.address) }}</div>
+                        <div class="col-md-4 mb-3">{{ form_row(addressForm.postcode) }}</div>
+                        <div class="col-md-8 mb-3">{{ form_row(addressForm.city) }}</div>
+                        <div class="col-md-6 mb-3">{{ form_row(addressForm.country) }}</div>
+                        <div class="col-md-6 mb-3">{{ form_row(addressForm.phone) }}</div>
+                    </div>
+
+                    <button type="submit" class="btn-gold">Enregistrer l'adresse</button>
+                    <a href="{{ path('app_account_addresses') }}" class="btn-outline-dark-dd ms-2">Annuler</a>
+                {{ form_end(addressForm) }}
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

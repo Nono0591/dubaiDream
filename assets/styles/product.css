@@ -1,0 +1,163 @@
+/* ============================================================
+   product.css
+   Carte produit (_product_card.html.twig) + panier offcanvas
+   (_cart.html.twig) + stepper quantité + barre livraison gratuite
+   + grille de produits.
+   NOTE: le balisage de _product_card.html.twig doit utiliser
+   .dd-card-image / .dd-card-img / .dd-card-content / .dd-card-title /
+   .dd-card-price / .dd-card-cart / .dd-card-favorite / .dd-card-rank
+   (design "gagnant"), pas les anciennes classes .dd-card__body etc.
+   ============================================================ */
+
+.dd-product-item { height: 100%; }
+
+.dd-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	border-radius: 22px;
+	background: #fff;
+	border: 1px solid rgba(0,0,0,.05);
+	transition: .35s ease;
+	box-shadow: 0 8px 30px rgba(0,0,0,.06);
+	will-change: transform;
+}
+.dd-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,.12); }
+.dd-card::after {
+	content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+	background: linear-gradient( 90deg, transparent, rgba(255,255,255,.45), transparent );
+	transform: skewX(-25deg); transition: 1s; pointer-events: none;
+}
+.dd-card:hover::after { left: 160%; }
+.dd-card, .dd-card::after { transition: transform .35s ease, color .35s ease, background .35s ease, box-shadow .35s ease, opacity .35s ease; }
+.dd-card a:focus-visible { outline: 2px solid #C89D4A; outline-offset: 4px; border-radius: 8px; }
+.dd-card ::selection { background: #C89D4A; color: #fff; }
+
+.dd-card-image { position: relative; overflow: hidden; background: #fafafa; }
+.dd-card-img { width: 100%; height: 260px; object-fit: cover; transition: .6s ease; display: block; will-change: transform; }
+.dd-card:hover .dd-card-img { transform: scale(1.06); }
+.dd-card-overlay { position: absolute; inset: 0; background: linear-gradient( 180deg, rgba(255,255,255,0), rgba(0,0,0,.04) ); pointer-events: none; }
+
+.dd-card-rank {
+	position: absolute; top: 15px; left: 15px; z-index: 5;
+	background: linear-gradient( 135deg, #C89D4A, #F5E2B2 ); color: #fff;
+	padding: 7px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; letter-spacing: .5px;
+}
+
+.dd-card-favorite {
+	position: absolute; top: 15px; right: 15px; width: 42px; height: 42px;
+	display: flex; justify-content: center; align-items: center; border-radius: 50%;
+	background: #fff; color: #777; text-decoration: none; z-index: 5; transition: .35s;
+	box-shadow: 0 10px 20px rgba(0,0,0,.10);
+}
+.dd-card-favorite i { font-size: 18px; }
+.dd-card-favorite:hover { background: #C89D4A; color: #fff; transform: rotate(10deg); }
+.dd-card-favorite.active { background: #C89D4A; color: #fff; }
+.dd-card:hover .dd-card-favorite { transform: scale(1.08); }
+
+.dd-card-content { display: flex; flex-direction: column; flex: 1; padding: 12px 14px; }
+.dd-card-content > * { position: relative; z-index: 2; }
+.dd-card:hover .dd-card-content { background: linear-gradient( 180deg, #ffffff, #fdfcf9 ); }
+
+.dd-card-category {
+	display: inline-flex; align-items: center; align-self: flex-start; padding: 4px 10px;
+	border-radius: 30px; background: #F8F3EA; color: #B88933; font-size: 10px; font-weight: 700;
+	text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: 8px;
+}
+.dd-card:hover .dd-card-category { background: #C89D4A; color: #fff; }
+
+.dd-card-title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; min-height: 40px; }
+.dd-card-title a { color: #222; text-decoration: none; transition: .3s; }
+.dd-card:hover .dd-card-title a { color: #B88933; }
+
+.dd-card-description { margin-top: 10px; color: #7B7B7B; font-size: 14px; line-height: 1.7; }
+
+.dd-card-rating { display: flex; align-items: center; gap: 4px; margin: 8px 0; font-size: 12px; }
+.dd-card-rating i { color: #F4B400; font-size: 14px; transition: .25s; }
+.dd-card-rating span { margin-left: 8px; color: #888; font-size: 13px; }
+.dd-card:hover .dd-card-rating i { transform: scale(1.12); }
+
+.dd-card-bottom { margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.06); }
+.dd-card-price { font-size: 20px; font-weight: 800; color: #B88933; margin-bottom: 10px; letter-spacing: -.5px; }
+.dd-card-price small { font-size: 15px; color: #888; font-weight: 500; }
+.dd-card:hover .dd-card-price { color: #9E7428; }
+
+.dd-card-cart {
+	position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
+	gap: 12px; width: 100%; height: 42px; border-radius: 14px;
+	background: linear-gradient( 135deg, #C89D4A, #B88933 ); color: #fff; text-decoration: none;
+	font-weight: 700; font-size: 13px; transition: .35s ease; box-shadow: 0 12px 30px rgba(200,157,74,.25);
+	will-change: transform;
+}
+.dd-card-cart span, .dd-card-cart i { transition: .35s ease; }
+.dd-card-cart i { font-size: 18px; }
+.dd-card-cart:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 18px 40px rgba(200,157,74,.35); }
+.dd-card-cart:hover span { transform: translateX(-4px); }
+.dd-card-cart:hover i { transform: translateX(6px); }
+.dd-card-cart:active { transform: scale(.98); }
+
+/* ── Panier offcanvas ── */
+.dd-cart-offcanvas{ background:#fff; color:var(--dd-ink); max-width:400px; }
+.dd-cart-offcanvas .offcanvas-header{ border-bottom:1px solid var(--dd-line); }
+.dd-cart-offcanvas .offcanvas-title{ font-family:'Playfair Display', serif; font-weight:600; letter-spacing:.04em; font-size:1.05rem; }
+.dd-cart-line img{ width:60px; height:72px; object-fit:cover; flex-shrink:0; border:1px solid var(--dd-line); }
+.dd-cart-line .name{ font-family:'Playfair Display', serif; font-size:14px; font-weight:600; color:var(--dd-ink); line-height:1.25; }
+.dd-cart-line .sub{ font-size:11.5px; color:var(--dd-muted); margin-bottom:.35rem; }
+.dd-cart-line .price{ font-weight:600; color:var(--dd-gold); font-size:13.5px; }
+.dd-cart-summary{ padding:1.25rem 1.5rem 1.5rem; border-top:1px solid var(--dd-line); }
+.dd-cart-summary .row-line{ display:flex; justify-content:space-between; font-size:13.5px; color:var(--dd-muted); margin-bottom:.5rem; }
+.dd-cart-summary .row-total{ display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; color:var(--dd-ink); margin:.75rem 0 1.1rem; padding-top:.75rem; border-top:1px solid var(--dd-line); }
+.dd-cart-shipnote{ font-size:11.5px; color:var(--dd-muted); text-align:center; margin:.75rem 0 0; }
+
+/* ── Stepper quantité (design "gagnant", utilisé panier + page produit) ── */
+.dd-qty { display: flex; align-items: center; border: 1px solid #ececec; border-radius: 12px; overflow: hidden; background: #fafafa; }
+.dd-qty-btn { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: #444; text-decoration: none; transition: .2s; }
+.dd-qty-btn:hover { background: #D4AF37; color: #fff; }
+.dd-qty-value { min-width: 38px; text-align: center; font-weight: 700; font-size: .95rem; }
+.dd-line-total { font-size: 1rem; color: #222; }
+
+/* ── Barre de progression livraison gratuite ── */
+.dd-shipping-progress { margin: 18px 0; }
+.dd-progress { width: 100%; height: 8px; background: #ececec; border-radius: 20px; overflow: hidden; margin-top: 8px; }
+.dd-progress-bar { height: 100%; background: #D4AF37; border-radius: 20px; }
+.dd-progress-text { font-size: .88rem; color: #666; }
+.dd-free-ok { background: #e8f7e8; color: #2e7d32; padding: 12px; border-radius: 12px; font-weight: 600; text-align: center; }
+
+/* ── Grille de produits (règle prioritaire : toujours après .dd-card) ── */
+.products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; }
+@media (max-width: 1400px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 992px)  { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px)  { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px)  { .products-grid { grid-template-columns: 1fr; } }
+
+/* ── Responsive carte produit ── */
+@media (max-width:768px) {
+	.dd-card { border-radius: 18px; }
+	.dd-card-img { height: 220px; }
+	.dd-card-content { padding: 18px; }
+	.dd-card-category { font-size: 10px; padding: 5px 10px; }
+	.dd-card-title { font-size: 17px; line-height: 1.4; }
+	.dd-card-rating { margin: 14px 0; }
+	.dd-card-price { font-size: 22px; }
+	.dd-card-cart { height: 48px; font-size: 14px; }
+}
+@media (max-width:992px) {
+	.dd-card-content { padding: 20px; }
+	.dd-card-title { font-size: 18px; min-height: auto; }
+	.dd-card-price { font-size: 24px; }
+}
+@media (max-width:1200px) {
+	.dd-card-img { height: 250px; }
+}
+@media (max-width:576px) {
+	.dd-card { border-radius: 16px; }
+	.dd-card-img { height: 190px; }
+	.dd-card-content { padding: 15px; }
+	.dd-card-title { font-size: 16px; }
+	.dd-card-price { font-size: 20px; margin-bottom: 14px; }
+	.dd-card-cart { height: 46px; border-radius: 12px; }
+	.dd-card-favorite { width: 38px; height: 38px; top: 10px; right: 10px; }
+	.dd-card-rank { top: 10px; left: 10px; padding: 5px 10px; font-size: 11px; }
+}

@@ -1,0 +1,167 @@
+/* ============================================================
+   footer.css
+   Correspond à partials/_footer.html.twig
+   NOTE: le balisage doit utiliser .dd-footer-top, .dd-footer-main,
+   .dd-footer-links, .dd-newsletter-box, .dd-payment-*,
+   .dd-footer-bottom-links... (design "gagnant"), pas les anciennes
+   classes .dd-footer__brand / .dd-footer__link.
+   ============================================================ */
+
+:root {
+	--footer-bg: #FCFAF7;
+	--footer-white: #ffffff;
+	--footer-text: #2d2d2d;
+	--footer-muted: #777;
+	--footer-border: #ece6dd;
+	--gold: #C89D4A;
+	--gold-light: #F5E2B2;
+	--gold-dark: #A77A28;
+	--shadow: 0 10px 35px rgba(0,0,0,.05);
+	--shadow-hover: 0 20px 50px rgba(0,0,0,.12);
+	--radius: 22px;
+	--transition: .35s ease;
+}
+
+.dd-footer {
+	background: var(--footer-bg);
+	color: var(--footer-text);
+	margin-top: 90px;
+	position: relative;
+	overflow: hidden;
+}
+.dd-footer::before {
+	content: "";
+	position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+	background: linear-gradient( 90deg, var(--gold), var(--gold-light), var(--gold), var(--gold-light), var(--gold) );
+}
+
+.dd-footer-top { padding: 18px 0; border-bottom: 1px solid var(--footer-border); background: #fff; }
+.dd-footer-top-content { display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap; }
+.dd-footer-top-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #555; font-weight: 500; }
+.dd-footer-top-item i { color: var(--gold); font-size: 18px; }
+.dd-footer-top-item strong { color: var(--gold-dark); }
+.dd-separator { width: 5px; height: 5px; border-radius: 50%; background: rgba(200,157,74,.45); }
+
+.dd-footer-main { padding: 55px 0 40px; }
+.dd-footer-logo { width: 145px; margin-bottom: 18px; transition: .4s; }
+.dd-footer-logo:hover { transform: scale(1.04); }
+.dd-footer-desc { line-height: 1.7; color: var(--footer-muted); font-size: 14px; max-width: 430px; }
+
+.dd-footer h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+.dd-footer h4 { font-size: 17px; font-weight: 700; margin-bottom: 16px; position: relative; }
+.dd-footer h4::after {
+	content: ""; display: block; width: 45px; height: 3px; border-radius: 20px;
+	background: linear-gradient( 90deg, var(--gold), var(--gold-light) ); margin-top: 10px;
+}
+
+.dd-footer-links { margin: 0; padding: 0; list-style: none; }
+.dd-footer-links li { margin-bottom: 14px; }
+.dd-footer-links a { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--footer-muted); font-size: 15px; transition: var(--transition); }
+.dd-footer-links a i { font-size: 11px; color: var(--gold); transition: var(--transition); }
+.dd-footer-links a:hover { color: var(--footer-text); transform: translateX(8px); }
+.dd-footer-links a:hover i { transform: translateX(4px); color: var(--gold-dark); }
+
+.dd-socials { display: flex; align-items: center; gap: 10px; margin-top: 22px; }
+.dd-socials a {
+	width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+	text-decoration: none; color: var(--footer-text); background: #fff; box-shadow: var(--shadow); transition: all .35s ease;
+}
+.dd-socials a i { font-size: 20px; }
+.dd-socials a:hover { background: linear-gradient( 135deg, var(--gold), var(--gold-light) ); color: #fff; transform: translateY(-7px) rotate(8deg); box-shadow: var(--shadow-hover); }
+
+.dd-newsletter-box {
+	background: #fff; padding: 26px; border-radius: var(--radius); box-shadow: var(--shadow);
+	position: relative; overflow: hidden; backdrop-filter: blur(10px);
+}
+.dd-newsletter-box::before {
+	content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+	background: linear-gradient( 90deg, var(--gold), var(--gold-light) );
+}
+.dd-newsletter-subtitle { display: inline-block; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 700; color: var(--gold-dark); margin-bottom: 12px; }
+.dd-newsletter-box h3 { font-size: 30px; margin-bottom: 18px; line-height: 1.3; }
+.dd-newsletter-box p { color: var(--footer-muted); line-height: 1.8; margin-bottom: 28px; }
+
+.dd-payment { margin-top: 25px; }
+.dd-payment-title { display: block; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--footer-text); margin-bottom: 18px; }
+.dd-payment-icons { display: flex; flex-wrap: wrap; gap: 15px; }
+.dd-payment-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: #fff; box-shadow: var(--shadow); transition: var(--transition); cursor: default; }
+.dd-payment-item i { font-size: 22px; color: var(--gold); }
+.dd-payment-item span { font-size: 14px; font-weight: 600; }
+.dd-payment-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+.dd-footer-bottom { border-top: 1px solid var(--footer-border); padding: 18px 0; background: #fff; }
+.dd-footer-bottom p { margin: 0; color: var(--footer-muted); font-size: 14px; }
+.dd-footer-bottom strong { color: var(--footer-text); }
+.dd-footer-bottom-links { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 18px; }
+.dd-footer-bottom-links span { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.dd-footer-bottom-links a { text-decoration: none; color: var(--footer-muted); transition: var(--transition); font-size: 14px; }
+.dd-footer-bottom-links a:hover { color: var(--gold-dark); }
+
+.dd-footer-made {
+	margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(0,0,0,.08);
+	display: flex; justify-content: center; align-items: center; gap: 12px; color: #8b8b8b; font-size: 14px; text-align: center;
+}
+.dd-footer-made i { color: var(--gold); font-size: 18px; animation: ddStars 3s infinite ease-in-out; }
+@keyframes ddStars {
+	0% { transform:scale(1); opacity:1; }
+	50% { transform:scale(1.2); opacity:.7; }
+	100% { transform:scale(1); opacity:1; }
+}
+
+.dd-feature, .dd-newsletter-box, .dd-payment-item, .dd-socials a { animation: ddFadeUp .7s ease both; }
+@keyframes ddFadeUp {
+	from { opacity:0; transform:translateY(30px); }
+	to { opacity:1; transform:translateY(0); }
+}
+.dd-feature, .dd-newsletter-box, .dd-payment-item { border: 1px solid rgba(200,157,74,.08); }
+.dd-feature:hover, .dd-newsletter-box:hover { border-color: rgba(200,157,74,.20); }
+
+.dd-footer a { -webkit-tap-highlight-color: transparent; }
+.dd-footer * { transition: color .3s ease, background .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease; }
+.dd-footer .dd-feature, .dd-footer .dd-newsletter-box, .dd-footer .dd-payment-item { will-change: transform; }
+.dd-footer ::selection { background: var(--gold); color: #fff; }
+.dd-footer ::-webkit-scrollbar { width: 8px; }
+.dd-footer ::-webkit-scrollbar-thumb { background: rgba(200,157,74,.35); border-radius: 20px; }
+.dd-footer ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Responsive ── */
+@media (max-width:1200px) {
+	.dd-footer-main { padding: 70px 0 60px; }
+	.dd-footer h3 { font-size: 28px; }
+	.dd-footer-logo { width: 170px; }
+}
+
+@media (max-width:992px) {
+	.dd-footer-main { text-align: center; }
+	.dd-footer-desc { max-width: 100%; margin: 25px auto; }
+	.dd-socials { justify-content: center; }
+	.dd-footer-links { margin-top: 15px; }
+	.dd-footer-links a { justify-content: center; }
+	.dd-payment-icons { justify-content: center; }
+	.dd-footer-bottom-links { justify-content: center; margin-top: 20px; }
+	.dd-newsletter-box { margin-top: 15px; }
+}
+
+@media (max-width:768px) {
+	.dd-footer-top-content { flex-direction: column; gap: 14px; }
+	.dd-separator { display: none; }
+	.dd-footer { margin-top: 70px; }
+	.dd-footer-main { padding: 55px 0; }
+}
+
+@media (max-width:576px) {
+	.dd-footer-main { padding: 45px 0; }
+	.dd-footer-logo { width: 150px; }
+	.dd-footer-desc { font-size: 14px; line-height: 1.8; }
+	.dd-newsletter-box { padding: 24px; }
+	.dd-newsletter-box h3 { font-size: 22px; }
+	.dd-newsletter-box p { font-size: 14px; }
+	.dd-socials { gap: 10px; }
+	.dd-socials a { width: 46px; height: 46px; }
+	.dd-payment-icons { flex-direction: column; }
+	.dd-payment-item { width: 100%; }
+	.dd-footer-bottom { text-align: center; }
+	.dd-footer-bottom-links { flex-direction: column; gap: 10px; }
+	.dd-footer-bottom-links span { display: none; }
+	.dd-footer-made { flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.7; }
+}

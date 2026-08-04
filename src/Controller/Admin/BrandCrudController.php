@@ -31,8 +31,8 @@ class BrandCrudController extends AbstractCrudController
                 ->setLabel('Image de fond du header')
                 ->setHelp('Image 1920x700 px')
                 ->setUploadedFileNamePattern('[year]-[month]-[day]-[contenthash].[extension]')
-                ->setBasePath('/uploads/headers')
-                ->setUploadDir('public/uploads/headers')
+                ->setBasePath('/uploads/icone')
+                ->setUploadDir('public/uploads/icone')
                 ->setRequired(true),
 
         ];
