@@ -1,73 +1,294 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Mon panier | Dubai Dream{% endblock %}
+
 {% block body %}
-<div class="container my-5">
-    <h1>Mon Panier</h1>
 
-    <div class="row">
-        {# ===== COLONNE PRODUITS ===== #}
-        <div class="col-md-8">
-            <p>Liste de mes produits :</p>
+<section class="py-5 bg-light">
+    <div class="container">
 
-            {% if cart|length > 0 %}
-                {% for product in cart %}
-                    <div class="row mt-3 align-items-center">
-                        <div class="col-2">
-                            <img src="/uploads/{{ product.object.illustration }}"
-                                 alt="{{ product.object.name }}"
-                                 class="img-fluid">
-                        </div>
+        {# ===== EN-TÊTE ===== #}
+        <div class="bg-white rounded-4 shadow-sm p-4 mb-4 border">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-bag-fill me-2 text-dark"></i>
+                        Mon panier
+                    </h2>
 
-                        <div class="col-5">
-                            <strong>{{ product.object.name }}</strong>
-                            <span class="d-block small">
-                                Prix unitaire : {{ product.object.pricewt|price }} €
-                            </span>
-                        </div>
-
-                        <div class="col-3 text-center">
-                            <a href="{{ path('app_cart_decrease', { id: product.object.id }) }}">−</a>
-                            <span class="badge text-bg-secondary mx-1">
-                                x{{ product.quantity }}
-                            </span>
-                            <a href="{{ path('app_cart_add', { id: product.object.id }) }}">+</a>
-                        </div>
-
-                        <div class="col-2 text-end">
-                            <strong>
-                                {{ (product.quantity * product.object.pricewt)|price }} €
-                            </strong>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <a href="{{ path('app_cart_remove') }}"
-                   class="small d-block mt-4 text-danger">
-                    Vider le panier
-                </a>
-            {% else %}
-                <p class="text-muted">Votre panier est vide.</p>
-            {% endif %}
-        </div>
-
-        {# ===== COLONNE RÉCAP ===== #}
-        <div class="col-md-4">
-            <div class="bg-light p-4 rounded">
-                <div class="d-flex justify-content-between">
-                    <span class="fw-bold">Total produits</span>
-                    <span>{{ fullCartquantity }}</span>
+                    <p class="text-muted mb-0">
+                        {{ fullCartquantity }} article{{ fullCartquantity > 1 ? 's' : '' }} dans votre panier.
+                    </p>
                 </div>
 
-                <div class="d-flex justify-content-between mt-3">
-                    <span class="fw-bold">Prix total T.T.C</span>
-                    <span>{{ totalWt|price }} €</span>
-                </div>
-
-                <a href="{{ path ('app_order') }}" class="btn btn-primary w-100 mt-4">
-                    Commander
+                <a href="{{ path('app_home') }}" class="btn btn-outline-dark mt-3 mt-md-0">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Continuer mes achats
                 </a>
             </div>
         </div>
+
+        <div class="row g-4">
+
+            {# ================= PRODUITS ================= #}
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body p-4">
+
+                        {% if cart|length > 0 %}
+
+                            {% for product in cart %}
+
+                                <div class="row align-items-center py-4 {% if not loop.last %}border-bottom{% endif %}">
+
+                                    <div class="col-md-2 text-center">
+
+                                        <img src="{{ asset('uploads/' ~ product.object.illustration) }}"
+                                             class="img-fluid rounded-3"
+                                             style="max-height:100px;object-fit:contain;"
+                                             alt="{{ product.object.name }}">
+
+                                    </div>
+
+                                    <div class="col-md-4 mt-3 mt-md-0">
+
+                                        <h5 class="fw-bold mb-2">
+                                            {{ product.object.name }}
+                                        </h5>
+
+                                        <div class="text-muted small">
+
+                                            Prix unitaire
+
+                                        </div>
+
+                                        <div class="fw-semibold">
+
+                                            {{ product.object.pricewt|price }} €
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3 mt-3 mt-md-0">
+
+                                        <div class="d-flex justify-content-center align-items-center">
+
+                                            <a href="{{ path('app_cart_decrease',{id:product.object.id}) }}"
+                                               class="btn btn-outline-dark btn-sm">
+
+                                                <i class="bi bi-dash"></i>
+
+                                            </a>
+
+                                            <span class="mx-3 fw-bold">
+
+                                                {{ product.quantity }}
+
+                                            </span>
+
+                                            <a href="{{ path('app_cart_add',{id:product.object.id}) }}"
+                                               class="btn btn-outline-dark btn-sm">
+
+                                                <i class="bi bi-plus"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3 text-md-end mt-3 mt-md-0">
+
+                                        <div class="fw-bold fs-5">
+
+                                            {{ (product.quantity * product.object.pricewt)|price }} €
+
+                                        </div>
+
+                                        <a href="{{ path('app_cart_delete',{id:product.object.id}) }}"
+                                           class="text-danger small text-decoration-none">
+
+                                            <i class="bi bi-trash3 me-1"></i>
+
+                                            Supprimer
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="text-center py-5">
+
+                                <i class="bi bi-bag display-1 text-secondary"></i>
+
+                                <h4 class="mt-4">
+
+                                    Votre panier est vide
+
+                                </h4>
+
+                                <p class="text-muted">
+
+                                    Découvrez nos produits et faites-vous plaisir.
+
+                                </p>
+
+                                <a href="{{ path('app_home') }}"
+                                   class="btn btn-dark mt-3">
+
+                                    Retour à la boutique
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {# ================= RÉCAP ================= #}
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4 sticky-top"
+                     style="top:110px;">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold mb-4">
+
+                            Résumé
+
+                        </h4>
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <span>Produits</span>
+
+                            <strong>{{ fullCartquantity }}</strong>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <span>Sous-total</span>
+
+                            <strong>{{ totalWt|price }} €</strong>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <span>Livraison</span>
+
+                            <strong>
+
+                                {% if isShippingFree %}
+
+                                    Offerte
+
+                                {% else %}
+
+                                    {{ shippingCost|price }} €
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between fs-5">
+
+                            <strong>Total</strong>
+
+                            <strong>
+
+                                {{ (totalWt + shippingCost)|price }} €
+
+                            </strong>
+
+                        </div>
+
+                        {% if not isShippingFree %}
+
+                            {% set progress=((60-amountLeftForFreeShipping)/60*100)|round %}
+
+                            <div class="mt-4">
+
+                                <small>
+
+                                    Plus que
+
+                                    <strong>
+
+                                        {{ amountLeftForFreeShipping|price }} €
+
+                                    </strong>
+
+                                    pour bénéficier de la livraison offerte.
+
+                                </small>
+
+                                <div class="progress mt-2" style="height:8px;">
+
+                                    <div class="progress-bar bg-dark"
+                                         style="width:{{ progress }}%"></div>
+
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="alert alert-success mt-4 mb-0">
+
+                                🚚 Livraison offerte obtenue !
+
+                            </div>
+
+                        {% endif %}
+
+                        <a href="{{ path('app_order') }}"
+                           class="btn btn-dark w-100 mt-4 py-3">
+
+                            <i class="bi bi-credit-card me-2"></i>
+
+                            Commander
+
+                        </a>
+
+                        <a href="{{ path('app_cart_remove') }}"
+                           class="btn btn-outline-danger w-100 mt-3">
+
+                            <i class="bi bi-trash3 me-2"></i>
+
+                            Vider le panier
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-</div>
+</section>
+
 {% endblock %}

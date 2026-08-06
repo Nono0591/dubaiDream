@@ -1,0 +1,30 @@
+<div class="offcanvas offcanvas-end"
+     tabindex="-1"
+     id="cartOffcanvas"
+     aria-labelledby="cartOffcanvasLabel">
+
+    <div class="offcanvas-header border-bottom">
+
+    <h5 class="offcanvas-title" id="cartOffcanvasLabel">
+
+        <i class="bi bi-bag me-2"></i>
+        Mon panier
+
+        <span class="badge bg-dark ms-2 cart-offcanvas-badge">
+            {{ fullCartQuantity|default(0) }}
+        </span>
+
+    </h5>
+    <button type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Fermer">
+    </button>
+
+</div>
+    <div class="offcanvas-body d-flex flex-column">
+        <div id="cart-content">
+            {% include 'cart/_cart_content.html.twig' %}
+        </div>
+    </div>
+</div>
