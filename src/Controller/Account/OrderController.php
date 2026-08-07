@@ -9,20 +9,34 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class OrderController extends AbstractController
 {
-    #[Route('/compte/commande/{id_order}', name: 'app_account_order')]
-    public function index($id_order, OrderRepository $orderRepository): Response
+    // Liste de toutes les commandes de l'utilisateur
+    #[Route('/compte/commandes', name: 'app_account_order')]
+    public function index(OrderRepository $orderRepository): Response
     {
-           $order = $orderRepository->findOneBy([
-            'id' => $id_order,
+        $orders = $orderRepository->findBy([
             'user' => $this->getUser()
-           ]);
-
-         if (!$order) {
-            return $this->redirectToRoute ('app_home');
-         }  
+        ], ['createdAt' => 'DESC']);
 
         return $this->render('account/order/index.html.twig', [
-            'order'=> $order,
+            'orders' => $orders,
+        ]);
+    }
+
+    // Détail d'une commande précise
+    #[Route('/compte/commande/{id_order}', name: 'app_account_order_show')]
+    public function show($id_order, OrderRepository $orderRepository): Response
+    {
+        $order = $orderRepository->findOneBy([
+            'id' => $id_order,
+            'user' => $this->getUser()
+        ]);
+
+        if (!$order) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('account/order/show.html.twig', [
+            'order' => $order,
         ]);
     }
 }

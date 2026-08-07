@@ -7,157 +7,800 @@
    .dd-card-image / .dd-card-img / .dd-card-content / .dd-card-title /
    .dd-card-price / .dd-card-cart / .dd-card-favorite / .dd-card-rank
    (design "gagnant"), pas les anciennes classes .dd-card__body etc.
+
+   Version finale :
+   - hover .dd-card conserve translateZ(0) (accélération GPU
+     conservée pendant l'animation, pas seulement au repos)
+   - support prefers-reduced-motion (coupe transitions/animations
+     pour les utilisateurs qui le demandent)
+   - contain:layout paint sur .dd-card (scope de recalcul réduit)
+   - transition color ajoutée sur .dd-card-cart
+   - focus-visible ajouté sur .dd-card-cart
+   - VISIBILITÉ CORRIGÉE : .dd-product-item est visible par défaut.
+     Il n'est masqué (opacity:0) que si <html> porte la classe "js",
+     posée par un script exécuté tôt dans le <head>. Si le JS qui
+     gère l'IntersectionObserver ne charge pas ou plante, les cartes
+     restent visibles au lieu de disparaître définitivement.
+     Voir le bloc "PROGRESSIVE ENHANCEMENT" plus bas + le script à
+     ajouter dans le <head> (commentaire en fin de fichier).
    ============================================================ */
 
-.dd-product-item { height: 100%; }
-
-.dd-card {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	overflow: hidden;
-	border-radius: 22px;
-	background: #fff;
-	border: 1px solid rgba(0,0,0,.05);
-	transition: .35s ease;
-	box-shadow: 0 8px 30px rgba(0,0,0,.06);
-	will-change: transform;
-}
-.dd-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,.12); }
-.dd-card::after {
-	content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
-	background: linear-gradient( 90deg, transparent, rgba(255,255,255,.45), transparent );
-	transform: skewX(-25deg); transition: 1s; pointer-events: none;
-}
-.dd-card:hover::after { left: 160%; }
-.dd-card, .dd-card::after { transition: transform .35s ease, color .35s ease, background .35s ease, box-shadow .35s ease, opacity .35s ease; }
-.dd-card a:focus-visible { outline: 2px solid #C89D4A; outline-offset: 4px; border-radius: 8px; }
-.dd-card ::selection { background: #C89D4A; color: #fff; }
-
-.dd-card-image { position: relative; overflow: hidden; background: #fafafa; }
-.dd-card-img { width: 100%; height: 260px; object-fit: cover; transition: .6s ease; display: block; will-change: transform; }
-.dd-card:hover .dd-card-img { transform: scale(1.06); }
-.dd-card-overlay { position: absolute; inset: 0; background: linear-gradient( 180deg, rgba(255,255,255,0), rgba(0,0,0,.04) ); pointer-events: none; }
-
-.dd-card-rank {
-	position: absolute; top: 15px; left: 15px; z-index: 5;
-	background: linear-gradient( 135deg, #C89D4A, #F5E2B2 ); color: #fff;
-	padding: 7px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; letter-spacing: .5px;
+:root{
+    --dd-ease: .28s cubic-bezier(.4,0,.2,1);
 }
 
-.dd-card-favorite {
-	position: absolute; top: 15px; right: 15px; width: 42px; height: 42px;
-	display: flex; justify-content: center; align-items: center; border-radius: 50%;
-	background: #fff; color: #777; text-decoration: none; z-index: 5; transition: .35s;
-	box-shadow: 0 10px 20px rgba(0,0,0,.10);
+/* ============================================================
+   PROGRESSIVE ENHANCEMENT — visibilité des cartes
+   Par défaut (sans JS ou si le JS échoue) : toujours visible.
+   L'animation d'apparition n'est activée que si html.js est présent,
+   posée par un script placé tôt dans le <head> (voir note en fin
+   de fichier). L'IntersectionObserver ajoute ensuite .is-visible
+   quand la carte entre dans l'écran.
+============================================================ */
+.dd-product-item{
+    height:100%;
+    display:flex;
 }
-.dd-card-favorite i { font-size: 18px; }
-.dd-card-favorite:hover { background: #C89D4A; color: #fff; transform: rotate(10deg); }
-.dd-card-favorite.active { background: #C89D4A; color: #fff; }
-.dd-card:hover .dd-card-favorite { transform: scale(1.08); }
 
-.dd-card-content { display: flex; flex-direction: column; flex: 1; padding: 12px 14px; }
-.dd-card-content > * { position: relative; z-index: 2; }
-.dd-card:hover .dd-card-content { background: linear-gradient( 180deg, #ffffff, #fdfcf9 ); }
-
-.dd-card-category {
-	display: inline-flex; align-items: center; align-self: flex-start; padding: 4px 10px;
-	border-radius: 30px; background: #F8F3EA; color: #B88933; font-size: 10px; font-weight: 700;
-	text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: 8px;
+html.js .dd-product-item{
+    opacity:0;
+    transform:translateY(35px);
+    transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
 }
-.dd-card:hover .dd-card-category { background: #C89D4A; color: #fff; }
 
-.dd-card-title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; min-height: 40px; }
-.dd-card-title a { color: #222; text-decoration: none; transition: .3s; }
-.dd-card:hover .dd-card-title a { color: #B88933; }
-
-.dd-card-description { margin-top: 10px; color: #7B7B7B; font-size: 14px; line-height: 1.7; }
-
-.dd-card-rating { display: flex; align-items: center; gap: 4px; margin: 8px 0; font-size: 12px; }
-.dd-card-rating i { color: #F4B400; font-size: 14px; transition: .25s; }
-.dd-card-rating span { margin-left: 8px; color: #888; font-size: 13px; }
-.dd-card:hover .dd-card-rating i { transform: scale(1.12); }
-
-.dd-card-bottom { margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.06); }
-.dd-card-price { font-size: 20px; font-weight: 800; color: #B88933; margin-bottom: 10px; letter-spacing: -.5px; }
-.dd-card-price small { font-size: 15px; color: #888; font-weight: 500; }
-.dd-card:hover .dd-card-price { color: #9E7428; }
-
-.dd-card-cart {
-	position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
-	gap: 12px; width: 100%; height: 42px; border-radius: 14px;
-	background: linear-gradient( 135deg, #C89D4A, #B88933 ); color: #fff; text-decoration: none;
-	font-weight: 700; font-size: 13px; transition: .35s ease; box-shadow: 0 12px 30px rgba(200,157,74,.25);
-	will-change: transform;
+html.js .dd-product-item.is-visible{
+    opacity:1;
+    transform:none;
 }
-.dd-card-cart span, .dd-card-cart i { transition: .35s ease; }
-.dd-card-cart i { font-size: 18px; }
-.dd-card-cart:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 18px 40px rgba(200,157,74,.35); }
-.dd-card-cart:hover span { transform: translateX(-4px); }
-.dd-card-cart:hover i { transform: translateX(6px); }
-.dd-card-cart:active { transform: scale(.98); }
 
-/* ── Panier offcanvas ── */
-.dd-cart-offcanvas{ background:#fff; color:var(--dd-ink); max-width:400px; }
-.dd-cart-offcanvas .offcanvas-header{ border-bottom:1px solid var(--dd-line); }
-.dd-cart-offcanvas .offcanvas-title{ font-family:'Playfair Display', serif; font-weight:600; letter-spacing:.04em; font-size:1.05rem; }
-.dd-cart-line img{ width:60px; height:72px; object-fit:cover; flex-shrink:0; border:1px solid var(--dd-line); }
-.dd-cart-line .name{ font-family:'Playfair Display', serif; font-size:14px; font-weight:600; color:var(--dd-ink); line-height:1.25; }
-.dd-cart-line .sub{ font-size:11.5px; color:var(--dd-muted); margin-bottom:.35rem; }
-.dd-cart-line .price{ font-weight:600; color:var(--dd-gold); font-size:13.5px; }
-.dd-cart-summary{ padding:1.25rem 1.5rem 1.5rem; border-top:1px solid var(--dd-line); }
-.dd-cart-summary .row-line{ display:flex; justify-content:space-between; font-size:13.5px; color:var(--dd-muted); margin-bottom:.5rem; }
-.dd-cart-summary .row-total{ display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; color:var(--dd-ink); margin:.75rem 0 1.1rem; padding-top:.75rem; border-top:1px solid var(--dd-line); }
-.dd-cart-shipnote{ font-size:11.5px; color:var(--dd-muted); text-align:center; margin:.75rem 0 0; }
-
-/* ── Stepper quantité (design "gagnant", utilisé panier + page produit) ── */
-.dd-qty { display: flex; align-items: center; border: 1px solid #ececec; border-radius: 12px; overflow: hidden; background: #fafafa; }
-.dd-qty-btn { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: #444; text-decoration: none; transition: .2s; }
-.dd-qty-btn:hover { background: #D4AF37; color: #fff; }
-.dd-qty-value { min-width: 38px; text-align: center; font-weight: 700; font-size: .95rem; }
-.dd-line-total { font-size: 1rem; color: #222; }
-
-/* ── Barre de progression livraison gratuite ── */
-.dd-shipping-progress { margin: 18px 0; }
-.dd-progress { width: 100%; height: 8px; background: #ececec; border-radius: 20px; overflow: hidden; margin-top: 8px; }
-.dd-progress-bar { height: 100%; background: #D4AF37; border-radius: 20px; }
-.dd-progress-text { font-size: .88rem; color: #666; }
-.dd-free-ok { background: #e8f7e8; color: #2e7d32; padding: 12px; border-radius: 12px; font-weight: 600; text-align: center; }
-
-/* ── Grille de produits (règle prioritaire : toujours après .dd-card) ── */
-.products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; }
-@media (max-width: 1400px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 992px)  { .products-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px)  { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px)  { .products-grid { grid-template-columns: 1fr; } }
-
-/* ── Responsive carte produit ── */
-@media (max-width:768px) {
-	.dd-card { border-radius: 18px; }
-	.dd-card-img { height: 220px; }
-	.dd-card-content { padding: 18px; }
-	.dd-card-category { font-size: 10px; padding: 5px 10px; }
-	.dd-card-title { font-size: 17px; line-height: 1.4; }
-	.dd-card-rating { margin: 14px 0; }
-	.dd-card-price { font-size: 22px; }
-	.dd-card-cart { height: 48px; font-size: 14px; }
+/* ============================================================
+   CARD
+============================================================ */
+.dd-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(0,0,0,.05);
+    border-radius:22px;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.05),
+        0 18px 35px rgba(0,0,0,.05);
+    transition:transform var(--dd-ease), box-shadow var(--dd-ease), border-color var(--dd-ease), background var(--dd-ease);
+    cursor:pointer;
+    isolation:isolate;
+    contain:layout paint;
+    z-index:1;
+    will-change:transform;
+    backface-visibility:hidden;
+    transform:translateZ(0);
 }
-@media (max-width:992px) {
-	.dd-card-content { padding: 20px; }
-	.dd-card-title { font-size: 18px; min-height: auto; }
-	.dd-card-price { font-size: 24px; }
+
+.dd-card:hover{
+    /* on garde translateZ(0) pour ne pas perdre l'accélération GPU
+       pendant l'animation, au lieu de la perdre au moment précis
+       du hover */
+    transform:translateY(-8px) translateZ(0);
+    border-color:rgba(212,175,55,.35);
+    box-shadow:
+        0 10px 22px rgba(0,0,0,.06),
+        0 24px 45px rgba(0,0,0,.06);
+    z-index:5;
 }
-@media (max-width:1200px) {
-	.dd-card-img { height: 250px; }
+
+/* ============================================================
+   SHINE EFFECT
+============================================================ */
+.dd-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%);
+    transform:translateX(-160%);
+    transition:transform .9s ease;
+    pointer-events:none;
 }
-@media (max-width:576px) {
-	.dd-card { border-radius: 16px; }
-	.dd-card-img { height: 190px; }
-	.dd-card-content { padding: 15px; }
-	.dd-card-title { font-size: 16px; }
-	.dd-card-price { font-size: 20px; margin-bottom: 14px; }
-	.dd-card-cart { height: 46px; border-radius: 12px; }
-	.dd-card-favorite { width: 38px; height: 38px; top: 10px; right: 10px; }
-	.dd-card-rank { top: 10px; left: 10px; padding: 5px 10px; font-size: 11px; }
+
+.dd-card:hover::after{
+    transform:translateX(170%);
 }
+
+/* ============================================================
+   ACCESSIBILITY
+============================================================ */
+.dd-card a:focus-visible{
+    outline:2px solid var(--dd-gold);
+    outline-offset:4px;
+    border-radius:8px;
+}
+
+.dd-card ::selection{
+    background:var(--dd-gold);
+    color:#fff;
+}
+
+/* ============================================================
+   IMAGE
+============================================================ */
+.dd-card-image{
+    position:relative;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.dd-card-img{
+    width:100%;
+    aspect-ratio:1/1;
+    height:auto;
+    object-fit:cover;
+    display:block;
+    transition:transform .6s ease, filter var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-img{
+    transform:scale(1.08);
+    filter:saturate(1.05) contrast(1.02);
+}
+
+/* ============================================================
+   OVERLAY
+============================================================ */
+.dd-card-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,.05));
+    transition:var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-overlay{
+    background:linear-gradient(to bottom, rgba(255,255,255,.04), rgba(0,0,0,.10));
+}
+
+/* ============================================================
+   RANK
+============================================================ */
+.dd-card-rank{
+    position:absolute;
+    top:15px;
+    left:15px;
+    z-index:5;
+    background:linear-gradient(135deg, #D4AF37, #B88933);
+    color:#fff;
+    padding:7px 15px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.6px;
+    box-shadow:0 10px 20px rgba(212,175,55,.20);
+}
+
+/* ============================================================
+   OPTIONAL BADGE
+============================================================ */
+.dd-card-badge{
+    position:absolute;
+    top:58px;
+    left:15px;
+    z-index:20;
+    padding:6px 12px;
+    border-radius:25px;
+    background:#E53935;
+    color:#fff;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    box-shadow:0 8px 16px rgba(229,57,53,.20);
+}
+
+/* ============================================================
+   FAVORITE
+============================================================ */
+.dd-card-favorite{
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:20;
+    width:42px;
+    height:42px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    border-radius:50%;
+    background:#fff;
+    color:#666;
+    transition:transform var(--dd-ease), background var(--dd-ease), color var(--dd-ease);
+    box-shadow:0 10px 20px rgba(0,0,0,.10);
+}
+
+.dd-card-favorite i{
+    font-size:18px;
+    transition:var(--dd-ease);
+}
+
+.dd-card-favorite:hover{
+    background:var(--dd-gold);
+    color:#fff;
+    transform:scale(1.15);
+}
+
+.dd-card-favorite:hover i{
+    transform:scale(1.20);
+}
+
+.dd-card-favorite.active{
+    background:var(--dd-gold);
+    color:#fff;
+}
+
+/* ============================================================
+   CONTENT
+============================================================ */
+.dd-card-content{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    padding:18px;
+    background:#fff;
+    transition:background var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-content{
+    background:linear-gradient(180deg, #ffffff, #fdfcf8);
+}
+
+/* ============================================================
+   CATEGORY
+============================================================ */
+.dd-card-category{
+    display:inline-flex;
+    align-items:center;
+    align-self:flex-start;
+    padding:5px 12px;
+    border-radius:40px;
+    background:#F8F3EA;
+    color:#B88933;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    margin-bottom:10px;
+    transition:var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-category{
+    background:var(--dd-gold);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/* ============================================================
+   TITLE
+============================================================ */
+.dd-card-title{
+    margin:0;
+    min-height:46px;
+    font-size:16px;
+    line-height:1.45;
+    font-weight:700;
+    transition:var(--dd-ease);
+}
+
+.dd-card-title a{
+    color:#222;
+    text-decoration:none;
+    transition:var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-title{
+    transform:translateX(3px);
+}
+
+.dd-card:hover .dd-card-title a{
+    color:var(--dd-gold);
+}
+
+/* ============================================================
+   DESCRIPTION
+============================================================ */
+.dd-card-description{
+    margin-top:10px;
+    color:#7B7B7B;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* ============================================================
+   RATING
+============================================================ */
+.dd-card-rating{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    margin:12px 0;
+}
+
+.dd-card-rating i{
+    color:#F4B400;
+    font-size:14px;
+    transition:var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-rating i{
+    transform:scale(1.12);
+}
+
+.dd-card-rating span{
+    margin-left:8px;
+    color:#777;
+    font-size:12px;
+}
+
+/* ============================================================
+   BOTTOM
+============================================================ */
+.dd-card-bottom{
+    margin-top:auto;
+    padding-top:18px;
+    border-top:1px solid rgba(0,0,0,.06);
+}
+
+/* ============================================================
+   PRICE
+============================================================ */
+.dd-card-price{
+    position:relative;
+    margin-bottom:14px;
+    font-size:23px;
+    font-weight:800;
+    color:var(--dd-gold);
+    transition:var(--dd-ease);
+    letter-spacing:-.4px;
+}
+
+.dd-card-price::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0;
+    height:2px;
+    background:var(--dd-gold);
+    transition:var(--dd-ease);
+}
+
+.dd-card:hover .dd-card-price{
+    color:#A87924;
+    letter-spacing:0;
+    transform:scale(1.04);
+}
+
+.dd-card:hover .dd-card-price::after{
+    width:100%;
+}
+
+.dd-card-price small{
+    color:#888;
+    font-size:15px;
+}
+
+/* ============================================================
+   BUTTON PANIER
+============================================================ */
+.dd-card-cart{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    height:48px;
+    border-radius:14px;
+    text-decoration:none;
+    background:linear-gradient(135deg, #d9a441, #C48417);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.2px;
+    transition:transform var(--dd-ease), box-shadow var(--dd-ease), letter-spacing var(--dd-ease), color var(--dd-ease);
+    box-shadow:0 12px 24px rgba(214,156,47,.22);
+}
+
+.dd-card-cart:focus-visible{
+    outline:2px solid var(--dd-gold);
+    outline-offset:4px;
+}
+
+.dd-card-cart::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform:translateX(-160%);
+    transition:transform .7s ease;
+}
+
+.dd-card-cart:hover::before{
+    transform:translateX(170%);
+    transition:.70s;
+}
+
+.dd-card-cart span{
+    transition:var(--dd-ease);
+}
+
+.dd-card-cart i{
+    font-size:18px;
+    transition:var(--dd-ease);
+}
+
+.dd-card-cart:hover{
+    color:#fff;
+    transform:translateY(-3px);
+    letter-spacing:.4px;
+    box-shadow:0 18px 32px rgba(214,156,47,.30);
+}
+
+.dd-card-cart:hover span{
+    transform:translateX(-3px);
+}
+
+.dd-card-cart:hover i{
+    transform:translateX(5px);
+}
+
+.dd-card-cart:active{
+    transform:scale(.98);
+}
+
+/* ============================================================
+   CART OFFCANVAS
+============================================================ */
+.dd-cart-offcanvas{
+    background:#fff;
+    color:var(--dd-ink);
+    max-width:400px;
+}
+
+.dd-cart-offcanvas .offcanvas-header{
+    border-bottom:1px solid var(--dd-line);
+}
+
+.dd-cart-offcanvas .offcanvas-title{
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    letter-spacing:.04em;
+    font-size:1.05rem;
+}
+
+.dd-cart-line{
+    transition:var(--dd-ease);
+}
+
+.dd-cart-line:hover{
+    background:#fafafa;
+    border-radius:14px;
+}
+
+.dd-cart-line img{
+    width:60px;
+    height:72px;
+    object-fit:cover;
+    flex-shrink:0;
+    border:1px solid var(--dd-line);
+}
+
+.dd-cart-line .name{
+    font-family:'Playfair Display', serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--dd-ink);
+    line-height:1.25;
+}
+
+.dd-cart-line .sub{
+    font-size:11.5px;
+    color:var(--dd-muted);
+    margin-bottom:.35rem;
+}
+
+.dd-cart-line .price{
+    font-weight:600;
+    color:var(--dd-gold);
+    font-size:13.5px;
+}
+
+.dd-cart-summary{
+    padding:1.25rem 1.5rem 1.5rem;
+    border-top:1px solid var(--dd-line);
+}
+
+.dd-cart-summary .row-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:13.5px;
+    color:var(--dd-muted);
+    margin-bottom:.5rem;
+}
+
+.dd-cart-summary .row-total{
+    display:flex;
+    justify-content:space-between;
+    font-weight:700;
+    font-size:1.1rem;
+    color:var(--dd-ink);
+    margin:.75rem 0 1.1rem;
+    padding-top:.75rem;
+    border-top:1px solid var(--dd-line);
+}
+
+.dd-cart-shipnote{
+    font-size:11.5px;
+    color:var(--dd-muted);
+    text-align:center;
+    margin:.75rem 0 0;
+}
+
+/* ============================================================
+   STEPPER QUANTITÉ
+============================================================ */
+.dd-qty{
+    display:flex;
+    align-items:center;
+    border:1px solid #ECECEC;
+    border-radius:12px;
+    overflow:hidden;
+    background:#FAFAFA;
+}
+
+.dd-qty-btn{
+    width:36px;
+    height:36px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:#444;
+    transition:var(--dd-ease);
+}
+
+.dd-qty-btn:hover{
+    background:var(--dd-gold);
+    color:#fff;
+}
+
+.dd-qty-value{
+    min-width:40px;
+    text-align:center;
+    font-weight:700;
+    font-size:.95rem;
+}
+
+.dd-line-total{
+    font-size:1rem;
+    color:#222;
+}
+
+/* ============================================================
+   LIVRAISON GRATUITE
+============================================================ */
+.dd-shipping-progress{
+    margin:18px 0;
+}
+
+.dd-progress{
+    width:100%;
+    height:8px;
+    border-radius:30px;
+    background:#ECECEC;
+    overflow:hidden;
+    margin-top:8px;
+}
+
+.dd-progress-bar{
+    height:100%;
+    border-radius:30px;
+    background:linear-gradient(90deg, #D4AF37, #C89D4A);
+    transition:width var(--dd-ease);
+}
+
+.dd-progress-text{
+    font-size:.88rem;
+    color:#666;
+}
+
+.dd-free-ok{
+    background:#e8f7e8;
+    color:#2e7d32;
+    padding:12px;
+    border-radius:12px;
+    font-weight:600;
+    text-align:center;
+}
+
+/* ============================================================
+   GRILLE DE PRODUITS
+============================================================ */
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:28px;
+    align-items:stretch;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:1400px){
+    .products-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media (max-width:992px){
+    .products-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .dd-card-content{
+        padding:20px;
+    }
+
+    .dd-card-title{
+        font-size:18px;
+        min-height:auto;
+    }
+
+    .dd-card-price{
+        font-size:24px;
+    }
+}
+
+@media (max-width:768px){
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:18px;
+    }
+
+    .dd-card{
+        border-radius:18px;
+    }
+
+    .dd-card-content{
+        padding:15px;
+    }
+
+    .dd-card-category{
+        font-size:10px;
+        padding:5px 10px;
+    }
+
+    .dd-card-title{
+        font-size:15px;
+        line-height:1.4;
+        min-height:auto;
+    }
+
+    .dd-card-rating{
+        margin:14px 0;
+    }
+
+    .dd-card-price{
+        font-size:21px;
+    }
+
+    .dd-card-cart{
+        height:46px;
+        font-size:13px;
+    }
+}
+
+@media (max-width:576px){
+    .products-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dd-card{
+        border-radius:16px;
+    }
+
+    .dd-card-content{
+        padding:15px;
+    }
+
+    .dd-card-title{
+        font-size:16px;
+    }
+
+    .dd-card-price{
+        font-size:20px;
+        margin-bottom:14px;
+    }
+
+    .dd-card-cart{
+        height:44px;
+        border-radius:12px;
+        font-size:13px;
+    }
+
+    .dd-card-favorite{
+        width:38px;
+        height:38px;
+        top:10px;
+        right:10px;
+    }
+
+    .dd-card-rank{
+        top:10px;
+        left:10px;
+        padding:5px 10px;
+        font-size:11px;
+    }
+}
+
+@media (max-width:480px){
+    .products-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ============================================================
+   ACCESSIBILITÉ — prefers-reduced-motion
+   Neutralise toutes les transitions/animations décoratives pour
+   les utilisateurs ayant demandé moins de mouvement au niveau OS.
+   Les cartes restent visibles (opacity:1) même sans JS/observer
+   qui déclenche .is-visible.
+============================================================ */
+@media (prefers-reduced-motion: reduce){
+    html.js .dd-product-item{
+        opacity:1;
+        transform:none;
+        transition:none;
+    }
+
+    .dd-card,
+    .dd-card::after,
+    .dd-card-img,
+    .dd-card-overlay,
+    .dd-card-category,
+    .dd-card-title,
+    .dd-card-favorite,
+    .dd-card-favorite i,
+    .dd-card-rating i,
+    .dd-card-price,
+    .dd-card-price::after,
+    .dd-card-cart,
+    .dd-card-cart::before,
+    .dd-card-cart span,
+    .dd-card-cart i,
+    .dd-qty-btn,
+    .dd-progress-bar,
+    .dd-cart-line{
+        transition:none !important;
+        animation:none !important;
+    }
+
+    .dd-card:hover{
+        transform:none;
+    }
+}
+
+/* ============================================================
+   SCRIPT À AJOUTER DANS LE <head>, LE PLUS TÔT POSSIBLE
+   (avant même le chargement de ce fichier CSS si possible, sinon
+   juste après le <link> de ce fichier) :
+
+   <script>document.documentElement.classList.add('js');</script>
+
+   Ensuite, ton script d'IntersectionObserver existant (celui qui
+   ajoute .is-visible aux .dd-product-item visibles à l'écran) doit
+   rester tel quel — il continue de fonctionner normalement.
+
+   Résultat :
+   - JS actif et observer OK  -> animation d'apparition normale
+   - JS bloqué / erreur / lent -> html.js jamais posé -> cartes
+     visibles nativement, aucune disparition
+============================================================ */

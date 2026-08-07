@@ -1,116 +1,115 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container my-5">
+	<div class="container my-5">
 
-    <h1 class="mb-4 fw-bold text-center">Récapitulatif de ma commande</h1>
+		<h1 class="mb-4 fw-bold text-center">Récapitulatif de ma commande</h1>
 
-    <div class="row g-4">
+		<div
+			class="row g-4">
 
-        {# ===== PANIER ===== #}
-        <div class="col-md-8">
+			{# ===== PANIER ===== #}
+			<div class="col-md-8">
 
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h5 class="mb-3 fw-semibold">Contenu de mon panier</h5>
+				<div class="card shadow-sm border-0 mb-4">
+					<div class="card-body">
+						<h5 class="mb-3 fw-semibold">Contenu de mon panier</h5>
 
-                    {% for product in cart %}
-                        <div class="row py-3 align-items-center border-bottom">
+						{% for product in cart %}
+							<div class="row py-3 align-items-center border-bottom">
 
-                            <div class="col-2">
-                                <img src="/uploads/{{ product.object.illustration }}"
-                                     alt="{{ product.object.name }}"
-                                     class="img-fluid rounded shadow-sm">
-                            </div>
+								<div class="col-2">
+									<img src="/uploads/{{ product.object.illustration }}" alt="{{ product.object.name }}" class="img-fluid rounded shadow-sm">
+								</div>
 
-                            <div class="col-5">
-                                <strong class="d-block">{{ product.object.name }}</strong>
-                                <span class="text-muted small">
-                                    Prix unitaire : {{ product.object.pricewt|price }} €
-                                </span>
-                            </div>
+								<div class="col-5">
+									<strong class="d-block">{{ product.object.name }}</strong>
+									<span class="text-muted small">
+										Prix unitaire :
+										{{ product.object.pricewt|price }}
+										€
+									</span>
+								</div>
 
-                            <div class="col-3 text-center">
-                                <span class="badge bg-secondary px-3 py-2">
-                                    x{{ product.quantity }}
-                                </span>
-                            </div>
+								<div class="col-3 text-center">
+									<span class="badge bg-secondary px-3 py-2">
+										x{{ product.quantity }}
+									</span>
+								</div>
 
-                            <div class="col-2 text-end">
-                                <strong class="text-primary">
-                                    {{ (product.quantity * product.object.pricewt)|price }} €
-                                </strong>
-                            </div>
+								<div class="col-2 text-end">
+									<strong class="text-primary">
+										{{ (product.quantity * product.object.pricewt)|price }}
+										€
+									</strong>
+								</div>
 
-                        </div>
-                    {% endfor %}
+							</div>
+						{% endfor %}
 
-                </div>
-            </div>
+					</div>
+				</div>
 
-            {# ADRESSE #}
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body bg-light rounded">
-                    <h6 class="fw-bold mb-2">Votre adresse de livraison</h6>
-                    <p class="mb-0">
-                        {{choices.addresses.firstname}} {{choices.addresses.lastname}}<br/>
-                        {{choices.addresses.address}}<br/>
-                        {{choices.addresses.postcode}} {{choices.addresses.city}}<br/>
-                        {{choices.addresses.country}}
-                    </p>
-                </div>
-            </div>
+				{# ADRESSE #}
+				<div class="card border-0 shadow-sm mb-4">
+					<div class="card-body bg-light rounded">
+						<h6 class="fw-bold mb-2">Votre adresse de livraison</h6>
+						<p class="mb-0">
+							{{ order.delivery|raw }}
+						</p>
+					</div>
+				</div>
 
-            {# TRANSPORTEUR #}
-            <div class="card border-0 shadow-sm">
-                <div class="card-body bg-light rounded">
-                    <h6 class="fw-bold mb-2">Votre transporteur</h6>
-                    <p class="mb-0">
-                        <strong>{{choices.carriers.name}}</strong><br/>
-                        <span class="text-muted">{{choices.carriers.description}}</span>
-                    </p>
-                </div>
-            </div>
+				{# TRANSPORTEUR #}
+				<div class="card border-0 shadow-sm">
+					<div class="card-body bg-light rounded">
+						<h6 class="fw-bold mb-2">Votre transporteur</h6>
+						<p class="mb-0">
+							<strong>{{ order.carrierName }}</strong>
+						</p>
+					</div>
+				</div>
 
-        </div>
+			</div>
 
-        {# ===== RÉCAP ===== #}
-        <div class="col-md-4">
+			{# ===== RÉCAP ===== #}
+			<div class="col-md-4">
 
-            <div class="card border-0 shadow-lg sticky-top" style="top: 20px;">
-                <div class="card-body">
+				<div class="card border-0 shadow-lg sticky-top" style="top: 20px;">
+					<div class="card-body">
 
-                    <h5 class="fw-bold mb-4">Résumé de commande</h5>
+						<h5 class="fw-bold mb-4">Résumé de commande</h5>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Total produits</span>
-                        <span class="fw-semibold">{{ fullCartquantity }}</span>
-                    </div>
+						<div class="d-flex justify-content-between mb-2">
+							<span>Total produits</span>
+							<span class="fw-semibold">{{ fullCartquantity }}</span>
+						</div>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Transporteur</span>
-                        <span class="fw-semibold">{{ choices.carriers.price | price }} €</span>
-                    </div>
+						<div class="d-flex justify-content-between mb-2">
+							<span>Transporteur</span>
+							<span class="fw-semibold">{{ order.carrierPrice | price }}
+								€</span>
+						</div>
 
-                    <hr>
+						<hr>
 
-                    <div class="d-flex justify-content-between fs-5 fw-bold">
-                        <span>Total</span>
-                        <span class="text-primary">
-                            {{ (totalWt + choices.carriers.price) | price }} €
-                        </span>
-                    </div>
+						<div class="d-flex justify-content-between fs-5 fw-bold">
+							<span>Total</span>
+							<span class="text-primary">
+								{{ (totalWt + order.carrierPrice) | price }}
+								€
+							</span>
+						</div>
 
-                    <a href="{{ path('app_payment',{id_order: order.id}) }}"
-                       class="btn btn-primary w-100 mt-4 py-2 fw-semibold">
-                        Payer
-                    </a>
+						<a href="{{ path('app_payment', {id_order: order.id}) }}" data-turbo="false" class="btn btn-primary w-100 mt-4 py-2 fw-semibold">
+							Payer
+						</a>
 
-                </div>
-            </div>
+					</div>
+				</div>
 
-        </div>
+			</div>
 
-    </div>
-</div>
+		</div>
+	</div>
 {% endblock %}

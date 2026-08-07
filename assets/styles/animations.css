@@ -1,0 +1,103 @@
+/* ==========================================================
+   DUBAI DREAM - Premium Animations
+========================================================== */
+
+/* Variables */
+:root{
+    --dd-transition-fast: .25s ease;
+    --dd-transition: .35s cubic-bezier(.2,.8,.2,1);
+    --dd-transition-slow: .55s cubic-bezier(.2,.8,.2,1);
+}
+
+/* Fade Up */
+
+.dd-fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.dd-fade-up.visible{
+    opacity:1;
+    transform:none;
+}
+
+/* Fade */
+
+.dd-fade{
+    opacity:0;
+    transition:opacity .8s ease;
+}
+
+.dd-fade.visible{
+    opacity:1;
+}
+
+/* Zoom */
+
+.dd-zoom{
+    overflow:hidden;
+}
+
+.dd-zoom img{
+    transition:transform .6s ease;
+}
+
+.dd-zoom:hover img{
+    transform:scale(1.06);
+}
+
+/* Lift */
+
+.dd-lift{
+
+    transition:
+        transform var(--dd-transition),
+        box-shadow var(--dd-transition);
+}
+
+.dd-lift:hover{
+
+    transform:translateY(-8px);
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.12);
+}
+
+/* Gold Button */
+
+.dd-btn{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.dd-btn:hover{
+
+    transform:translateY(-2px);
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.18);
+}
+
+/* Link */
+
+.dd-link{
+    position:relative;
+}
+
+.dd-link::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-3px;
+    width:0;
+    height:2px;
+    background:var(--dd-gold);
+    transition:.35s;
+}
+
+.dd-link:hover::after{
+    width:100%;
+}

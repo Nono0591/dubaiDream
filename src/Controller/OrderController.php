@@ -34,13 +34,9 @@ final class OrderController extends AbstractController
         ]);
     }
 
-    // recap de la commande de l'utilisateur 
-    // insertion en base de donnée
-
     #[Route('/commande/recapitulatif', name: 'app_order_summary', methods: ['POST', 'GET'])]
     public function add(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
     {
-
         if ($request->getMethod() != 'POST') {
             return $this->redirectToRoute('app_cart');
         }
@@ -49,11 +45,9 @@ final class OrderController extends AbstractController
 
         $form = $this->createForm(OrderType::class, null, [
             'addresses' => $this->getUser()->getAddresses(),
-
         ]);
 
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -65,7 +59,6 @@ final class OrderController extends AbstractController
             $address .= $addressObj->getCountry() . '<br/>';
             $address .= $addressObj->getPhone();
 
-            // Stocker les infos en bdd
             $order = new Order();
             $order->setUser($this->getUser());
             $order->setCreatedAt(new \DateTime());
@@ -73,7 +66,7 @@ final class OrderController extends AbstractController
             $order->setCarrierName($form->get('carriers')->getData()->getName());
             $order->setCarrierPrice($form->get('carriers')->getData()->getPrice());
             $order->setDelivery($address);
-        }
+
             foreach ($products as $product) {
                 $orderDetail = new OrderDetail();
                 $orderDetail->setProductName($product['object']->getName());
@@ -84,16 +77,41 @@ final class OrderController extends AbstractController
                 $order->addOrderDetail($orderDetail);
             }
 
-                $entityManager->persist($order);
-                $entityManager->flush();
-        
+            $entityManager->persist($order);
+            $entityManager->flush();
 
+            // ✅ redirection obligatoire pour Turbo (Post/Redirect/Get)
+            // Le panier reste en session, on ne le vide qu'après paiement
+            return $this->redirectToRoute('app_order_confirmation', [
+                'id' => $order->getId(),
+            ]);
+        }
+
+        return $this->render('order/index.html.twig', [
+            'deliverForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/commande/confirmation/{id}', name: 'app_order_confirmation')]
+    public function confirmation(Order $order, Cart $cart): Response
+    {
+        // Sécurité : la commande doit appartenir à l'utilisateur connecté
+        if ($order->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $products = $cart->getCart();
+
+        $fullCartQuantity = 0;
+        foreach ($products as $product) {
+            $fullCartQuantity += $product['quantity'];
+        }
 
         return $this->render('order/summary.html.twig', [
-            'choices' => $form->getData(),
             'cart' => $products,
             'order' => $order,
-            'totalWt'=> $cart->getTotalWt()
+            'totalWt' => $cart->getTotalWt(),
+            'fullCartquantity' => $fullCartQuantity,
         ]);
     }
 }

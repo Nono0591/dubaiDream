@@ -1,5 +1,5 @@
 {# ==================== Nos univers ==================== #}
-<section class="py-5 bg-white" id="categories" aria-label="Nos rayons et catégories">
+<section class="py-5 bg-white dd-reveal" id="categories" aria-label="Nos rayons et catégories">
     <div class="container-xl px-4 px-md-5">
 
         <div class="row align-items-end mb-5">
@@ -22,7 +22,7 @@
             {% if allCategories is defined and allCategories|length > 0 %}
                 {% for category in allCategories %}
                     <div class="col-6 col-md-4 col-lg-3">
-                        <a href="{{ path('app_category', {'slug': category.slug}) }}" class="dd-category-card h-100 text-decoration-none d-block rounded border p-3 text-center">
+                        <a href="{{ path('app_category', {'slug': category.slug}) }}" class="dd-category-card h-100 text-decoration-none d-block rounded p-3 text-center">
                             <div class="dd-category-image mb-3">
                                 {% if category.illustration is defined and category.illustration %}
                                     <img src="{{ asset('uploads/' ~ category.illustration) }}" alt="Catégorie {{ category.name }}" loading="lazy" class="img-fluid rounded">

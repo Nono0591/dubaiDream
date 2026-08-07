@@ -8,6 +8,9 @@
 
 	<div class="container mt-5">
 		<h1>Ma Wishlist</h1>
+		<div class="col-lg-3">
+			{% include 'account/_menu.html.twig' %}
+		</div>
 
 		{% if app.user.wishlists is empty %}
 			<p>Aucun produit dans votre liste de souhaits.</p>
