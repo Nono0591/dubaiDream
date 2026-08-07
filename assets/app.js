@@ -9,7 +9,6 @@ console.log('Dubai Dream 🎉');
 PANIER AJAX
 ============================================
 */
-// Délégation sur document : à attacher une seule fois, DOMContentLoaded suffit
 document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', function (e) {
@@ -65,32 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
 ANIMATIONS AU SCROLL
 ============================================
 */
-// turbo:load se déclenche au 1er chargement ET à chaque navigation Turbo
 document.addEventListener('turbo:load', () => {
 
     const observer = new IntersectionObserver((entries, obs) => {
-
         entries.forEach(entry => {
-
             if (entry.isIntersecting) {
-
                 if (entry.target.classList.contains('dd-product-item')) {
                     entry.target.classList.add('is-visible');
                 } else {
                     entry.target.classList.add('visible');
                 }
-
                 obs.unobserve(entry.target);
-
             }
-
         });
+    }, { threshold: 0.15 });
 
-    }, {
-        threshold: 0.15
-    });
-
-    document.querySelectorAll('.dd-fade-up, .dd-fade, .dd-product-item').forEach((element) => {
+    document.querySelectorAll('.dd-fade-up, .dd-fade, .dd-product-item, .dd-reveal').forEach((element) => {
         observer.observe(element);
     });
 
