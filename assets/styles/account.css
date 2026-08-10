@@ -27,7 +27,7 @@
 .account-menu a.active{ background:var(--dd-cream); color:var(--dd-gold-dark); font-weight:600; box-shadow:inset 3px 0 0 var(--dd-gold); }
 .account-menu a.text-danger{ color:var(--dd-red) !important; }
 .account-menu a.text-danger:hover{ background:#fdf1ef; }
-.account-menu hr{ margin:0; border-color:var(--dd-line); }
+.account-menu hr{ margin:.5rem 0; border-color:var(--dd-line); }
 
 /* ── Carte de contenu (à droite du menu) ── */
 .dd-account-card{
@@ -87,11 +87,14 @@
 /* ── Bouton retirer (wishlist), variante danger de .dd-card-cart ── */
 .dd-card-remove{
 	position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center;
-	gap:8px; width:100%; height:42px; border-radius:14px; background:#fff;
-	border:1.5px solid var(--dd-red); color:var(--dd-red); text-decoration:none;
-	font-weight:700; font-size:13px; transition:.25s ease;
+	gap:.6rem; width:100%; height:46px; border-radius:14px;
+	background:#fff; border:1px solid #d94a4a; color:#d94a4a;
+	font-weight:600; font-size:13px; transition:.25s ease;
 }
-.dd-card-remove:hover{ background:var(--dd-red); color:#fff; }
+.dd-card-remove:hover{
+	background:#d94a4a; color:#fff;
+	transform:translateY(-2px); box-shadow:0 10px 25px rgba(217,74,74,.18);
+}
 
 /* ── Icône ronde (dashboard) ── */
 .dd-icon-circle{
@@ -113,6 +116,13 @@
 .dd-order-totals strong{ color:var(--dd-ink); }
 .dd-order-totals .grand-total{ font-size:1.05rem; color:var(--dd-gold-dark); }
 
+/* ── Layout compte (menu + contenu) ── */
+.dd-account-layout{
+	display:flex; gap:2rem; align-items:flex-start;
+}
+.dd-account-layout > .account-menu{ flex:0 0 260px; }
+.dd-account-layout > .dd-account-main{ flex:1; min-width:0; }
+
 @media (max-width:768px){
 	.dd-account-title{ font-size:1.5rem; }
 	.account-menu{ margin-bottom:1.5rem; flex-direction:row; flex-wrap:wrap; }
@@ -120,4 +130,128 @@
 	.account-menu a.active{ box-shadow:inset 0 -3px 0 var(--dd-gold); }
 	.account-menu hr{ display:none; }
 	.dd-account-card{ padding:1.25rem; }
+	.dd-account-layout{ flex-direction:column; }
+	.dd-account-layout > .account-menu{ flex:0 0 auto; width:100%; }
+}
+/* ==========================================================
+   LOGIN
+========================================================== */
+
+.login-page{
+    background:#f9f6f1;
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+}
+
+.login-card{
+    background:#fff;
+    border-radius:24px;
+    padding:50px;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.08);
+    border:1px solid #ece7de;
+}
+
+.login-title{
+    font-family:'Playfair Display',serif;
+    font-size:2.4rem;
+    font-weight:600;
+    color:#222;
+
+    margin-bottom:.6rem;
+}
+
+.login-subtitle{
+    color:#777;
+    line-height:1.7;
+    font-size:.96rem;
+    max-width:420px;
+    margin:auto;
+}
+
+.login-card .form-label{
+    font-weight:600;
+    margin-bottom:.5rem;
+    color:#333;
+}
+
+.login-card .form-control{
+    height:56px;
+    border-radius:14px;
+    border:1px solid #ddd;
+    padding:0 18px;
+    transition:.25s;
+}
+
+.login-card .form-control:focus{
+    border-color:var(--dd-gold);
+    box-shadow:0 0 0 .20rem rgba(194,155,84,.18);
+}
+
+.login-btn{
+    width:100%;
+    height:56px;
+    border-radius:14px;
+    font-weight:600;
+    font-size:1rem;
+}
+
+.login-links{
+    text-align:center;
+    margin-top:35px;
+}
+
+.login-links a{
+    text-decoration:none;
+    color:#8b6a32;
+    font-weight:500;
+    transition:.25s;
+}
+
+.login-links a:hover{
+
+    color:#b99246;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    margin:28px 0;
+}
+
+.divider::before,
+.divider::after{
+
+    content:"";
+    flex:1;
+    height:1px;
+    background:#e8e8e8;
+}
+
+.divider span{
+
+    padding:0 15px;
+    color:#999;
+    font-size:.9rem;
+}
+
+.register-btn{
+    width:100%;
+    margin-top:10px;
+    border-radius:14px;
+    height:52px;
+    font-weight:600;
+}
+
+@media (max-width:768px){
+
+    .login-card{
+        padding:35px 25px;
+    }
+
+    .login-title{
+        font-size:2rem;
+    }
+
 }

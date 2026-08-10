@@ -39,7 +39,7 @@ class ResetPasswordFormType extends AbstractType
                 ->add('submit', SubmitType::class,[
                 'label' => "Modifier mon mot de passe",
                 'attr' => [
-                    'class' => 'btn btn-success mt-3'
+                    'class' => 'btn btn-gold mt-3'
                 ]
             ])
         ;

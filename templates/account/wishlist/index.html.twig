@@ -1,34 +1,52 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Ma wishlist{% endblock %}
+
 {% block body %}
-	{% block stylesheets %}
-		{{ parent() }}
-		<link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
-	{% endblock %}
 
-	<div class="container mt-5">
-		<h1>Ma Wishlist</h1>
-		<div class="col-lg-3">
-			{% include 'account/_menu.html.twig' %}
-		</div>
+<div class="container py-5">
 
-		{% if app.user.wishlists is empty %}
-			<p>Aucun produit dans votre liste de souhaits.</p>
-		{% else %}
-			<div class="row">
-				{% for product in app.user.wishlists %}
-					<div class="col-lg-4">
-						<img src="{{ asset('uploads/' ~ product.illustration) }}" alt="{{ product.name }}" width="300" height="300">
+    <div class="dd-account-header">
+        <h1 class="dd-account-title">Ma wishlist</h1>
+        <p class="text-muted mb-0">
+            Retrouvez ici tous vos produits favoris.
+        </p>
+    </div>
 
-						<h2>{{ product.name }}</h2>
-						<p>{{ product.pricewt | number_format(2, ',', ' ') }}
-							€</p>
-						<a href="{{ path('app_account_wishlist_remove', { id: product.id }) }}" class="btn btn-danger">
-							Retirer
-						</a>
-					</div>
-				{% endfor %}
-			</div>
-		{% endif %}
-	</div>
+    <div class="dd-account-layout">
+
+        {% include 'account/_menu.html.twig' %}
+
+        <div class="dd-account-main">
+
+            {% if app.user.wishlists|length > 0 %}
+
+                <div class="products-grid">
+                    {% for product in app.user.wishlists %}
+                        {% set isInWishlist = true %}
+                        {% include 'partials/_product_card.html.twig' %}
+                    {% endfor %}
+                </div>
+
+            {% else %}
+
+                <div class="dd-account-card">
+                    <div class="dd-empty-state">
+                        <i class="bi bi-heart"></i>
+                        <h4 class="mb-3">Votre wishlist est vide</h4>
+                        <p>Ajoutez vos parfums et produits favoris afin de les retrouver facilement.</p>
+                        <a href="{{ path('app_products') }}" class="btn-gold">
+                            Découvrir nos produits
+                        </a>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

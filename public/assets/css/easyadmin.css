@@ -1,0 +1,489 @@
+/* ============================================================
+   DUBAI DREAM - EASYADMIN THEME
+============================================================ */
+
+:root{
+
+    --dd-gold:#b9852f;
+    --dd-gold-dark:#9c6f26;
+    --dd-gold-light:#d9ac5c;
+
+    --dd-red:#e14b3f;
+
+    --dd-cream:#fbf6ec;
+    --dd-cream2:#f4ead4;
+    --dd-cream3:#efe2c4;
+
+    --dd-ink:#211a10;
+    --dd-ink-soft:#3c3120;
+
+    --dd-muted:#8a7c62;
+    --dd-line:#ece2cb;
+
+}
+
+/* ============================================================
+   COULEURS GLOBALES
+============================================================ */
+
+body{
+    background:var(--dd-cream);
+    color:var(--dd-ink);
+}
+
+.content-wrapper{
+    background:var(--dd-cream);
+}
+
+.main-content{
+    background:var(--dd-cream);
+}
+
+.content{
+    background:transparent;
+}
+
+/* --------------------------------------------------------------------
+   Dashboard — page d'accueil
+   -------------------------------------------------------------------- */
+.dd-dashboard-welcome {
+    background-color: #ffffff;
+    border: 1px solid var(--dd-line);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+}
+
+.dd-dashboard-welcome h2 {
+    font-family: 'Marcellus', Georgia, serif;
+    color: var(--dd-ink);
+    margin-bottom: 6px;
+}
+
+.dd-dashboard-welcome p {
+    color: var(--dd-muted);
+    margin: 0;
+}
+
+.dd-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.dd-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #ffffff;
+    border: 1px solid var(--dd-line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(33, 26, 16, 0.04);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.dd-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(33, 26, 16, 0.09);
+    border-color: var(--dd-gold-light);
+}
+
+.dd-stat-card--accent {
+    background: linear-gradient(135deg, var(--dd-gold) 0%, var(--dd-gold-dark) 100%);
+    border-color: var(--dd-gold-dark);
+}
+
+.dd-stat-card--accent .dd-stat-value,
+.dd-stat-card--accent .dd-stat-label,
+.dd-stat-card--accent .dd-stat-icon {
+    color: #ffffff !important;
+}
+
+.dd-stat-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dd-cream2);
+    border-radius: 8px;
+    color: var(--dd-gold-dark);
+    font-size: 1.15rem;
+}
+
+.dd-stat-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.dd-stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dd-ink);
+    font-family: 'Marcellus', Georgia, serif;
+    line-height: 1.1;
+}
+
+.dd-stat-label {
+    font-size: 0.85rem;
+    color: var(--dd-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   SIDEBAR DUBAI DREAM
+============================================================ */
+
+#sidebar{
+    background: var(--dd-cream2) !important;
+    border-right:1px solid var(--dd-line);
+    box-shadow:4px 0 18px rgba(33,26,16,.04);
+}
+
+/* Logo */
+.sidebar .sidebar-logo{
+    padding:22px;
+    border-bottom:1px solid var(--dd-line);
+    background:var(--dd-cream);
+}
+
+/* Titre Dubai Dream */
+.sidebar .logo{
+    font-family:'Marcellus', serif;
+    font-size:1.35rem;
+    color:var(--dd-ink);
+    letter-spacing:.5px;
+}
+
+/* Tous les liens */
+.sidebar-menu .menu-item .menu-item-contents{
+    border-radius:12px;
+    margin:3px 10px;
+    padding:12px 16px;
+    transition:.25s;
+}
+
+/* Texte */
+.sidebar-menu .menu-item a{
+    color:var(--dd-ink-soft);
+    font-weight:500;
+}
+
+/* Icônes */
+.sidebar-menu .menu-icon{
+    color:var(--dd-gold-dark);
+    width:24px;
+    text-align:center;
+}
+
+/* Hover */
+.sidebar-menu .menu-item:hover .menu-item-contents{
+    background:var(--dd-cream3);
+}
+
+/* Menu actif */
+.sidebar-menu .menu-item.active .menu-item-contents{
+    background:linear-gradient(
+        135deg,
+        var(--dd-gold),
+        var(--dd-gold-dark)
+    );
+}
+
+/* Texte actif */
+.sidebar-menu .menu-item.active a{
+    color:#fff !important;
+}
+
+/* Icône active */
+.sidebar-menu .menu-item.active .menu-icon{
+    color:#fff !important;
+}
+
+/* Sections */
+.sidebar-menu .menu-header{
+    color:var(--dd-muted);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:.70rem;
+    margin:22px 18px 10px;
+    font-weight:700;
+}
+
+/* ============================================================
+   HEADER DUBAI DREAM
+============================================================ */
+
+/* Barre supérieure */
+.content-top,
+.content-header,
+.header,
+#main .content-header{
+    background:rgba(255,255,255,.90);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    border-bottom:1px solid var(--dd-line);
+    box-shadow:0 3px 15px rgba(33,26,16,.04);
+}
+
+/* Titre de page */
+.content-header-title,
+.content-header h1,
+.content-header h2,
+.content-header h3{
+
+    font-family:"Marcellus", serif;
+    color:var(--dd-ink);
+    font-weight:400;
+}
+
+/* Fil d'Ariane */
+.breadcrumb{
+
+    background:transparent;
+}
+
+.breadcrumb a{
+
+    color:var(--dd-gold-dark);
+}
+
+.breadcrumb a:hover{
+
+    color:var(--dd-gold);
+}
+
+/* Boutons du header */
+.page-actions .btn{
+
+    border-radius:10px;
+}
+
+/* Barre de recherche */
+.header-search input,
+.form-control{
+
+    border:1px solid var(--dd-line);
+    border-radius:10px;
+    box-shadow:none;
+}
+
+.header-search input:focus,
+.form-control:focus{
+
+    border-color:var(--dd-gold);
+    box-shadow:0 0 0 .20rem rgba(185,133,47,.15);
+}
+
+/* ============================================================
+   BOUTONS
+============================================================ */
+
+.btn{
+
+    border-radius:10px;
+    font-weight:600;
+    transition:.25s;
+}
+
+/* Bouton principal */
+
+.btn-primary{
+
+    background:var(--dd-gold);
+    border-color:var(--dd-gold);
+}
+
+.btn-primary:hover{
+
+    background:var(--dd-gold-dark);
+    border-color:var(--dd-gold-dark);
+}
+
+/* Bouton secondaire */
+
+.btn-secondary{
+
+    background:var(--dd-cream2);
+    border-color:var(--dd-line);
+    color:var(--dd-ink);
+}
+
+.btn-secondary:hover{
+
+    background:var(--dd-cream3);
+}
+
+/* Bouton supprimer */
+
+.btn-danger{
+
+    background:var(--dd-red);
+    border-color:var(--dd-red);
+}
+
+.btn-danger:hover{
+
+    filter:brightness(.92);
+}
+
+/* Boutons EasyAdmin */
+
+.action-new{
+
+    background:var(--dd-gold)!important;
+    border-color:var(--dd-gold)!important;
+}
+
+.action-new:hover{
+
+    background:var(--dd-gold-dark)!important;
+}
+
+/* ============================================================
+   TABLEAUX DUBAI DREAM
+============================================================ */
+
+/* Conteneur */
+.table-responsive{
+    background:#fff;
+    border:1px solid var(--dd-line);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(33,26,16,.04);
+}
+
+/* Tableau */
+.table{
+    margin-bottom:0;
+    background:#fff;
+}
+
+/* En-tête */
+.table thead{
+    background:var(--dd-cream2);
+}
+
+.table thead th{
+    background:var(--dd-cream2);
+    color:var(--dd-ink);
+    font-weight:600;
+    border-bottom:1px solid var(--dd-line);
+    padding:16px;
+    text-transform:uppercase;
+    font-size:.78rem;
+    letter-spacing:1px;
+}
+
+/* Lignes */
+.table tbody tr{
+    transition:.20s;
+}
+
+/* Hover */
+.table tbody tr:hover{
+    background:var(--dd-cream);
+}
+
+/* Cellules */
+.table td{
+    padding:16px;
+    vertical-align:middle;
+    border-color:var(--dd-line);
+    color:var(--dd-ink-soft);
+}
+
+/* Bordure entre les lignes */
+.table tbody tr+tr td{
+    border-top:1px solid var(--dd-line);
+}
+
+/* Liens */
+.table a{
+    color:var(--dd-gold-dark);
+    text-decoration:none;
+}
+
+.table a:hover{
+    color:var(--dd-gold);
+}
+
+/* ============================================================
+   ACTIONS CRUD
+============================================================ */
+
+.action-edit,
+.action-detail,
+.action-delete{
+
+    border-radius:8px;
+    padding:7px 12px;
+    font-size:.82rem;
+    transition:.20s;
+}
+
+/* Modifier */
+
+.action-edit{
+
+    color:var(--dd-gold-dark);
+}
+
+.action-edit:hover{
+
+    background:var(--dd-cream2);
+    color:var(--dd-gold-dark);
+}
+
+/* Voir */
+
+.action-detail{
+
+    color:var(--dd-ink);
+}
+
+.action-detail:hover{
+
+    background:var(--dd-cream2);
+}
+
+/* Supprimer */
+
+.action-delete{
+
+    color:var(--dd-red);
+}
+
+.action-delete:hover{
+
+    background:#ffe8e5;
+}
+
+/* ============================================================
+   PAGINATION
+============================================================ */
+
+.page-link{
+
+    color:var(--dd-ink);
+    border-color:var(--dd-line);
+}
+
+.page-link:hover{
+
+    background:var(--dd-cream2);
+    border-color:var(--dd-line);
+}
+
+.page-item.active .page-link{
+
+    background:var(--dd-gold);
+    border-color:var(--dd-gold);
+}
+

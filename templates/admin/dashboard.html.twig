@@ -1,0 +1,68 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    Tableau de bord
+{% endblock %}
+
+{% block main %}
+<div class="dd-dashboard">
+
+    <div class="dd-stats-grid">
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\ProductCrudController') }}" class="dd-stat-card">
+            <div class="dd-stat-icon"><i class="fas fa-box"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.products }}</span>
+                <span class="dd-stat-label">Produits</span>
+            </div>
+        </a>
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\CategoryCrudController') }}" class="dd-stat-card">
+            <div class="dd-stat-icon"><i class="fas fa-list"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.categories }}</span>
+                <span class="dd-stat-label">Catégories</span>
+            </div>
+        </a>
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\BrandCrudController') }}" class="dd-stat-card">
+            <div class="dd-stat-icon"><i class="fas fa-tags"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.brands }}</span>
+                <span class="dd-stat-label">Marques</span>
+            </div>
+        </a>
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\OrderCrudController') }}" class="dd-stat-card dd-stat-card--accent">
+            <div class="dd-stat-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.orders }}</span>
+                <span class="dd-stat-label">Commandes</span>
+            </div>
+        </a>
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController') }}" class="dd-stat-card">
+            <div class="dd-stat-icon"><i class="fas fa-users"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.users }}</span>
+                <span class="dd-stat-label">Clients</span>
+            </div>
+        </a>
+
+        <a href="{{ ea_url().setController('App\\Controller\\Admin\\ReviewCrudController') }}" class="dd-stat-card">
+            <div class="dd-stat-icon"><i class="fas fa-star"></i></div>
+            <div class="dd-stat-body">
+                <span class="dd-stat-value">{{ stats.reviews }}</span>
+                <span class="dd-stat-label">Avis clients</span>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="dd-dashboard-welcome">
+        <h2>Bienvenue sur l'administration Dubai Dream</h2>
+        <p>Utilisez le menu à gauche pour gérer votre catalogue, vos commandes et votre contenu.</p>
+    </div>
+
+</div>
+{% endblock %}

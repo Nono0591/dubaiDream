@@ -34,7 +34,7 @@ class OrderType extends AbstractType
             ->add('submit', SubmitType::class,[
                 'label' => 'Valider' ,
                 'attr' => [
-                    'class'=> 'w-100  btn btn-success'
+                    'class'=> 'w-100  btn btn-gold'
                 ]
             ] )
         ;

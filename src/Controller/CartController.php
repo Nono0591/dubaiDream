@@ -143,11 +143,6 @@ final class CartController extends AbstractController
 
     }
 
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | Mise à jour panneau latéral

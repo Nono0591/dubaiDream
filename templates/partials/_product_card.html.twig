@@ -78,16 +78,36 @@
 			{% endif %}
 
 			<div class="dd-card-bottom">
-				<div class="dd-card-price">
-					{{ product.pricewt|format_currency('EUR') }}
-				</div>
-				<a href="{{ path('app_cart_add',{id:product.id}) }}" class="dd-card-cart">
-					<span>
-						Ajouter au panier
-					</span>
-					<i class="bi bi-bag-plus"></i>
-				</a>
-			</div>
+
+    {% if isInWishlist is defined and isInWishlist %}
+
+        <a href="{{ path('app_account_wishlist_remove',{id:product.id}) }}"
+           class="dd-card-remove">
+
+            <i class="bi bi-trash"></i>
+
+            <span>Retirer</span>
+
+        </a>
+
+    {% else %}
+
+        <div class="dd-card-price">
+            {{ product.pricewt|format_currency('EUR') }}
+        </div>
+
+        <a href="{{ path('app_cart_add',{id:product.id}) }}"
+           class="dd-card-cart">
+
+            <span>Ajouter au panier</span>
+
+            <i class="bi bi-bag-plus"></i>
+
+        </a>
+
+    {% endif %}
+
+</div>
 		</div>
 	</div>
 </div>

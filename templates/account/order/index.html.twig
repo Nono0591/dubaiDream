@@ -1,41 +1,44 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
+{% endblock %}
+
 {% block body %}
-	<div class="container my-5">
+	<div class="container mt-5">
+		<div class="row">
 
-		<div class="col-lg-3">
-			{% include 'account/_menu.html.twig' %}
+			<div class="col-lg-3">
+				{% include 'account/_menu.html.twig' %}
+			</div>
+
+			<div class="col-lg-9">
+
+				<div class="dd-account-header">
+					<h1 class="dd-account-title">Ma Wishlist</h1>
+				</div>
+
+				{% if app.user.wishlists is empty %}
+					<div class="dd-account-card">
+						<div class="dd-empty-state">
+							<i class="bi bi-heart"></i>
+							<p>Aucun produit dans votre liste de souhaits.</p>
+						</div>
+					</div>
+				{% else %}
+					<div class="products-grid">
+						{% for product in app.user.wishlists %}
+						 {% include 'partials/_product_card.html.twig' %} with {
+								product: product,
+								isInWishlist: true
+							} %}
+						{% endfor %}
+					</div>
+				{% endif %}
+
+			</div>
+
 		</div>
-
-		<h1>Mes commandes</h1>
-
-		{% if orders is empty %}
-			<p>Vous n'avez pas encore passé de commande.</p>
-		{% else %}
-			<table class="table">
-				<thead>
-					<tr>
-						<th>N°</th>
-						<th>Date</th>
-						<th>Transporteur</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for order in orders %}
-						<tr>
-							<td>{{ order.id }}</td>
-							<td>{{ order.createdAt|date('d/m/Y') }}</td>
-							<td>{{ order.carrierName }}</td>
-							<td>
-								<a href="{{ path('app_account_order_show', {id_order: order.id}) }}" class="btn btn-sm btn-primary">
-									Voir le détail
-								</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		{% endif %}
 	</div>
 {% endblock %}
