@@ -1,0 +1,66 @@
+@startuml
+
+title Site e-commerce
+
+class User {
+    - email: String
+    - role: String
+    - password: String
+    - firstname: String
+    - lastname: String
+}
+
+class Product {
+    + name: String
+    + description: String
+    + price: float
+    + tva: float
+    + illustration: String
+}
+
+class Order {
+    + createdAt: Date
+    + state: String
+    + carrierName: String
+    + carrierPrice: float
+    + delivery: float
+}
+
+class OrderDetail {
+    + productName: String
+    + productIllustration: String
+    + productQuantity: int
+    + productPrice: float
+    + productTva: float
+}
+
+class Carrier {
+    + name: String
+    + description: String
+    + price: float
+}
+
+class Category {
+    + name: String
+    + slug: String
+}
+
+class Address {
+    + name: String
+    + firstname: String
+    + lastname: String
+    + address: String
+    + postcode: String
+    + city: String
+    + country: String
+    + phone: String
+}
+
+User "1" -- "0..*" Order : places
+Order "1" -- "0..*" OrderDetail : contains
+User "1" -- "0..*" Address : has
+Carrier "1" -- "0..*" Order : delivers
+Category "1" -- "0..*" Product : contains
+Product "1" -- "0..*" OrderDetail : appears in
+
+@enduml

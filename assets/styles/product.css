@@ -1,29 +1,4 @@
-/* ============================================================
-   product.css
-   Carte produit (_product_card.html.twig) + panier offcanvas
-   (_cart.html.twig) + stepper quantité + barre livraison gratuite
-   + grille de produits.
-   NOTE: le balisage de _product_card.html.twig doit utiliser
-   .dd-card-image / .dd-card-img / .dd-card-content / .dd-card-title /
-   .dd-card-price / .dd-card-cart / .dd-card-favorite / .dd-card-rank
-   (design "gagnant"), pas les anciennes classes .dd-card__body etc.
 
-   Version finale :
-   - hover .dd-card conserve translateZ(0) (accélération GPU
-     conservée pendant l'animation, pas seulement au repos)
-   - support prefers-reduced-motion (coupe transitions/animations
-     pour les utilisateurs qui le demandent)
-   - contain:layout paint sur .dd-card (scope de recalcul réduit)
-   - transition color ajoutée sur .dd-card-cart
-   - focus-visible ajouté sur .dd-card-cart
-   - VISIBILITÉ CORRIGÉE : .dd-product-item est visible par défaut.
-     Il n'est masqué (opacity:0) que si <html> porte la classe "js",
-     posée par un script exécuté tôt dans le <head>. Si le JS qui
-     gère l'IntersectionObserver ne charge pas ou plante, les cartes
-     restent visibles au lieu de disparaître définitivement.
-     Voir le bloc "PROGRESSIVE ENHANCEMENT" plus bas + le script à
-     ajouter dans le <head> (commentaire en fin de fichier).
-   ============================================================ */
 
 :root{
     --dd-ease: .28s cubic-bezier(.4,0,.2,1);
