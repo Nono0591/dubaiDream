@@ -1,6 +1,7 @@
 import './stimulus_bootstrap.js';
 import './styles/app.css';
 import './styles/home.css';
+import 'bootstrap';
 
 console.log('Dubai Dream 🎉');
 
