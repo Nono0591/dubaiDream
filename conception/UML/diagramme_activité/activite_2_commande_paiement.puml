@@ -1,0 +1,59 @@
+@startuml
+title Diagramme d'activité - Passer une commande et payer
+
+start
+
+:Consulter le panier;
+
+if (Panier vide ?) then (oui)
+    :Afficher message "panier vide";
+    stop
+else (non)
+endif
+
+:Cliquer sur "Passer commande";
+
+if (Client connecté ?) then (non)
+    :Rediriger vers connexion / inscription;
+    :Se connecter;
+else (oui)
+endif
+
+:Sélectionner / saisir l'adresse de livraison;
+:Choisir le mode de livraison;
+:Afficher le récapitulatif de la commande;
+
+if (Récapitulatif validé ?) then (non)
+    :Retour au panier;
+    stop
+else (oui)
+endif
+
+:Enregistrer la commande (statut "en attente de paiement");
+:Rediriger vers le paiement;
+:Saisir les coordonnées de paiement;
+:Soumettre le paiement;
+
+partition "Système de paiement (Stripe)" {
+    :Vérifier les informations bancaires;
+    if (Paiement accepté ?) then (non)
+        :Retourner une erreur de paiement;
+    else (oui)
+        :Confirmer la transaction;
+    endif
+}
+
+if (Paiement accepté ?) then (non)
+    :Afficher message d'échec du paiement;
+    :Conserver la commande en attente;
+    stop
+else (oui)
+    :Mettre à jour le statut de la commande (payée);
+    :Décrémenter le stock des produits;
+    :Envoyer email de confirmation de commande;
+    :Afficher la confirmation au client;
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+title Diagramme d'activité - S'inscrire / Se connecter
+
+start
+:Accéder à la page d'authentification;
+
+if (Possède déjà un compte ?) then (non)
+    :Accéder au formulaire d'inscription;
+    :Saisir nom, email, mot de passe;
+    :Soumettre le formulaire;
+
+    if (Données valides et email disponible ?) then (non)
+        :Afficher les erreurs de saisie;
+        stop
+    else (oui)
+        :Créer le compte utilisateur;
+        :Enregistrer en base de données;
+        :Envoyer un email de confirmation;
+    endif
+else (oui)
+endif
+
+:Accéder au formulaire de connexion;
+:Saisir email et mot de passe;
+:Soumettre le formulaire;
+
+if (Identifiants corrects ?) then (non)
+    :Afficher message d'erreur;
+    stop
+else (oui)
+    :Créer la session utilisateur;
+    :Rediriger vers l'espace client;
+endif
+
+stop
+@enduml

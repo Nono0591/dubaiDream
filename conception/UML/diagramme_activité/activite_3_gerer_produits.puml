@@ -1,0 +1,52 @@
+@startuml
+title Diagramme d'activité - Gérer les produits (Administrateur)
+
+start
+
+:Se connecter à l'espace d'administration;
+:Accéder à la gestion des produits;
+:Consulter la liste des produits;
+
+if (Action choisie ?) then (Ajouter)
+    :Ouvrir le formulaire d'ajout;
+    :Saisir nom, description, prix, catégorie, marque, stock;
+    :Ajouter une image;
+    :Soumettre le formulaire;
+    if (Données valides ?) then (non)
+        :Afficher les erreurs;
+        stop
+    else (oui)
+        :Enregistrer le nouveau produit en base;
+        :Afficher confirmation d'ajout;
+    endif
+
+elseif (Modifier) then
+    :Sélectionner un produit existant;
+    :Ouvrir le formulaire pré-rempli;
+    :Modifier les champs souhaités;
+    :Soumettre le formulaire;
+    if (Données valides ?) then (non)
+        :Afficher les erreurs;
+        stop
+    else (oui)
+        :Mettre à jour le produit en base;
+        :Afficher confirmation de modification;
+    endif
+
+else (Supprimer)
+    :Sélectionner un produit existant;
+    :Demander confirmation de suppression;
+    if (Confirmation ?) then (non)
+        :Annuler l'action;
+        stop
+    else (oui)
+        :Supprimer le produit de la base;
+        :Afficher confirmation de suppression;
+    endif
+endif
+
+:Retourner à la liste des produits mise à jour;
+
+stop
+
+@enduml
