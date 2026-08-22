@@ -117,8 +117,13 @@
 /* ===========================
    HERO
 =========================== */
-
 .dd-hero .carousel-item img{
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* force la couche GPU */
+}
+
+.dd-hero .carousel-item.active img{
     animation: ddHeroZoom 12s ease-in-out infinite alternate;
 }
 

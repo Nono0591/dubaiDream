@@ -1,0 +1,28 @@
+@startuml
+actor Client
+boundary "Interface Web" as IHM
+control Serveur
+database DB
+
+Client -> IHM : Consulter un produit
+IHM -> Serveur : Demander la page produit
+Serveur -> DB : Lire le produit
+DB --> Serveur : Informations produit
+Serveur --> IHM : Générer la page HTML
+IHM --> Client : Afficher le produit
+
+Client -> IHM : Ajouter au panier
+IHM -> Serveur : Ajouter l'article
+Serveur -> DB : Enregistrer le panier
+DB --> Serveur : OK
+Serveur --> IHM : Panier mis à jour
+
+Client -> IHM : Valider la commande
+IHM -> Serveur : Créer la commande
+Serveur -> DB : Vérifier le stock
+DB --> Serveur : Stock disponible
+Serveur -> DB : Enregistrer la commande
+DB --> Serveur : Confirmation
+Serveur --> IHM : Page de confirmation
+IHM --> Client : Commande validée
+@enduml
