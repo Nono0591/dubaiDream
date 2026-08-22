@@ -1,6 +1,5 @@
 {# ==================== Fold : hero + trust-bar ==================== #}
-<div
-	class="dd-fold">
+<div class="dd-fold">
 
 	{# ==================== Hero Carousel ==================== #}
 	<section class="dd-hero" aria-label="Bannière principale">
@@ -18,26 +17,28 @@
 				{% if headers is defined and headers|length > 0 %}
 					{% for key, header in headers %}
 						<div class="carousel-item {% if key == 0 %}active{% endif %}">
-							{% if header.illustration is defined and header.illustration %}
-								<img src="{{ asset('uploads/' ~ header.illustration) }}" alt="{{ header.title|default('Dubai Dream Promo') }}" class="w-100">
-							{% else %}
-								<img src="{{ asset('images/default-hero.jpg') }}" alt="Dubai Dream - Luxe Oriental" class="w-100">
-							{% endif %}
+							<div class="dd-hero-zoom">
+								{% if header.illustration is defined and header.illustration %}
+									<img src="{{ asset('uploads/' ~ header.illustration) }}" alt="{{ header.title|default('Dubai Dream Promo') }}" class="dd-hero-img">
+								{% else %}
+									<img src="{{ asset('images/default-hero.jpg') }}" alt="Dubai Dream - Luxe Oriental" class="dd-hero-img">
+								{% endif %}
+							</div>
 							<div class="dd-hero-overlay"></div>
 
 							<div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
 								<div class="container-xl px-4 px-md-5">
 									<div class="row align-items-center">
 										<div class="col-xl-6 col-lg-7">
-											<div class="dd-hero-badge mb-3 text-gold">
+											<div class="dd-hero-badge dd-hero-eyebrow mb-3">
 												<i class="bi bi-stars me-2" aria-hidden="true"></i>
 												Plus de 3 000 produits • Parfums • Maison • Hygiène
 											</div>
 											{% if header.title is defined %}
-												<h1 class="display-4 fw-bold text-white mb-3">{{ header.title }}</h1>
+												<h1 class="dd-hero-title mb-3">{{ header.title }}</h1>
 											{% endif %}
 											{% if header.content is defined %}
-												<p class="lead text-white-50 mb-4">{{ header.content }}</p>
+												<p class="dd-hero-lede mb-4">{{ header.content }}</p>
 											{% endif %}
 											{% if header.buttonLink and header.buttonTitle %}
 												<a href="{{ header.buttonLink }}" class="btn btn-gold btn-lg px-4 py-2">
@@ -77,7 +78,7 @@
                 ] %}
                     <div class="col-6 col-md-3">
                         <div class="dd-trust-item d-flex align-items-center gap-3">
-                            <i class="bi {{ t.icon }} fs-3 text-gold" aria-hidden="true"></i>
+                            <i class="bi {{ t.icon }} fs-3 text-dd-gold" aria-hidden="true"></i>
                             <div>
                                 <div class="fw-bold text-dark small">{{ t.title }}</div>
                                 <div class="text-muted small fs-7">{{ t.sub }}</div>
