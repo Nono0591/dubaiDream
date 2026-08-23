@@ -81,8 +81,7 @@
 
                 {% if isInWishlist is defined and isInWishlist %}
 
-                    <a href="{{ path('app_account_wishlist_remove',{id:product.id}) }}"
-                       class="dd-card-remove">
+                    <a href="{{ path('app_account_wishlist_remove',{id:product.id}) }}" class="dd-card-remove">
 
                         <i class="bi bi-trash"></i>
 
@@ -96,15 +95,10 @@
                         {{ product.pricewt|format_currency('EUR') }}
                     </div>
 
-                    <a href="{{ path('app_cart_add',{id:product.id}) }}"
-                       class="dd-card-cart">
-
+                    <a href="#" class="dd-card-cart cart-update" data-url="{{ path('app_cart_offcanvas_update', {action: 'increase', id: product.id}) }}">
                         <span>Ajouter au panier</span>
-
                         <i class="bi bi-bag-plus"></i>
-
                     </a>
-
                 {% endif %}
 
             </div>

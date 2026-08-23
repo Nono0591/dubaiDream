@@ -1,7 +1,7 @@
 import './stimulus_bootstrap.js';
 import './styles/app.css';
 import './styles/home.css';
-import 'bootstrap';
+import { Offcanvas } from 'bootstrap';
 
 console.log('Dubai Dream 🎉');
 
@@ -49,6 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (offcanvasBadge) {
                         offcanvasBadge.textContent = quantity;
                     }
+                }
+
+                // Ouvre l'offcanvas panier
+                const offcanvasElement = document.querySelector('#cartOffcanvas');
+                if (offcanvasElement) {
+                   const offcanvas = Offcanvas.getOrCreateInstance(offcanvasElement);
+                    offcanvas.show();
                 }
 
             })
