@@ -30,10 +30,27 @@ a{ text-decoration:none; }
 
 /* ── Entêtes de section (utilisés sur home, catégories, produit...) ── */
 .section-eyebrow{
-	font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-	color: var(--dd-gold); margin-bottom: 0.75rem; font-weight:600;
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--dd-gold);
+    margin-bottom: 0.35rem;
+    line-height: 1.2;
 }
-.dd-section-title{ font-family:'Playfair Display', serif; font-weight:600; font-size:1.5rem; color:var(--dd-ink); }
+.dd-section-title{
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: .02em;
+    color: var(--dd-ink-soft);
+}
+
+@media (min-width: 992px) {
+    .section-eyebrow{ font-size: 2rem; }
+}
 .dd-section-link{ font-size:13px; color:var(--dd-gold); font-weight:500; }
 .dd-section-link:hover{ color:var(--dd-gold-dark); }
 .gold-rule{ width: 2.5rem; height: 1px; background: var(--dd-gold); }

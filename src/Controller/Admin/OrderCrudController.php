@@ -77,7 +77,7 @@ class OrderCrudController extends AbstractCrudController
     }
 
 
-    public function showOrder(AdminContext $context, AdminUrlGenerator $adminUrlGenerator,Request $request)
+    public function showOrder(AdminContext $context, AdminUrlGenerator $adminUrlGenerator, Request $request)
     {
 
         // Récupérer la commande à partir du contexte
@@ -103,9 +103,8 @@ class OrderCrudController extends AbstractCrudController
               
         // traitemeent des changements de statut
 
-        if($request->get('state')){
+        if ($request->get('state')) {
             $this->changeState($order, $request->get('state'));
-
         }
 
 
@@ -118,11 +117,9 @@ class OrderCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $stateField = NumberField::new('state')->setLabel('Statut');
-
-        if ($pageName !== Crud::PAGE_INDEX) {
-            $stateField->setTemplatePath('admin/state.html.twig');
-        }
+        $stateField = NumberField::new('state')
+            ->setLabel('Statut')
+            ->setTemplatePath('admin/state.html.twig');
 
         return [
             IdField::new('id'),

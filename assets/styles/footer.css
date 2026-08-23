@@ -8,7 +8,7 @@
    ============================================================ */
 
 :root {
-	--footer-bg: #FCFAF7;
+	--footer-bg: #fbf6ec;
 	--footer-white: #ffffff;
 	--footer-text: #2d2d2d;
 	--footer-muted: #777;
@@ -164,4 +164,52 @@
 	.dd-footer-bottom-links { flex-direction: column; gap: 10px; }
 	.dd-footer-bottom-links span { display: none; }
 	.dd-footer-made { flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.7; }
+}
+
+/* ── Bloc contact ── */
+.dd-footer-contact {
+    margin-bottom: 1.75rem;
+}
+
+.dd-footer-contact-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--gold-dark);
+    margin-bottom: 1rem;
+}
+
+.dd-footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dd-footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    margin-bottom: .75rem;
+    font-size: 13px;
+    color: var(--footer-muted);
+    line-height: 1.5;
+}
+
+.dd-footer-contact-list i {
+    color: var(--gold);
+    font-size: 15px;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.dd-footer-contact-list a {
+    color: var(--footer-muted);
+    text-decoration: none;
+    transition: color .2s;
+}
+
+.dd-footer-contact-list a:hover {
+    color: var(--gold-dark);
 }

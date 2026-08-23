@@ -85,3 +85,90 @@ document.addEventListener('turbo:load', () => {
     });
 
 });
+
+(function () {
+    if (navigator.userAgent.includes('Firefox')) {
+        document.documentElement.classList.add('is-firefox');
+    }
+})();
+
+
+/*
+============================================
+GRILLE TIKTOK — lecture vidéo au survol
+============================================
+*/
+function initTiktokGrid() {
+
+    const grid = document.querySelector('#tiktok-grid');
+
+    if (!grid) {
+        return;
+    }
+
+    grid.addEventListener('mouseenter', function (e) {
+
+        const card = e.target.closest('.dd-social-card');
+
+        if (!card || !grid.contains(card)) {
+            return;
+        }
+
+        if (card.querySelector('.dd-social-iframe')) {
+            return;
+        }
+
+        const videoUrl = card.dataset.videoUrl;
+        const match = videoUrl && videoUrl.match(/\/video\/(\d+)/);
+
+        if (!match) {
+            return;
+        }
+
+        const videoId = match[1];
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.tiktok.com/embed/v2/${videoId}?autoplay=1&muted=1&loop=1&controls=0`;
+        iframe.allow = 'autoplay; encrypted-media';
+        iframe.setAttribute('frameborder', '0');
+        iframe.className = 'dd-social-iframe';
+        card.appendChild(iframe);
+
+    }, true);
+
+    grid.addEventListener('mouseleave', function (e) {
+
+        const card = e.target.closest('.dd-social-card');
+
+        if (!card || !grid.contains(card)) {
+            return;
+        }
+
+        const iframe = card.querySelector('.dd-social-iframe');
+
+        if (iframe) {
+            iframe.remove();
+        }
+
+    }, true);
+
+    grid.addEventListener('click', function (e) {
+
+        const card = e.target.closest('.dd-social-card');
+
+        if (!card || !grid.contains(card)) {
+            return;
+        }
+
+        const videoUrl = card.dataset.videoUrl;
+
+        if (videoUrl) {
+            window.open(videoUrl, '_blank', 'noopener');
+        }
+
+    });
+
+}
+
+document.addEventListener('DOMContentLoaded', initTiktokGrid);
+document.addEventListener('turbo:load', initTiktokGrid);

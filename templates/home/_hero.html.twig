@@ -1,5 +1,6 @@
 {# ==================== Fold : hero + trust-bar ==================== #}
-<div class="dd-fold">
+<div
+	class="dd-fold">
 
 	{# ==================== Hero Carousel ==================== #}
 	<section class="dd-hero" aria-label="Bannière principale">
@@ -19,9 +20,9 @@
 						<div class="carousel-item {% if key == 0 %}active{% endif %}">
 							<div class="dd-hero-zoom">
 								{% if header.illustration is defined and header.illustration %}
-									<img src="{{ asset('uploads/' ~ header.illustration) }}" alt="{{ header.title|default('Dubai Dream Promo') }}" class="dd-hero-img">
+									<div class="dd-hero-img" style="background-image: url('{{ asset('uploads/' ~ header.illustration) }}');" role="img" aria-label="{{ header.title|default('Dubai Dream Promo') }}"></div>
 								{% else %}
-									<img src="{{ asset('images/default-hero.jpg') }}" alt="Dubai Dream - Luxe Oriental" class="dd-hero-img">
+									<div class="dd-hero-img" style="background-image: url('{{ asset('images/default-hero.jpg') }}');" role="img" aria-label="Dubai Dream - Luxe Oriental"></div>
 								{% endif %}
 							</div>
 							<div class="dd-hero-overlay"></div>

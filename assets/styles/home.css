@@ -6,34 +6,66 @@
    ============================================================ */
 
 .dd-fold {
-	display: flex;
-	flex-direction: column;
-	height: calc(100vh - var(--dd-header-h, 160px));
-	min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--dd-header-h, 160px));
+    min-height: 460px;
 }
 
 .dd-hero { position: relative; flex: 1 1 auto; min-height: 280px; overflow: hidden; }
 .dd-hero .carousel, .dd-hero .carousel-inner, .dd-hero .carousel-item { height: 100%; }
-.dd-hero-zoom { position: absolute; inset: 0; overflow: hidden; }
+
+.dd-hero-zoom {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
 .dd-hero-img {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-
 
 .dd-hero-overlay {
-	position: absolute; inset: 0;
-	background: linear-gradient(100deg, rgba(251,246,236,.55) 0%, rgba(251,246,236,.22) 32%, rgba(251,246,236,0) 58%);
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg,
+        rgba(20, 16, 8, .68) 0%,
+        rgba(20, 16, 8, .45) 35%,
+        rgba(20, 16, 8, .12) 60%,
+        rgba(20, 16, 8, 0) 78%
+    );
+}
+.dd-hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dd-gold-light);
+    text-shadow: none;
 }
 
-.dd-hero-eyebrow { font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dd-gold-dark); text-shadow: 0 1px 16px rgba(251, 246, 236, 0.7); }
-.dd-hero-title { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 2.75rem; line-height: 1.12; color: var(--dd-ink); text-shadow: 0 1px 20px rgba(251, 246, 236, 0.7); }
-.dd-hero-title em { font-style: normal; font-weight: 700; color: var(--dd-gold); }
-.dd-hero-lede { font-size: 15px; color: var(--dd-ink-soft); max-width: 420px; line-height: 1.7; text-shadow: 0 1px 16px rgba(251, 246, 236, 0.75); }
+.dd-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 2.75rem;
+    line-height: 1.12;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,.35);
+}
+.dd-hero-title em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--dd-gold-light);
+}
+
+.dd-hero-lede {
+    font-size: 15px;
+    color: rgba(255,255,255,.85);
+    max-width: 420px;
+    line-height: 1.7;
+    text-shadow: 0 1px 12px rgba(0,0,0,.3);
+}
 
 @media (min-width:992px) { .dd-hero-title { font-size: 3.6rem; } }
 
@@ -56,12 +88,93 @@
 .dd-uni-card .sub { font-size: 11.5px; color: var(--dd-muted); }
 
 /* ── Bandeau promo ── */
-.dd-promo-banner { position: relative; min-height: 220px; display: flex; align-items: center; overflow: hidden; background: var(--dd-cream); }
-.dd-promo-banner .content { position: relative; z-index: 2; padding: 2rem 2.25rem; max-width: 60%; }
-.dd-promo-banner .eyebrow { font-size: 12px; color: var(--dd-gold); font-weight: 600; }
-.dd-promo-banner h3 { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.5rem; color: var(--dd-ink); line-height: 1.25; }
-.dd-promo-banner img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .9; }
-.dd-promo-banner .overlay { position: absolute; inset: 0; background: linear-gradient(90deg, var(--dd-cream) 38%, rgba(251,246,236,0) 85%); }
+/* ── Bandeau promo ── */
+.dd-promo-banner {
+    position: relative;
+    min-height: 220px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--dd-cream);
+    border: 1px solid var(--dd-line);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.dd-promo-banner:hover {
+    border-color: var(--dd-gold);
+    box-shadow: 0 18px 40px rgba(0,0,0,.10);
+    transform: translateY(-4px);
+}
+
+.dd-promo-banner img.bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    max-width: none !important;
+}
+
+.dd-promo-banner .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        rgba(20, 16, 8, .55) 0%,
+        rgba(20, 16, 8, .25) 30%,
+        rgba(20, 16, 8, 0) 55%
+    );
+}
+
+.dd-promo-banner .badges {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: flex;
+    gap: .5rem;
+}
+
+.dd-promo-banner .content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 2.25rem;
+    max-width: 60%;
+}
+
+.dd-promo-banner .eyebrow {
+    font-size: 12px;
+    color: var(--dd-gold-light);
+    font-weight: 600;
+}
+
+.dd-promo-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #fff;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+.dd-promo-banner .badges {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: flex;
+    gap: .5rem;
+}
+
+.dd-promo-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    padding: .35rem .75rem;
+    border-radius: 6px;
+}
 
 /* ── Bande marques (logos statiques) ── */
 .dd-brands-strip { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 3.5rem; flex-shrink: 0; padding-right: 3.5rem; }
@@ -107,12 +220,71 @@
 .dd-tiktok-tile .play i { background: rgba(255, 255, 255, 0.15); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 
 /* ── CTA newsletter (bloc dédié sur la home, distinct de dd-newsletter-box du footer) ── */
-.dd-newsletter { background: linear-gradient(120deg, var(--dd-cream3), var(--dd-cream)); position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 16px; }
-.dd-newsletter input { border: none; padding: 0 22px; font-size: 15px; min-width: 260px; width: 100%; height: 50px; border-radius: 14px; background: #f7f7f7; outline: none; transition: .35s; }
-.dd-newsletter input:focus { box-shadow: 0 0 0 3px rgba(200,157,74,.18); border-color: var(--dd-gold); background: #fff; }
-.dd-newsletter input::placeholder { color: #999; }
-.dd-newsletter button { background: linear-gradient( 135deg, var(--gold-dark), var(--gold) ); color: #fff; border: none; padding: 0.8rem 1.6rem; font-weight: 700; font-size: 15px; height: 58px; border-radius: 14px; cursor: pointer; transition: all .35s ease; }
-.dd-newsletter button:hover { background: var(--dd-gold-dark); transform: translateY(-3px); box-shadow: 0 18px 40px rgba(200,157,74,.35); }
+.dd-newsletter {
+    position: relative;
+    overflow: hidden;
+    background: #0d1215; /* fallback sombre si l'image tarde à charger */
+}
+
+.dd-newsletter-deco {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.dd-newsletter .container-xl {
+    position: relative;
+    z-index: 1;
+}
+
+.dd-newsletter .dd-section-title {
+    color: #fff;
+}
+
+.dd-newsletter p.text-muted {
+    color: rgba(255,255,255,.7) !important;
+}
+
+.dd-newsletter input {
+    border: none;
+    padding: 0 22px;
+    font-size: 15px;
+    min-width: 260px;
+    width: 100%;
+    height: 50px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.95);
+    outline: none;
+    transition: .35s;
+}
+.dd-newsletter input:focus {
+    box-shadow: 0 0 0 3px rgba(200,157,74,.35);
+    background: #fff;
+}
+.dd-newsletter input::placeholder { color: #888; }
+
+.dd-newsletter button {
+    background: linear-gradient(135deg, var(--dd-gold-dark), var(--dd-gold));
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    font-weight: 700;
+    font-size: 15px;
+    height: 50px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all .35s ease;
+}
+.dd-newsletter button:hover {
+    background: var(--dd-gold-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(200,157,74,.35);
+}
 .dd-newsletter button:active { transform: scale(.98); }
 
 /* NOTE: .dd-newsletter réutilise --gold / --gold-dark, définies dans
@@ -128,23 +300,16 @@
 =========================== */
 .dd-hero .carousel-item .dd-hero-img{
     will-change: transform;
-    backface-visibility: hidden;
-}
-
-.dd-hero .carousel-item .dd-hero-img{
-    will-change: transform;
-    backface-visibility: hidden;
 }
 
 .dd-hero .carousel-item.active .dd-hero-img{
-    animation: ddHeroZoom 12s ease-in-out infinite alternate;
+    animation: ddHeroZoom 8s ease-out forwards;
 }
 
 @keyframes ddHeroZoom{
     from{ transform: scale(1); }
-    to{ transform: scale(1.06); }
+    to{ transform: scale(1.05); }
 }
-
 
 .dd-hero-badge,
 .dd-hero h1,
@@ -179,6 +344,13 @@
         transform:translateY(0);
     }
 
+}
+
+/* Désactive le zoom continu sur Firefox : bug de compositing connu
+   sur certaines configs matérielles, cause un bégaiement même après
+   optimisation complète de l'image et de l'animation. */
+.is-firefox .dd-hero .carousel-item.active .dd-hero-img {
+    animation: none;
 }
 
 
@@ -249,7 +421,52 @@
     transform:scale(1.08);
 
 }
+/*======================================
+ ── Offres du moment (cartes promo) ── 
+========================================*/
+.dd-promo-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+.dd-promo-card.large { min-height: 420px; }
+.dd-promo-card.small { min-height: 420px; }
 
+.dd-promo-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.dd-promo-card:hover img {
+    transform: scale(1.05);
+}
+
+.dd-promo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20,16,8,.82) 0%, rgba(20,16,8,.35) 45%, rgba(20,16,8,.05) 75%);
+}
+
+.dd-promo-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.dd-promo-badge {
+    align-self: flex-start;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    padding: .35rem .75rem;
+}
 
 /* ===========================
    TRUST BAR
@@ -303,6 +520,19 @@
     transform:none;
 }
 
+.dd-social-card { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 10px; cursor: pointer; }
+.dd-social-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.dd-social-card:hover img { transform: scale(1.08); }
+
+.dd-social-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border: none;
+}
+
 /* ==========================================================
    CATÉGORIES
 ========================================================== */
@@ -351,3 +581,66 @@
 .dd-category-card:hover .dd-category-link{
     letter-spacing:.5px;
 }
+
+/* ── Lien pilule (Voir tout) ── */
+.dd-pill-link {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--dd-ink);
+    border: 1px solid var(--dd-line);
+    border-radius: 999px;
+    padding: .4rem 1rem;
+    transition: border-color .2s, color .2s;
+}
+.dd-pill-link:hover { border-color: var(--dd-gold); color: var(--dd-gold-dark); }
+
+/* ── Points de pagination avis ── */
+.dd-review-dots { display: flex; gap: .4rem; }
+.dd-review-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dd-line); }
+.dd-review-dots .dot.active { width: 18px; border-radius: 3px; background: var(--dd-gold); }
+
+/* ── Grille Instagram ── */
+.dd-social-card { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 10px; cursor: pointer; }
+.dd-social-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.dd-social-card:hover img { transform: scale(1.08); }
+/* ── Bannière "Pourquoi nous" ── */
+.dd-why-banner { background: var(--dd-cream); }
+
+.dd-why-stats .dd-why-stat { position: relative; padding: .5rem 1rem; }
+
+@media (min-width: 768px) {
+    .dd-why-stats .dd-why-stat:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 15%;
+        bottom: 15%;
+        width: 1px;
+        background: var(--dd-line);
+    }
+}
+
+/* ── Lien pilule (Voir tout) ── */
+.dd-pill-link {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--dd-ink);
+    border: 1px solid var(--dd-line);
+    border-radius: 999px;
+    padding: .4rem 1rem;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+}
+.dd-pill-link:hover { border-color: var(--dd-gold); color: var(--dd-gold-dark); }
+
+/* ── Points de pagination avis ── */
+.dd-review-dots { display: flex; gap: .4rem; }
+.dd-review-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dd-line); display: inline-block; }
+.dd-review-dots .dot.active { width: 18px; border-radius: 3px; background: var(--dd-gold); }
+
+/* ── Grille Instagram ── */
+.dd-social-card { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 10px; }
+.dd-social-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.dd-social-card:hover img { transform: scale(1.08); }

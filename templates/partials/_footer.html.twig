@@ -32,16 +32,13 @@
 			<div class="row gy-4 align-items-start">
 
 				<div class="col-lg-4">
-					<img src="{{ asset('uploads/logo-removebg.png') }}" alt="Dubai Dream" class="dd-footer-logo">
+					<img src="{{ asset('uploads/logoInverse.png') }}" alt="Dubai Dream" class="dd-footer-logo">
 
 					<p class="dd-footer-desc">
 						Découvrez une sélection raffinée de parfums, cosmétiques, produits pour la maison et le quotidien, soigneusement choisis pour offrir qualité, élégance et petits prix.
 					</p>
 
 					<div class="dd-socials">
-						<a href="https://www.facebook.com" target="_blank">
-							<i class="bi bi-facebook"></i>
-						</a>
 						<a href="https://www.instagram.com" target="_blank">
 							<i class="bi bi-instagram"></i>
 						</a>
@@ -115,41 +112,30 @@
 						{% endif %}
 
 					</ul>
-
 				</div>
 
 				<div class="col-lg-4">
 
-					<div class="dd-newsletter-box">
+					<div class="dd-footer-contact">
 
-						<span class="dd-newsletter-subtitle">
-							Newsletter
-						</span>
+						<h4>Contact</h4>
 
-						<h3>
-							Recevez nos offres exclusives.
-						</h3>
-
-						<p>
-							Inscrivez-vous pour recevoir nos nouveautés et promotions avant tout le monde.
-						</p>
-
-						<form action="{{ path('app_newsletter_subscribe') }}" method="post" class="dd-newsletter">
-
-							<label for="footer-email" class="visually-hidden">
-								Email
-							</label>
-
-							<input id="footer-email" type="email" name="email" placeholder="Votre adresse email" required>
-
-							<button type="submit">
-								Je m'inscris
-							</button>
-
-						</form>
+						<ul class="dd-footer-contact-list">
+							<li>
+								<i class="bi bi-geo-alt"></i>
+								<span>68 boulevard des couteaux, 59150 Wattrelos</span>
+							</li>
+							<li>
+								<i class="bi bi-telephone"></i>
+								<a href="tel:0558719930">05 58 71 99 30</a>
+							</li>
+							<li>
+								<i class="bi bi-envelope"></i>
+								<a href="mailto:contact@dubaidream59.com">contact@dubaidream59.com</a>
+							</li>
+						</ul>
 
 					</div>
-
 					<div class="dd-payment">
 
 						<span class="dd-payment-title">
@@ -180,7 +166,6 @@
 				</div>
 
 			</div>
-
 		</div>
 
 	</div>
@@ -221,23 +206,14 @@
 						<a href="{{ path('app_contact') }}">
 							Contact
 						</a>
-
 					</div>
-
 				</div>
-
 			</div>
-
 			<div class="dd-footer-made">
 
 				<span>
-					Merci de votre confiance ❤️
-				</span>
-
+					Merci de votre confiance ❤️</span>
 			</div>
-
 		</div>
-
 	</div>
-
 </footer>

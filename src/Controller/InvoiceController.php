@@ -11,6 +11,19 @@ use Dompdf\Options;
 
 final class InvoiceController extends AbstractController
 {
+    private function getLogoBase64(): ?string
+    {
+        $logoFile = $this->getParameter('kernel.project_dir') . '/public/uploads/logoInverse.png';
+
+        if (!file_exists($logoFile)) {
+            return null;
+        }
+
+        $logoData = base64_encode(file_get_contents($logoFile));
+
+        return 'data:image/png;base64,' . $logoData;
+    }
+
     #[Route('/compte/facture/impression/{id_order}', name: 'app_invoice_customer')]
     public function printForCustomer(OrderRepository $orderRepository, int $id_order): Response
     {
@@ -27,7 +40,8 @@ final class InvoiceController extends AbstractController
         $dompdf = new Dompdf($options);
 
         $html = $this->renderView('invoice/index.html.twig', [
-            'order' => $order
+            'order' => $order,
+            'logoBase64' => $this->getLogoBase64(),
         ]);
 
         $dompdf->loadHtml($html);
@@ -60,7 +74,8 @@ final class InvoiceController extends AbstractController
         $dompdf = new Dompdf($options);
 
         $html = $this->renderView('invoice/index.html.twig', [
-            'order' => $order
+            'order' => $order,
+            'logoBase64' => $this->getLogoBase64(),
         ]);
 
         $dompdf->loadHtml($html);

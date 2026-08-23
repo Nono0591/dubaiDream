@@ -104,17 +104,54 @@
 }
 
 /* ── Tableau (détail commande) ── */
-.dd-account-card table{ width:100%; font-size:13.5px; margin-bottom:0; }
+/* ── Tableau des commandes (Mes commandes) ── */
+.dd-orders-table-wrapper{
+	background:#fff; border:1px solid var(--dd-line); border-radius:2px; overflow:hidden;
+}
+.dd-orders-table{ width:100%; border-collapse:collapse; margin-bottom:0; }
+.dd-orders-table thead{ background:var(--dd-cream); }
 .dd-account-card table thead th{
 	font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dd-muted);
-	font-weight:600; border-bottom:1px solid var(--dd-line); padding:.75rem .5rem; white-space:nowrap;
+	font-weight:600; border-bottom:1px solid var(--dd-line); padding:.85rem 1.1rem; white-space:nowrap;
 }
-.dd-account-card table tbody td{ padding:.75rem .5rem; border-bottom:1px solid var(--dd-line); vertical-align:middle; }
-.dd-account-card table tbody tr:last-child td{ border-bottom:none; }
-.dd-account-card table img{ border-radius:2px; border:1px solid var(--dd-line); object-fit:cover; }
-.dd-order-totals{ font-size:13.5px; line-height:2; }
-.dd-order-totals strong{ color:var(--dd-ink); }
-.dd-order-totals .grand-total{ font-size:1.05rem; color:var(--dd-gold-dark); }
+.dd-account-card table tbody td{ padding:.9rem 1.1rem; border-bottom:1px solid var(--dd-line); vertical-align:middle; }
+
+.dd-account-card table th:first-child,
+.dd-account-card table td:first-child{ padding-left:0; }
+.dd-account-card table th:last-child,
+.dd-account-card table td:last-child{ padding-right:0; }
+.dd-orders-table td{
+	padding:.9rem 1.1rem; font-size:13.5px; color:var(--dd-ink-soft);
+	border-bottom:1px solid var(--dd-line); vertical-align:middle;
+}
+.dd-orders-table tbody tr:last-child td{ border-bottom:none; }
+.dd-orders-table tbody tr{ transition: background-color .2s; }
+.dd-orders-table tbody tr:hover{ background:var(--dd-cream); }
+
+.dd-order-number{ font-weight:600; color:var(--dd-ink); }
+.dd-order-total{ font-weight:600; color:var(--dd-gold-dark); }
+
+.dd-order-link{
+	display:inline-flex; align-items:center; gap:.3rem; font-size:12.5px; font-weight:600;
+	color:var(--dd-gold); text-decoration:none; transition: gap .2s, color .2s;
+}
+.dd-order-link:hover{ gap:.5rem; color:var(--dd-gold-dark); }
+
+/* ── Badges de statut ── */
+.dd-order-badge{
+	display:inline-block; padding:.3rem .7rem; border-radius:2px;
+	font-size:11px; font-weight:600; white-space:nowrap;
+}
+.dd-order-badge.state-1{ background:#f1f1f1; color:#666; }
+.dd-order-badge.state-2{ background:#e3f2fd; color:#1565c0; }
+.dd-order-badge.state-3{ background:#fff3cd; color:#8a6d00; }
+.dd-order-badge.state-4{ background:#e6f4ea; color:#1e7e34; }
+.dd-order-badge.state-5{ background:#fdecea; color:#c62828; }
+
+@media (max-width:767.98px){
+	.dd-orders-table-wrapper{ overflow-x:auto; }
+	.dd-orders-table{ min-width:600px; }
+}
 
 /* ── Layout compte (menu + contenu) ── */
 .dd-account-layout{

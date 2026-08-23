@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="row">
+
+			<div class="col-lg-3">
+				{% include 'account/_menu.html.twig' %}
+			</div>
+
+			<div class="col-lg-9">
+
+				<div class="dd-account-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+					<h1 class="dd-account-title mb-0">Commande #{{ order.id }}</h1>
+					<a href="{{ path('app_account_order') }}" class="dd-order-link">
+						<i class="bi bi-chevron-left"></i>
+						Retour à mes commandes
+					</a>
+					<a href="{{ path('app_invoice_customer', {id_order: order.id}) }}" class="btn btn-gold btn-sm px-3" target="_blank">
+								<i class="bi bi-download"></i>
+								Télécharger la facture
+							</a>
+				</div>
+
+				<div class="dd-account-card mb-4">
+					<h5>Informations</h5>
+					
+					<div class="row g-3">
+						<div class="col-md-4">
+							<span class="d-block text-muted small mb-1">Date</span>
+							<strong>{{ order.createdAt|date('d/m/Y') }}</strong>
+						</div>
+						<div class="col-md-4">
+							<span class="d-block text-muted small mb-1">Statut</span>
+							{% if order.state == 1 %}
+								<span class="dd-order-badge state-1">En attente de paiement</span>
+							{% elseif order.state == 2 %}
+								<span class="dd-order-badge state-2">Paiement accepté</span>
+							{% elseif order.state == 3 %}
+								<span class="dd-order-badge state-3">En cours de traitement</span>
+							{% elseif order.state == 4 %}
+								<span class="dd-order-badge state-4">Expédié</span>
+							{% elseif order.state == 5 %}
+								<span class="dd-order-badge state-5">Annulé</span>
+							{% else %}
+								<span class="dd-order-badge">Inconnu</span>
+							{% endif %}
+						</div>
+						<div class="col-md-4">
+							<span class="d-block text-muted small mb-1">Transporteur</span>
+							<strong>{{ order.carrierName }}</strong>
+						</div>
+					</div>
+				</div>
+
+				<div class="dd-account-card mb-4">
+					<h5>Adresse de livraison</h5>
+					<p class="mb-0" style="white-space: pre-line;">{{ order.delivery|raw }}</p>
+				</div>
+
+				<div class="dd-account-card">
+					<h5>Produits commandés</h5>
+
+					<table>
+						<thead>
+							<tr>
+								<th style="width: 40%;">Produit</th>
+								<th>Prix unitaire TTC</th>
+								<th>Quantité</th>
+								<th class="text-end">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for detail in order.orderDetails %}
+								<tr>
+									<td>
+										<div class="d-flex align-items-center gap-2">
+											{% if detail.productIllustration %}
+												<img src="{{ asset('uploads/products/' ~ detail.productIllustration) }}" alt="{{ detail.productName }}" width="48" height="48">
+											{% endif %}
+											<span>{{ detail.productName }}</span>
+										</div>
+									</td>
+									<td>{{ detail.productPriceWt|number_format(2, ',', ' ') }}
+										€</td>
+									<td>{{ detail.productQuantity }}</td>
+									<td class="text-end">
+										{{ (detail.productPriceWt * detail.productQuantity)|number_format(2, ',', ' ') }}
+										€
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					<div class="dd-order-totals text-end mt-3">
+						<div>TVA :
+							<strong>{{ order.totalTva|number_format(2, ',', ' ') }}
+								€</strong>
+						</div>
+						<div>Livraison ({{ order.carrierName }}) :
+							<strong>{{ order.carrierPrice|number_format(2, ',', ' ') }}
+								€</strong>
+						</div>
+						<div class="grand-total">Total TTC :
+							<strong>{{ order.totalWt|number_format(2, ',', ' ') }}
+								€</strong>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

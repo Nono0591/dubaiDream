@@ -1,44 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/account.css') }}"/>
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-5">
-		<div class="row">
+    <div class="container mt-5">
+        <div class="row">
 
-			<div class="col-lg-3">
-				{% include 'account/_menu.html.twig' %}
-			</div>
+            <div class="col-lg-3">
+                {% include 'account/_menu.html.twig' %}
+            </div>
 
-			<div class="col-lg-9">
+            <div class="col-lg-9">
 
-				<div class="dd-account-header">
-					<h1 class="dd-account-title">Ma Wishlist</h1>
-				</div>
+                <div class="dd-account-header">
+                    <h1 class="dd-account-title">Mes commandes</h1>
+                </div>
 
-				{% if app.user.wishlists is empty %}
-					<div class="dd-account-card">
-						<div class="dd-empty-state">
-							<i class="bi bi-heart"></i>
-							<p>Aucun produit dans votre liste de souhaits.</p>
-						</div>
-					</div>
-				{% else %}
-					<div class="products-grid">
-						{% for product in app.user.wishlists %}
-						 {% include 'partials/_product_card.html.twig' %} with {
-								product: product,
-								isInWishlist: true
-							} %}
-						{% endfor %}
-					</div>
-				{% endif %}
+                {% if orders is empty %}
+                    <div class="dd-account-card">
+                        <div class="dd-empty-state">
+                            <i class="bi bi-bag"></i>
+                            <p>Vous n'avez pas encore passé de commande.</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="dd-orders-table-wrapper">
+                        <table class="dd-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Commande</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                    <tr>
+                                        <td class="dd-order-number">#{{ order.id }}</td>
+                                        <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                                        <td>
+                                            {% if order.state == 1 %}
+                                                <span class="dd-order-badge state-1">En attente de paiement</span>
+                                            {% elseif order.state == 2 %}
+                                                <span class="dd-order-badge state-2">Paiement accepté</span>
+                                            {% elseif order.state == 3 %}
+                                                <span class="dd-order-badge state-3">En cours de traitement</span>
+                                            {% elseif order.state == 4 %}
+                                                <span class="dd-order-badge state-4">Expédié</span>
+                                            {% elseif order.state == 5 %}
+                                                <span class="dd-order-badge state-5">Annulé</span>
+                                            {% else %}
+                                                <span class="dd-order-badge">Inconnu</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="dd-order-total">{{ order.totalWt|number_format(2, ',', ' ') }} €</td>
+                                        <td class="text-end">
+                                            <a href="{{ path('app_account_order_show', {id_order: order.id}) }}" class="dd-order-link">
+                                                Détails <i class="bi bi-chevron-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
 
-			</div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 {% endblock %}
