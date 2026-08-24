@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	<div class="container mt-5">
+		<h1>Inscription Page</h1>
+		{{ form_start(inscriptionForm, {'attr': {'data-turbo': 'false'}}) }}
+		{{ form_widget(inscriptionForm) }}
+		{{ form_end(inscriptionForm) }}
 
-<div class="container mt-5">
-
-    <h1>Inscription Page</h1>
-   {{form(inscriptionForm)}}
-
-   <br/>
-   Déjà un compte ?
-    <a href="{{ path('app_login') }}">Connectez-vous</a>
-        
-</div>
-
+		<br/>
+		Déjà un compte ?
+		<a href="{{ path('app_login') }}">Connectez-vous</a>
+	</div>
 {% endblock %}
