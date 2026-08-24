@@ -21,7 +21,7 @@ class InscriptionUserTest extends WebTestCase
             'inscription_user[lastname]' => 'Doe',
         ]);
 
-        $this->assertResponseRedirects('/connexion');
+        $this->assertResponseRedirects('/compte');
         $client->followRedirect();
 
         $this->assertSelectorTextContains('body', 'Votre compte a bien été créé');
