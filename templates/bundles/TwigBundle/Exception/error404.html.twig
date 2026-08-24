@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Erreur · Dubai Dream 59{% endblock %}
+{% block title %}Page introuvable · Dubai Dream 59{% endblock %}
 
 {% block body %}
 <div class="container mt-5 text-center py-5">
-    <h1 class="display-4 mb-3">{{ status_code|default('') }}</h1>
-    <h2 class="mb-3">Une erreur est survenue</h2>
+    <h1 class="display-4 mb-3">404</h1>
+    <h2 class="mb-3">Page introuvable</h2>
     <p class="text-muted mb-4">
-        Cette page n'est pas accessible.
+        Désolé, la page que vous cherchez n'existe pas ou a été déplacée.
     </p>
     <a href="{{ path('app_home') }}" class="btn btn-dark">
         <i class="bi bi-house me-1"></i>
