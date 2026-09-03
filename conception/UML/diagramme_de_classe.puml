@@ -1,66 +1,97 @@
 @startuml
-
-title Site e-commerce
+title Diagramme de classes - Dubai Dream
 
 class User {
-    - email: String
-    - role: String
-    - password: String
-    - firstname: String
-    - lastname: String
-}
-
-class Product {
-    + name: String
-    + description: String
-    + price: float
-    + tva: float
-    + illustration: String
-}
-
-class Order {
-    + createdAt: Date
-    + state: String
-    + carrierName: String
-    + carrierPrice: float
-    + delivery: float
-}
-
-class OrderDetail {
-    + productName: String
-    + productIllustration: String
-    + productQuantity: int
-    + productPrice: float
-    + productTva: float
-}
-
-class Carrier {
-    + name: String
-    + description: String
-    + price: float
-}
-
-class Category {
-    + name: String
-    + slug: String
+  id : int
+  email : string
+  roles : array
+  password : string
+  firstname : string
+  lastname : string
 }
 
 class Address {
-    + name: String
-    + firstname: String
-    + lastname: String
-    + address: String
-    + postcode: String
-    + city: String
-    + country: String
-    + phone: String
+  id : int
+  firstname : string
+  lastname : string
+  address : string
+  postcode : string
+  city : string
+  country : string
+  phone : string
 }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "0..*" OrderDetail : contains
-User "1" -- "0..*" Address : has
-Carrier "1" -- "0..*" Order : delivers
-Category "1" -- "0..*" Product : contains
-Product "1" -- "0..*" OrderDetail : appears in
+class Product {
+  id : int
+  name : string
+  slug : string
+  description : text
+  illustration : string
+  price : float
+  tva : float
+}
+
+class Category {
+  id : int
+  name : string
+  slug : string
+}
+
+class Brand {
+  id : int
+  name : string
+  logo : string
+}
+
+class Carrier {
+  id : int
+  name : string
+  description : string
+  price : float
+}
+
+class Order {
+  id : int
+  createdAt : datetime
+  state : int
+  carrierName : string
+  carrierPrice : float
+  delivery : text
+}
+
+class OrderDetail {
+  id : int
+  productName : string
+  productIllustration : string
+  productQuantity : int
+  productPrice : float
+  productTVA : float
+}
+
+class Wishlist {
+  id : int
+}
+
+class Review {
+  id : int
+  name : string
+  rating : int
+}
+
+class Header {
+  id : int
+  title : string
+}
+
+User "1" --> "0..*" Address : possède
+User "1" --> "0..*" Order : passe
+User "1" --> "0..*" Wishlist : possède
+
+Order "1" --> "1..*" OrderDetail : contient
+
+Category "1" --> "0..*" Product : contient
+Brand "1" --> "0..*" Product : dispose
+
+Wishlist "0..*" -- "0..*" Product : intègre
 
 @enduml
